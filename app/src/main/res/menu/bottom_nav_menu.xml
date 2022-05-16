@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/explore_news"
+        android:enabled="true"
+        android:icon="@drawable/ic_explore_news_selected"
+        android:title="@string/title_explore_news" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:enabled="true"
+        android:icon="@drawable/ic_news_predict_selected"
+        android:title="@string/title_news_predict" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile_selected"
+        android:title="@string/title_profile" />
+
+</menu>
