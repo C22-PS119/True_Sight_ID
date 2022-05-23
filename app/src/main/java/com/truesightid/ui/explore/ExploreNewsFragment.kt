@@ -8,31 +8,35 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.truesightid.databinding.FragmentExploreBinding
+import com.truesightid.ui.adapter.ExploreAdapter
 
 class ExploreNewsFragment : Fragment() {
 
     private var _binding: FragmentExploreBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: ExploreNewsViewModel
+    private lateinit var exploreAdapter: ExploreAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val exploreNewsViewModel =
-            ViewModelProvider(this).get(ExploreNewsViewModel::class.java)
-
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textExplore
-        exploreNewsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textExplore
+//        exploreNewsViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+        }
     }
 
     override fun onDestroyView() {
