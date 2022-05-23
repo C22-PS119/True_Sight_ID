@@ -5,30 +5,30 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.truesightid.ui.adapter.ViewPagerAdapter
-import com.truesightid.ui.dashboard.DashboardFragment
-import com.truesightid.ui.home.HomeFragment
-import com.truesightid.ui.notifications.NotificationsFragment
+import com.truesightid.ui.explore.ExploreNewsFragment
+import com.truesightid.ui.prediction.NewsPredictFragment
+import com.truesightid.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewPager: ViewPager;
-    lateinit var tabs: TabLayout;
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabs: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewPager = findViewById<ViewPager>(R.id.viewPager)
-        tabs = findViewById<TabLayout>(R.id.tabs)
+        viewPager = findViewById(R.id.viewPager)
+        tabs = findViewById(R.id.tabs)
 
         initTabs()
     }
 
     private fun initTabs(){
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(DashboardFragment(), "Explore News")
-        adapter.addFragment(HomeFragment(), "News Predict")
-        adapter.addFragment(NotificationsFragment(), "Profile")
+        adapter.addFragment(ExploreNewsFragment(), "Explore News")
+        adapter.addFragment(NewsPredictFragment(), "News Predict")
+        adapter.addFragment(ProfileFragment(), "Profile")
 
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
