@@ -1,9 +1,10 @@
-package com.truesightid
+package com.truesightid.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.truesightid.R
 import com.truesightid.ui.adapter.ViewPagerAdapter
 import com.truesightid.ui.explore.ExploreNewsFragment
 import com.truesightid.ui.prediction.NewsPredictFragment

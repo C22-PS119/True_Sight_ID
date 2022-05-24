@@ -1,5 +1,6 @@
 package com.truesightid.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,10 @@ import com.truesightid.databinding.ItemRowClaimsBinding
 class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() {
     private var listExplores = ArrayList<ClaimEntity>()
 
+    fun setList(listClaim: ArrayList<ClaimEntity>) {
+        listExplores = listClaim
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,6 +26,7 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() 
         return ExploreViewHolder(itemRowClaimsBinding)
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: ExploreViewHolder, position: Int) {
         val items = listExplores[position]
 
@@ -38,6 +44,14 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() 
             binding.tvDate.text = items.date
             binding.tvClaim.text = items.fake.toString()
 
+            if (items.fake) {
+                binding.tvClaim.text = itemView.context.getString(R.string.fake_status)
+                binding.tvClaim.background = itemView.context.getDrawable(R.drawable.fake_claim)
+            } else {
+                binding.tvClaim.text = itemView.context.getString(R.string.fact_status)
+                binding.tvClaim.background = itemView.context.getDrawable(R.drawable.fact_claim)
+            }
+
 //            val voteCount = "${items.voteCount} K" // buat nanti jika ribuan votes
             binding.tvVoteCount.text = items.voteCount.toString()
         }
@@ -47,4 +61,5 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() 
 
     class ExploreViewHolder(val binding: ItemRowClaimsBinding) :
         RecyclerView.ViewHolder(binding.root)
+
 }

@@ -5,12 +5,11 @@ data class ClaimEntity(
     var title: String,
     var claimer: String,
     var description: String,
-    var image: String,
+    var image: Int,
     var fake: Boolean,
     var upvote: Int,
     var downvote: Int,
     var date: String,
-    var voteCount: Int,
-    var bookmark: Boolean
+    var voteCount: Int
 )
 

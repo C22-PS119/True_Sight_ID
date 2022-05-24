@@ -3,4 +3,6 @@
     <string name="title_explore_news">Explore News</string>
     <string name="title_news_predict">News Predict</string>
     <string name="title_profile">Profile</string>
+    <string name="fact_status">Fact</string>
+    <string name="fake_status">Fake</string>
 </resources>
