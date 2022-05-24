@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_filter.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_search.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/fact_claim.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_broken_image_black.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_downvote.xml" value="0.1" />
@@ -18,10 +20,11 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_item_icon_tint.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_tab_indicator.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/rounded.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_foreground_color.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_indicator.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_main.xml" value="0.26666666666666666" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_dashboard.xml" value="0.175" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_explore.xml" value="0.22" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_explore.xml" value="0.37994722955145116" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.22" />

@@ -6,15 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.explore.ExploreNewsFragment">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="27dp"
+        android:background="@drawable/bg_search"
+        android:elevation="4dp"
+        android:lines="1"
+        android:text=""
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Search news claims here..."
+        android:textColorHint="@color/gray_searchbar"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="8dp"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUser"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:scrollbarSize="0dp"
-        tools:listitem="@layout/item_row_claims"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:listitem="@layout/item_row_claims" />
 </androidx.constraintlayout.widget.ConstraintLayout>
