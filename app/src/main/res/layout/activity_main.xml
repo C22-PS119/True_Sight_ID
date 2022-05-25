@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@drawable/rounded"
-        android:elevation="8dp"
-        app:itemBackground="@drawable/navigation_tab_indicator"
-        app:itemIconTint="@drawable/navigation_item_icon_tint"
-        app:itemRippleColor="@null"
-        app:itemTextAppearanceActive="@style/foreground_activated"
-        app:itemTextAppearanceInactive="@style/foreground_inactivated"
-        app:itemTextColor="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        android:background="@null"
+        android:layout_alignParentBottom="true">
 
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:background="@drawable/rounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@null"
+            android:backgroundTintMode="src_atop"
+            app:tabBackground="@null"
+            app:tabIconTint="@drawable/tab_foreground_color"
+            app:tabRippleColor="#0000"
+            app:tabTextAppearance="@style/CustomTabStyleTextAppearance"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="#5fff"
+            app:tabIndicatorGravity="stretch"
+            app:tabIndicatorFullWidth="true"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabTextColor="@drawable/tab_foreground_color"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/viewPager"
+        android:layout_above="@id/appBarLayout"
+        />
+</RelativeLayout>

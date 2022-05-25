@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/explore_news"
-        android:name="com.truesightid.ui.home.HomeFragment"
+        android:name="com.truesightid.ui.prediction.NewsPredictFragment"
         android:label="@string/title_explore_news"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_prediction" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.truesightid.ui.dashboard.DashboardFragment"
+        android:name="com.truesightid.ui.explore.ExploreNewsFragment"
         android:label="@string/title_news_predict"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_explore" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.truesightid.ui.notifications.NotificationsFragment"
+        android:name="com.truesightid.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
