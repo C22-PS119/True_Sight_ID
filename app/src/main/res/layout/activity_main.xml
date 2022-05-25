@@ -26,6 +26,7 @@
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorColor="#5fff"
             app:tabIndicatorGravity="stretch"
+            app:tabIndicatorFullWidth="true"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabTextColor="@drawable/tab_foreground_color"/>

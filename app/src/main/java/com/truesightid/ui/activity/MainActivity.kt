@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
 
-        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_explore_news_unselected)
-        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_news_predict_unselected)
-        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_profile_unselected)
+        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_explore_state)
+        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_prediction_state)
+        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_profile_state)
     }
 
 }

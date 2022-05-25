@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -52,6 +53,10 @@ class ExploreNewsFragment : Fragment() {
                 setHasFixedSize(true)
             }
 
+        }
+
+        binding.fab.setOnClickListener {
+            Toast.makeText(activity, "add claim", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -12,15 +12,20 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_explore_news.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_explore_news_selected.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_explore_news_unselected.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_loading.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_news_predict_unselected.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_prediction_state.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_profile_selected.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_profile_state.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_profile_unselected.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_refresh_black.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_upvote.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_item_icon_tint.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_tab_indicator.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/rounded.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/state_icon_navigation_bar.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_foreground_color.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_indicator.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_claim_detail.xml" value="0.1518018018018018" />
