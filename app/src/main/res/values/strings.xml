@@ -5,4 +5,11 @@
     <string name="title_profile">Profile</string>
     <string name="fact_status">Fact</string>
     <string name="fake_status">Fake</string>
+    <string name="news_prediction">News Prediction</string>
+    <string name="hint_search_bar">Search news claims here...</string>
+    <string name="add_your_claim">Add Your Claim</string>
+    <string name="adj_title">Title</string>
+    <string name="adj_author">Author</string>
+    <string name="adj_content">Content</string>
+    <string name="btn_predict_text">Predict Now</string>
 </resources>

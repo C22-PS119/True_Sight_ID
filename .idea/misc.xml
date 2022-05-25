@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_filter.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_search.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/btn_rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/fact_claim.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/fake_claim.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_broken_image_black.xml" value="0.1" />
@@ -34,7 +35,7 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_dashboard.xml" value="0.175" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_explore.xml" value="0.2038664323374341" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_prediction.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_prediction.xml" value="0.22" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.6659641728134879" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1609375" />
