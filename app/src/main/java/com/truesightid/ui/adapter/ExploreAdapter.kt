@@ -1,6 +1,7 @@
 package com.truesightid.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.entity.ClaimEntity
 import com.truesightid.databinding.ItemRowClaimsBinding
+import com.truesightid.ui.activity.DetailClaimActivity
 
 class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() {
     private var listExplores = ArrayList<ClaimEntity>()
@@ -54,6 +56,11 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() 
 
 //            val voteCount = "${items.voteCount} K" // buat nanti jika ribuan votes
             binding.tvVoteCount.text = items.voteCount.toString()
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailClaimActivity::class.java)
+                intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

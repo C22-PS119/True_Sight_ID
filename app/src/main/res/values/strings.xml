@@ -20,4 +20,6 @@
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="log_out">Log-out</string>
+    <string name="claimed_by">Claimed by: %1$s</string>
+    <string name="point">•</string>
 </resources>

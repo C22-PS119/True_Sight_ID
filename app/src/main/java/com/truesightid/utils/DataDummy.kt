@@ -12,7 +12,7 @@ object DataDummy {
                 1,
                 "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
                 "Toni Ferguso",
-                "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
+                "Sejumlah unggahan Facebook membagikan tangkapan layar sebuah tajuk berita yang diklaim mengutip Wakil Presiden Ma'ruf Amin yang menjanjikan ibu-ibu kartu bansos jika Presiden Joko Widodo terpilih untuk ketiga kalinya. Tetapi kenyataannya, gambar itu...",
                 R.drawable.claims_1,
                 false,
                 23,
