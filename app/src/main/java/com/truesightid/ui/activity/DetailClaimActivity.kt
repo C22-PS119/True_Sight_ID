@@ -1,42 +1,77 @@
 package com.truesightid.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.truesightid.R
-import com.truesightid.ui.adapter.ViewPagerAdapter
-import com.truesightid.ui.explore.ExploreNewsFragment
-import com.truesightid.ui.prediction.NewsPredictFragment
-import com.truesightid.ui.profile.ProfileFragment
+import com.truesightid.data.entity.ClaimEntity
+import com.truesightid.databinding.ActivityClaimDetailBinding
+
 
 class DetailClaimActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
+    private lateinit var binding: ActivityClaimDetailBinding
+
+    companion object {
+        const val EXTRA_CLAIM = "extra_claim"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityClaimDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        viewPager = findViewById(R.id.viewPager)
-        tabs = findViewById(R.id.tabs)
+        // Setup back button
+        binding.ibBackDetail.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
 
-        initTabs()
+        // Get intent extras
+        val extras = intent.extras
+        if (extras != null) {
+            val items = intent.getParcelableExtra<ClaimEntity>(EXTRA_CLAIM)
+
+            if (items != null) {
+                setupView(items)
+            }
+        }
     }
 
-    private fun initTabs(){
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ExploreNewsFragment(), "Explore News")
-        adapter.addFragment(NewsPredictFragment(), "News Predict")
-        adapter.addFragment(ProfileFragment(), "Profile")
+    private fun setupView(items: ClaimEntity) {
+        with(binding) {
+            tvTitleDetail.text = items.title
+            tvDescription.text = items.description
 
-        viewPager.adapter = adapter
-        tabs.setupWithViewPager(viewPager)
+            Glide.with(applicationContext)
+                .load(items.image)
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .into(ivImageDetail)
 
-        tabs.getTabAt(0)!!.setIcon(R.drawable.ic_explore_news_unselected)
-        tabs.getTabAt(1)!!.setIcon(R.drawable.ic_news_predict_unselected)
-        tabs.getTabAt(2)!!.setIcon(R.drawable.ic_profile_unselected)
+            tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
+            tvDateDetail.text = items.date
+
+            if (items.fake) {
+                tvClaim.text = getString(R.string.fake_status)
+                tvClaim.background =
+                    AppCompatResources.getDrawable(applicationContext, R.drawable.fake_claim)
+            } else {
+                tvClaim.text = getString(R.string.fact_status)
+                tvClaim.background =
+                    AppCompatResources.getDrawable(applicationContext, R.drawable.fact_claim)
+            }
+        }
     }
 
 }

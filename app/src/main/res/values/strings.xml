@@ -12,4 +12,14 @@
     <string name="adj_author">Author</string>
     <string name="adj_content">Content</string>
     <string name="btn_predict_text">Predict Now</string>
+    <string name="my_profile">My Profile</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="content">CONTENT</string>
+    <string name="preferences">PREFERENCES</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="log_out">Log-out</string>
+    <string name="claimed_by">Claimed by: %1$s</string>
+    <string name="point">•</string>
 </resources>
