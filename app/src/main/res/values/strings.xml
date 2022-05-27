@@ -22,4 +22,10 @@
     <string name="log_out">Log-out</string>
     <string name="claimed_by">Claimed by: %1$s</string>
     <string name="point">•</string>
+    <string name="your_image_profile">Your Image Profile</string>
+    <string name="icon_bookmark">icon bookmark</string>
+    <string name="go_to_bookmark">go to bookmark</string>
+    <string name="icon_change_language">icon change language</string>
+    <string name="go_to_change_language">go to change language</string>
+    <string name="result_prediction">Result Prediction</string>
 </resources>
