@@ -28,4 +28,9 @@
     <string name="icon_change_language">icon change language</string>
     <string name="go_to_change_language">go to change language</string>
     <string name="result_prediction">Result Prediction</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="change_your_photo">Change your photo</string>
 </resources>
