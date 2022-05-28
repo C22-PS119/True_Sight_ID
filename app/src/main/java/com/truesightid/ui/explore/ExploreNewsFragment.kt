@@ -1,23 +1,27 @@
 package com.truesightid.ui.explore
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.truesightid.databinding.FragmentExploreBinding
+import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ExploreAdapter
-import com.truesightid.utils.DataDummy
 
 class ExploreNewsFragment : Fragment() {
 
     private var _binding: FragmentExploreBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<ExploreNewsViewModel>()
+    private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
 
     override fun onCreateView(
@@ -26,24 +30,24 @@ class ExploreNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-//        val textView: TextView = binding.textExplore
-//        exploreNewsViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-        return root
+        return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
+            val factory = ViewModelFactory.getInstance(requireContext())
+            viewModel = ViewModelProvider(this, factory)[ExploreNewsViewModel::class.java]
+
             exploreAdapter = ExploreAdapter()
 
-            val listClaims = DataDummy.generateDummyMovies()
-
-            exploreAdapter.setList(listClaims)
+            viewModel.getClaims().observe(viewLifecycleOwner) { claims ->
+                exploreAdapter.setClaims(claims)
+                exploreAdapter.notifyDataSetChanged()
+            }
 
             with(binding.rvClaimer) {
                 layoutManager = LinearLayoutManager(context)

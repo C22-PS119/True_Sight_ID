@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.truesightid.databinding.FragmentPredictionBinding
-import com.truesightid.ui.explore.ExploreNewsViewModel
 
 class NewsPredictFragment : Fragment() {
 
@@ -25,13 +23,7 @@ class NewsPredictFragment : Fragment() {
     ): View {
 
         _binding = FragmentPredictionBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-//        val textView: TextView = binding.textNewsPredict
-//        newsPredictViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
