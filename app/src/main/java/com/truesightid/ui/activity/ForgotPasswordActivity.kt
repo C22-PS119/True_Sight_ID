@@ -22,7 +22,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            Toast.makeText(this, "on developed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "on developed [must connect to such as API or something like that", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@ForgotPasswordActivity, ResetPasswordActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
     }
 }
