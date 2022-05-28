@@ -15,6 +15,12 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ibBackLogin.setOnClickListener {
+            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+
         binding.btnSignup.setOnClickListener {
             Toast.makeText(this, "on developed", Toast.LENGTH_SHORT).show()
         }

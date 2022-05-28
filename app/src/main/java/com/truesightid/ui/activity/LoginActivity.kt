@@ -21,12 +21,16 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
+        binding.tvForgotPassword.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+
         binding.register.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
-
-
         }
 
 

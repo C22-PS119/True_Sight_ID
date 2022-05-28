@@ -43,4 +43,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="username">Username</string>
     <string name="joined_us_before">Joined us before?</string>
+    <string name="forgot_npassword">Forgot\nPassword?</string>
+    <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Don’t worry! It Happens. Please enter the address associated with your account</string>
+    <string name="submit">Submit</string>
 </resources>
