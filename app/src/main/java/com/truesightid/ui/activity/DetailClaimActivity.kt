@@ -1,6 +1,5 @@
 package com.truesightid.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -30,9 +29,7 @@ class DetailClaimActivity : AppCompatActivity() {
 
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            finish()
         }
 
         // Get intent extras

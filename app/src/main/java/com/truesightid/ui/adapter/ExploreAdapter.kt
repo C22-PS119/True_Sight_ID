@@ -15,8 +15,8 @@ import com.truesightid.ui.activity.DetailClaimActivity
 class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() {
     private var listExplores = ArrayList<ClaimEntity>()
 
-    fun setList(listClaim: ArrayList<ClaimEntity>) {
-        listExplores = listClaim
+    fun setClaims(list: List<ClaimEntity>) {
+        listExplores.addAll(list)
     }
 
     override fun onCreateViewHolder(
