@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.truesightid.databinding.FragmentProfileBinding
 import com.truesightid.ui.activity.EditProfileActivity
+import com.truesightid.ui.activity.LoginActivity
 
 class ProfileFragment : Fragment() {
 
@@ -38,6 +39,11 @@ class ProfileFragment : Fragment() {
 
         binding.btnEditProfile.setOnClickListener {
             val intent = Intent(requireContext(), EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rlLogout.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
         }
     }

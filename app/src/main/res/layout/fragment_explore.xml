@@ -25,7 +25,7 @@
         android:paddingEnd="10dp"
         android:singleLine="true"
         android:text=""
-        android:textColorHint="@color/gray_searchbar"
+        android:textColorHint="@color/gray_dark"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

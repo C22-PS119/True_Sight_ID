@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrueSightID">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
@@ -24,6 +27,7 @@
         </activity>
         <activity android:name=".ui.activity.DetailClaimActivity" />
         <activity android:name=".ui.activity.EditProfileActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
     </application>
 
 </manifest>
