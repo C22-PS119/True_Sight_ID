@@ -40,4 +40,7 @@
     <string name="login_with_google">Login with Google</string>
     <string name="not_a_member">Not a member?</string>
     <string name="register">Register</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="joined_us_before">Joined us before?</string>
 </resources>
