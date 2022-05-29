@@ -4,7 +4,7 @@ import com.truesightid.R
 import com.truesightid.data.entity.ClaimEntity
 
 object DataDummy {
-    fun generateDummyMovies(): ArrayList<ClaimEntity> {
+    fun generateDummyClaims(): ArrayList<ClaimEntity> {
         val claims = ArrayList<ClaimEntity>()
 
         claims.add(
