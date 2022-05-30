@@ -49,4 +49,13 @@
     <string name="reset_password">Reset\nPassword</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="new_password">New Password</string>
+    <string name="add_claim">Add Claim</string>
+    <string name="fact">Fact</string>
+    <string name="fake">Fake</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="url">URL</string>
+    <string name="attachments">Attachments</string>
+    <string name="upload_evidence_images">Upload Evidence Images</string>
+    <string name="preview_images">Preview Images</string>
 </resources>
