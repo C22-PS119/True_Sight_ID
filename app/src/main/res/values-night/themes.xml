@@ -31,4 +31,7 @@
     <style name="AppButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/black_soft</item>
     </style>
+    <style name="GoogleButtonLogin" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/blue_soft</item>
+    </style>
 </resources>
