@@ -55,10 +55,10 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 4,
-                "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
+                "Ustadz Yusuf Mansur Tidak Pernah Ajarkan Mencuri di Mall",
                 "Toni Ferguso",
-                "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
-                R.drawable.claims_1,
+                "Ustadz Yusuf Mansur Tidak Pernah Ajarkan Mencuri di Mall",
+                R.drawable.claims_4,
                 false,
                 23,
                 45,
@@ -70,10 +70,10 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 5,
-                "Pilot Selfie Saat Pesawat Sedang Terbang Untuk Meyakinkan Istri",
+                "Laporan Detikcom dan Jawapos bahwa Jokowi berkata tak berminat",
                 "Jack Mardian",
-                "Pilot Selfie Saat Pesawat Sedang Terbang Untuk Meyakinkan Istri",
-                R.drawable.claims_2,
+                "Laporan Detikcom dan Jawapos bahwa Jokowi berkata tak berminat",
+                R.drawable.claims_5,
                 true,
                 13,
                 35,
@@ -85,10 +85,10 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 6,
-                "Vaksin Covid-19 Penyebab Hepatitis Akut pada Anak-Anak",
+                "Pesan WhatsApp “Makanan Kaleng Produksi Thailand Terkontaminasi Darah",
                 "Jenny Marabunta",
-                "Vaksin Covid-19 Penyebab Hepatitis Akut pada Anak-Anak",
-                R.drawable.claims_3,
+                "Pesan WhatsApp “Makanan Kaleng Produksi Thailand Terkontaminasi Darah",
+                R.drawable.claims_6,
                 false,
                 53,
                 45,
@@ -100,10 +100,10 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 7,
-                "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
+                "Makanan Kaleng Mengandung Virus HIV Aids",
                 "Toni Ferguso",
-                "Wapres Ma'ruf Amin tidak janjikan kartu bansos jika Jokowi presiden tiga",
-                R.drawable.claims_1,
+                "Makanan Kaleng Mengandung Virus HIV Aids",
+                R.drawable.claims_7,
                 false,
                 23,
                 45,
@@ -115,10 +115,10 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 8,
-                "Pilot Selfie Saat Pesawat Sedang Terbang Untuk Meyakinkan Istri",
+                "MUI Tidak Boleh Mengeluarkan Sertifikat Halal ke Makanan dan Minuman",
                 "Jack Mardian",
-                "Pilot Selfie Saat Pesawat Sedang Terbang Untuk Meyakinkan Istri",
-                R.drawable.claims_2,
+                "MUI Tidak Boleh Mengeluarkan Sertifikat Halal ke Makanan dan Minuman",
+                R.drawable.claims_8,
                 true,
                 13,
                 35,
@@ -130,10 +130,85 @@ object DataDummy {
         claims.add(
             ClaimEntity(
                 9,
-                "Vaksin Covid-19 Penyebab Hepatitis Akut pada Anak-Anak",
+                "Makan Sambil Berdiri Menyebabkan Makanan Akan Langsung Masuk Ke Usus",
                 "Jenny Marabunta",
-                "Vaksin Covid-19 Penyebab Hepatitis Akut pada Anak-Anak",
-                R.drawable.claims_3,
+                "Makan Sambil Berdiri Menyebabkan Makanan Akan Langsung Masuk Ke Usus",
+                R.drawable.claims_9,
+                false,
+                53,
+                45,
+                "12 Mei 2022",
+                98
+            )
+        )
+
+        claims.add(
+            ClaimEntity(
+                10,
+                "Sebuah Restoran di Hotel di Nigeria Baru Saja Ditutup karena Menyajikan Makanan",
+                "Jenny Marabunta",
+                "Sebuah Restoran di Hotel di Nigeria Baru Saja Ditutup karena Menyajikan Makanan",
+                R.drawable.claims_10,
+                false,
+                53,
+                45,
+                "12 Mei 2022",
+                98
+            )
+        )
+
+        claims.add(
+            ClaimEntity(
+                11,
+                "Minum Air Es Setelah Makan Dapat Sebabkan Kanker",
+                "Jenny Marabunta",
+                "Minum Air Es Setelah Makan Dapat Sebabkan Kanker",
+                R.drawable.claims_11,
+                false,
+                53,
+                45,
+                "12 Mei 2022",
+                98
+            )
+        )
+
+        claims.add(
+            ClaimEntity(
+                12,
+                "Tidak Boleh Mengonsumsi Makanan dan Minuman yang Mengandung Alkohol",
+                "Jenny Marabunta",
+                "Tidak Boleh Mengonsumsi Makanan dan Minuman yang Mengandung Alkohol",
+                R.drawable.claims_12,
+                false,
+                53,
+                45,
+                "12 Mei 2022",
+                98
+            )
+        )
+
+        claims.add(
+            ClaimEntity(
+                13,
+                "Bumbu Penyedap Makanan Mengandung Babi dari Pondok Wali",
+                "Jenny Marabunta",
+                "Bumbu Penyedap Makanan Mengandung Babi dari Pondok Wali",
+                R.drawable.claims_13,
+                false,
+                53,
+                45,
+                "12 Mei 2022",
+                98
+            )
+        )
+
+        claims.add(
+            ClaimEntity(
+                14,
+                "Gambar Artikel CNN Indonesia: “Selain Suka Makanan Extrem Kelelawar",
+                "Jenny Marabunta",
+                "Gambar Artikel CNN Indonesia: “Selain Suka Makanan Extrem Kelelawar",
+                R.drawable.claims_14,
                 false,
                 53,
                 45,
