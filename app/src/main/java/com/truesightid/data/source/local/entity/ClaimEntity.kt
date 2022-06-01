@@ -1,4 +1,4 @@
-package com.truesightid.data.entity
+package com.truesightid.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull

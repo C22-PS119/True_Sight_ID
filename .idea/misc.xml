@@ -5,16 +5,11 @@
       <map>
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_filter.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_search.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_select_fact.xml" value="0.1175" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_select_fake.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/bg_tabs.xml" value="0.1175" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/btn_rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/fact_claim.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/fake_claim.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_broken_image_black.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_cross.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_downvote.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_error.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_explore_news.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_explore_news_selected.xml" value="0.1" />
@@ -32,30 +27,22 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/ic_upvote.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_item_icon_tint.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/navigation_tab_indicator.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/password_toggle_drawable.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/state_icon_navigation_bar.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_foreground_color.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/drawable/tab_indicator.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_add_claim.xml" value="0.3333333333333333" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_claim_detail.xml" value="0.4466666666666667" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_claim_detail.xml" value="0.1518018018018018" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_detail.xml" value="0.17552083333333332" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_forgot_password.xml" value="0.33" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_login.xml" value="0.3231064237775647" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_reset_password.xml" value="0.22" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/activity_signup.xml" value="0.33" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/contain_status.xml" value="0.5" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_dashboard.xml" value="0.175" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_explore.xml" value="0.2038664323374341" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_prediction.xml" value="0.22" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.19829059829059828" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_evidence_image.xml" value="0.1518018018018018" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.1497777777777778" />
-        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/prediction_dialog.xml" value="0.2531930879038317" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
+        <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.6659641728134879" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1609375" />
+        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/fragment_prediction.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/prediction_dialog.xml" value="0.25" />
       </map>
     </option>
   </component>

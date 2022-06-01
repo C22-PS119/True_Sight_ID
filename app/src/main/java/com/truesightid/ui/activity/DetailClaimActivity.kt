@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayout
 import com.truesightid.R
-import com.truesightid.data.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ActivityClaimDetailBinding
 
 
