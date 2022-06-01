@@ -3,12 +3,12 @@ package com.truesightid.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.truesightid.data.TrueSightRepository
+import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.ui.explore.ExploreNewsViewModel
 import com.truesightid.ui.prediction.NewsPredictViewModel
 import com.truesightid.ui.profile.ProfileViewModel
 
-class ViewModelFactory private constructor(private val mTrueSightRepository: TrueSightRepository) :
+class ViewModelFactory private constructor(private val mTrueSightRepository: LocalDataSource) :
     ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -17,7 +17,7 @@ class ViewModelFactory private constructor(private val mTrueSightRepository: Tru
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(
-                    TrueSightRepository.getInstance(context)
+                    LocalDataSource.getInstance(context)
                 )
             }
     }
@@ -30,7 +30,7 @@ class ViewModelFactory private constructor(private val mTrueSightRepository: Tru
             }
 
             modelClass.isAssignableFrom(NewsPredictViewModel::class.java) -> {
-                NewsPredictViewModel(mTrueSightRepository) as T
+                NewsPredictViewModel() as T
             }
 
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {

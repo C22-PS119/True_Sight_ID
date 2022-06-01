@@ -1,7 +1,7 @@
 package com.truesightid.utils
 
 import com.truesightid.R
-import com.truesightid.data.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.ClaimEntity
 
 object DataDummy {
     fun generateDummyClaims(): ArrayList<ClaimEntity> {

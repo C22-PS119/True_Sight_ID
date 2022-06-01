@@ -1,11 +1,11 @@
-package com.truesightid.data
+package com.truesightid.data.source.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.truesightid.data.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.ClaimEntity
 
 @Dao
 interface TrueSightDao {
@@ -15,6 +15,9 @@ interface TrueSightDao {
     @Query("SELECT * FROM claim WHERE claim_id = :id LIMIT 1")
     fun getClaimById(id: Int): LiveData<ClaimEntity>
 
+//    @Query("SELECT * FROM newsprediction")
+//    fun getNewsPrediction(predict: String): LiveData<NewsPredictionEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllClaims(vararg claimEntity: ClaimEntity)
 
@@ -23,4 +26,7 @@ interface TrueSightDao {
 
     @Query("UPDATE claim SET downvote = downvote+1 WHERE claim_id = :id")
     fun downvoteWithId(id: Int)
+
+//    @Update
+//    fun updateNewsPrediction(news: NewsPredictionEntity)
 }

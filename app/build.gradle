@@ -77,9 +77,21 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-    //implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    //implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     // Room Databse
     implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
+
+    /**
+     * Api library
+     */
+    // Retrofit with Logging Interceptor and Gson Converter
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+
+    /**
+     * Paging Library
+     */
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 }

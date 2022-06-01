@@ -1,11 +1,11 @@
-package com.truesightid.data
+package com.truesightid.data.source.local.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.truesightid.data.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.utils.DataDummy
 import org.json.JSONException
 import java.util.concurrent.Executors

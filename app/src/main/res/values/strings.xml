@@ -58,4 +58,5 @@
     <string name="attachments">Attachments</string>
     <string name="upload_evidence_images">Upload Evidence Images</string>
     <string name="preview_images">Preview Images</string>
+    <string name="prediction_result">Prediction Result: </string>
 </resources>
