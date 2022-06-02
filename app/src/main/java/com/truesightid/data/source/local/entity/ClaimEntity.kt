@@ -13,7 +13,7 @@ data class ClaimEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "claim_id")
-    var id: Int,
+    var id: Int?,
 
     @ColumnInfo(name = "title")
     var title: String,
@@ -28,7 +28,7 @@ data class ClaimEntity(
     var image: Int,
 
     @ColumnInfo(name = "fake")
-    var fake: Boolean,
+    var fake: Int,
 
     @ColumnInfo(name = "upvote")
     var upvote: Int,

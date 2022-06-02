@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ItemRowClaimsBinding
-import com.truesightid.ui.activity.DetailClaimActivity
+import com.truesightid.ui.detailclaim.DetailClaimActivity
 
 class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() {
     private var listExplores = ArrayList<ClaimEntity>()
@@ -46,7 +46,7 @@ class ExploreAdapter : RecyclerView.Adapter<ExploreAdapter.ExploreViewHolder>() 
             binding.tvDate.text = items.date
             binding.tvClaim.text = items.fake.toString()
 
-            if (items.fake) {
+            if (items.fake == 1) {
                 binding.tvClaim.text = itemView.context.getString(R.string.fake_status)
                 binding.tvClaim.background = itemView.context.getDrawable(R.drawable.fake_claim)
             } else {

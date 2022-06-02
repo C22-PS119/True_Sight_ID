@@ -30,6 +30,10 @@ class LocalDataSource(
 
     fun getClaims(): LiveData<List<ClaimEntity>> = trueSightDao.getAllClaims()
 
+    fun addClaim(itemClaimEntity: ClaimEntity) {
+        executor.execute { trueSightDao.insertClaim(itemClaimEntity)}
+    }
+
 //    fun getNewsPrediction(predict: String): LiveData<NewsPredictionEntity> = trueSightDao.getNewsPrediction(predict)
 //
 //    fun updateNewsPrediction(news: NewsPredictionEntity) = trueSightDao.updateNewsPrediction(news)

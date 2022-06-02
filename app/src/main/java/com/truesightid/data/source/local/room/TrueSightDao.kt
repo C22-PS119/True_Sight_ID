@@ -27,6 +27,9 @@ interface TrueSightDao {
     @Query("UPDATE claim SET downvote = downvote+1 WHERE claim_id = :id")
     fun downvoteWithId(id: Int)
 
+    @Insert
+    fun insertClaim(itemClaimEntity: ClaimEntity)
+
 //    @Update
 //    fun updateNewsPrediction(news: NewsPredictionEntity)
 }

@@ -1,10 +1,12 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.truesightid.databinding.ActivityLoginBinding
+import com.truesightid.ui.signup.SignupActivity
+import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
 
 class LoginActivity : AppCompatActivity() {
 

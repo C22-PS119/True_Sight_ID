@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.activity.AddClaimActivity
+import com.truesightid.ui.addclaim.AddClaimActivity
 import com.truesightid.ui.adapter.ExploreAdapter
 
 class ExploreNewsFragment : Fragment() {

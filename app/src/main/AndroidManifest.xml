@@ -11,13 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrueSightID">
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.EditProfileActivity"
+            android:name=".ui.editprofile.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.DetailClaimActivity" />
-        <activity android:name=".ui.activity.SignupActivity" />
-        <activity android:name=".ui.activity.ForgotPasswordActivity" />
-        <activity android:name=".ui.activity.ResetPasswordActivity" />
-        <activity android:name=".ui.activity.AddClaimActivity" />
+        <activity android:name=".ui.detailclaim.DetailClaimActivity" />
+        <activity android:name=".ui.signup.SignupActivity" />
+        <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
+        <activity android:name=".ui.resetpassword.ResetPasswordActivity" />
+        <activity android:name=".ui.addclaim.AddClaimActivity" />
     </application>
 </manifest>

@@ -1,9 +1,10 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.editprofile
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.truesightid.databinding.ActivityEditProfileBinding
+import com.truesightid.ui.main.MainActivity
 
 class EditProfileActivity : AppCompatActivity() {
 

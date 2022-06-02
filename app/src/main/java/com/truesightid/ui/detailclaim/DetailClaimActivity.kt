@@ -1,4 +1,4 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.detailclaim
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -59,7 +59,7 @@ class DetailClaimActivity : AppCompatActivity() {
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
             tvDateDetail.text = items.date
 
-            if (items.fake) {
+            if (items.fake == 1) {
                 tvClaim.text = getString(R.string.fake_status)
                 tvClaim.background =
                     AppCompatResources.getDrawable(applicationContext, R.drawable.fake_claim)
