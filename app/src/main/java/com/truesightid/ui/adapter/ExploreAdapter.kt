@@ -1,9 +1,9 @@
 package com.truesightid.ui.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +12,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ItemRowClaimsBinding
-import com.truesightid.ui.activity.DetailClaimActivity
+import com.truesightid.utils.Prefs
 
-class ExploreAdapter(private val callback: ItemClaimClickListener) :
+class ExploreAdapter(private val callback: ItemClaimClickListener, private val pref: Prefs) :
     PagedListAdapter<ClaimEntity, ExploreAdapter.ExploreViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ClaimEntity>() {
@@ -29,6 +29,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener) :
     }
 
     private var upvotePressed = false
+    private var downvotePressed = false
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -66,29 +67,78 @@ class ExploreAdapter(private val callback: ItemClaimClickListener) :
                 }
 
 
+                val user = pref.getUser()
+                val votes = user?.votes as HashMap<Int, Int>
+                for (i in votes) {
+                    if (votes.containsKey(items.id)) {
+                        when (votes.getValue(items.id)) {
+                            0 -> {
+                                binding.ibUpvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_upvote)
+                                binding.ibDownvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_downvote)
+                            }
+                            1 -> {
+                                binding.ibUpvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
+                                binding.ibDownvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_downvote)
+                            }
+                            -1 -> {
+                                binding.ibUpvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_upvote)
+                                binding.ibDownvote.background =
+                                    itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
+                            }
+                        }
+                    }
+                }
 
                 binding.ibUpvote.setOnClickListener {
                     if (!upvotePressed) {
-                        binding.ibUpvote.background =
-                            itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
                         upvotePressed = true
-                        binding.tvVoteCount.text = (items.upvote + 1).toString()
+                        binding.ibUpvote.background =
+                            itemView.context.getDrawable(R.drawable.ic_upvote)
+                        items.upvote += 1
+                        binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
                         callback.onClaimUpvote(items.id)
                         return@setOnClickListener
                     } else {
                         binding.ibUpvote.background =
-                            itemView.context.getDrawable(R.drawable.ic_upvote)
+                            itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
                         upvotePressed = false
-                        binding.tvVoteCount.text = (items.upvote).toString()
+                        binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
                         callback.onClaimDownvote(items.id)
                         return@setOnClickListener
                     }
                 }
-                binding.tvVoteCount.text = items.upvote.toString()
+
+                binding.ibDownvote.setOnClickListener {
+                    if (!downvotePressed) {
+                        binding.ibDownvote.background =
+                            itemView.context.getDrawable(R.drawable.ic_downvote)
+                        downvotePressed = true
+                        items.downvote += 1
+                        binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                        callback.onClaimDownvote(items.id)
+                        return@setOnClickListener
+                    } else {
+                        binding.ibDownvote.background =
+                            itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
+                        downvotePressed = false
+                        binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                        callback.onClaimUpvote(items.id)
+                        return@setOnClickListener
+                    }
+                }
+
+                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailClaimActivity::class.java)
-                    intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
-                    itemView.context.startActivity(intent)
+//                    val intent = Intent(itemView.context, DetailClaimActivity::class.java)
+//                    intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
+//                    itemView.context.startActivity(intent)
+                    Toast.makeText(holder.itemView.context, "$user", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

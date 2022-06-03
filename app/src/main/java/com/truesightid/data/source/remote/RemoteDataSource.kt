@@ -18,15 +18,25 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         }
     }
 
-    fun loginRequest(request: LoginRequest): LoginResponse? {
-        var resultLogin: LoginResponse? = null
+    fun loginRequest(request: LoginRequest): LiveData<ApiResponse<LoginResponse>> {
+        val resultLogin = MutableLiveData<ApiResponse<LoginResponse>>()
         apiHelper.loginRequest(request, object : LoginRequestCallback {
             override fun onLoginRequestResponse(loginResponse: LoginResponse) {
-                resultLogin = loginResponse
+                resultLogin.value = ApiResponse.success(loginResponse)
             }
         })
         return resultLogin
     }
+
+//    fun loginRequest(request: LoginRequest, callback: TrueSightRepository.loginAsyncCallback) {
+//        apiHelper.loginRequest(request, object : LoginRequestCallback {
+//            override fun onLoginRequestResponse(loginResponse: LoginResponse) {
+//                callback.onLoginAsyncResponse(ApiResponse.success(loginResponse))
+//            }
+//        })
+//    }
+
+//    fun loginRequest(request: LoginRequest) = ApiConfig.getApiService().postLoginForm(request.email, request.password)
 
     fun registrationRequest(
         username: String,

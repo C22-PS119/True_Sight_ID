@@ -31,7 +31,9 @@ class NewsPredictFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = ViewModelFactory.getInstance(requireContext())
+        val factory = ViewModelFactory.getInstance(
+            requireContext()
+        )
         val viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
         observingViewModel(viewModel)

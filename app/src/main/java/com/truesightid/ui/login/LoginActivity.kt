@@ -2,17 +2,19 @@ package com.truesightid.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.inyongtisto.myhelper.extension.*
+import com.truesightid.data.source.local.entity.UserEntity
+import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.LoginRequest
 import com.truesightid.databinding.ActivityLoginBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.activity.ForgotPasswordActivity
-import com.truesightid.ui.activity.MainActivity
 import com.truesightid.ui.activity.SignupActivity
-import com.truesightid.utils.Status
+import com.truesightid.ui.main.MainActivity
+import com.truesightid.utils.Prefs
+import com.truesightid.utils.VotesSeparator
 
 class LoginActivity : AppCompatActivity() {
 
@@ -27,8 +29,9 @@ class LoginActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
+
+
         binding.btnLogin.setOnClickListener {
-            Toast.makeText(this@LoginActivity, "On Developed", Toast.LENGTH_SHORT).show()
             login()
         }
 
@@ -47,26 +50,42 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val request =
-            LoginRequest(binding.tvEmail.text.toString(), binding.tvPassword.text.toString())
+        val request = LoginRequest(
+            binding.edtEmail.editText?.text.toString(),
+            binding.edtPassword.editText?.text.toString()
+        )
 
-        viewModel.login(request).observe(this) {
-            when (it.status) {
-                Status.SUCCESS -> {
+        viewModel.login(request).observe(this) { user ->
+            showLoading()
+            when (user.status) {
+                StatusResponse.SUCCESS -> {
                     dismisLoading()
-//                    showToast("Selamat datang " + it.data?.username)
-                    showToast("Selamat datang Admin")
+                    Prefs.isLogin = true
+
+                    val response = user.body
+                    val responseData = response.data
+                    val userData = responseData?.user
+                    if (userData != null) {
+                        Prefs.setUser(
+                            UserEntity(
+                                userData.id.toString(),
+                                responseData.apiKey.toString(),
+                                userData.username.toString(),
+                                userData.email.toString(),
+                                userData.password.toString(),
+                                VotesSeparator.separate(userData.votes.toString())
+                            )
+                        )
+                    }
                     pushActivity(MainActivity::class.java)
                 }
-                Status.ERROR -> {
-                    dismisLoading()
-                    toastError(it.message ?: "Error")
+                StatusResponse.ERROR -> {
+                    toastError(user.message ?: "Error")
                 }
-                Status.LOADING -> {
-                    showLoading()
+                StatusResponse.EMPTY -> {
+                    toastInfo("Empty Response")
                 }
             }
         }
     }
-
 }

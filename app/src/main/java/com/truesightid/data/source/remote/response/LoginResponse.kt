@@ -24,15 +24,46 @@ data class LoginResponse(
 )
 
 data class Data(
+
 	@field:SerializedName("api_key")
 	val apiKey: String? = null,
 
-	@field:SerializedName("user_id")
-	val userId: Int? = null,
+	@field:SerializedName("user")
+	val user: User? = null
+)
 
-	@field:SerializedName("username")
-    val username: String? = null,
+data class User(
+
+	@field:SerializedName("bookmarks")
+	val bookmarks: String? = null,
+
+	@field:SerializedName("password")
+	val password: String? = null,
+
+	@field:SerializedName("full_name")
+	val fullName: String? = null,
+
+	@field:SerializedName("date_created")
+	val dateCreated: Int? = null,
+
+	@field:SerializedName("verified")
+	val verified: Int? = null,
+
+	@field:SerializedName("votes")
+	val votes: String? = null,
+
+	@field:SerializedName("avatar")
+	val avatar: Any? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
 
 	@field:SerializedName("email")
-    val email: String? = null
+	val email: String? = null,
+
+	@field:SerializedName("apioauth")
+	val apioauth: Any? = null,
+
+	@field:SerializedName("username")
+	val username: String? = null
 )

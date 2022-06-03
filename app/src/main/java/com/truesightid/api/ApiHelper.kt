@@ -82,7 +82,7 @@ class ApiHelper(val context: Context) {
             override fun onFailure(call: Call<ClaimsResponse>, t: Throwable) {
                 Toast.makeText(
                     context,
-                    "onRegisterationRequestFailed: ${t.message}",
+                    "onClaimRequestFailed: ${t.message}",
                     Toast.LENGTH_SHORT
                 )
                     .show()
