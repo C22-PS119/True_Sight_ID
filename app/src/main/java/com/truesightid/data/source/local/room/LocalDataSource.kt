@@ -1,36 +1,20 @@
 package com.truesightid.data.source.local.room
 
-import android.content.Context
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.truesightid.data.source.local.entity.ClaimEntity
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class LocalDataSource(
-    private val trueSightDao: TrueSightDao,
-    private val executor: ExecutorService
+    private val trueSightDao: TrueSightDao
 ) {
     companion object {
         @Volatile
-        private var instance: LocalDataSource? = null
+        private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(context: Context): LocalDataSource {
-            return instance ?: synchronized(this) {
-                if (instance == null) {
-                    val database = TrueSightDatabase.getInstance(context)
-                    instance = LocalDataSource(
-                        database.truesightDao(),
-                        Executors.newSingleThreadExecutor()
-                    )
-                }
-                return instance as LocalDataSource
-            }
-        }
+        fun getInstance(trueSightDao: TrueSightDao): LocalDataSource =
+            INSTANCE ?: LocalDataSource(trueSightDao)
     }
 
-    fun getClaims(): LiveData<List<ClaimEntity>> = trueSightDao.getAllClaims()
+    fun getAllClaims(): DataSource.Factory<Int, ClaimEntity> = trueSightDao.getAllClaims()
 
-//    fun getNewsPrediction(predict: String): LiveData<NewsPredictionEntity> = trueSightDao.getNewsPrediction(predict)
-//
-//    fun updateNewsPrediction(news: NewsPredictionEntity) = trueSightDao.updateNewsPrediction(news)
+    fun insertClaims(claims: List<ClaimEntity>) = trueSightDao.insertAllClaims(claims)
 }

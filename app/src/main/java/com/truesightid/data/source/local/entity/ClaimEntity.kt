@@ -25,10 +25,10 @@ data class ClaimEntity(
     var description: String,
 
     @ColumnInfo(name = "image")
-    var image: Int,
+    var image: Int? = null,
 
     @ColumnInfo(name = "fake")
-    var fake: Boolean,
+    var fake: Int,
 
     @ColumnInfo(name = "upvote")
     var upvote: Int,
@@ -37,8 +37,5 @@ data class ClaimEntity(
     var downvote: Int,
 
     @ColumnInfo(name = "date")
-    var date: String,
-
-    @ColumnInfo(name = "votecount")
-    var voteCount: Int
+    var date: Int
 ) : Parcelable

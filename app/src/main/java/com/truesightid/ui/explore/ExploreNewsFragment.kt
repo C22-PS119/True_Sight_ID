@@ -6,13 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.activity.AddClaimActivity
 import com.truesightid.ui.adapter.ExploreAdapter
+import com.truesightid.utils.Resource
+import com.truesightid.utils.Status
 
 class ExploreNewsFragment : Fragment() {
 
@@ -43,12 +49,16 @@ class ExploreNewsFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireContext())
             viewModel = ViewModelProvider(this, factory)[ExploreNewsViewModel::class.java]
 
-            exploreAdapter = ExploreAdapter()
+            exploreAdapter = ExploreAdapter(object : ExploreAdapter.ItemClaimClickListener {
+                override fun onClaimUpvote(claim_id: Int) {
+                    viewModel.upvoteClaimById(claim_id)
+                }
 
-            viewModel.getClaims().observe(viewLifecycleOwner) { claims ->
-                exploreAdapter.setClaims(claims)
-                exploreAdapter.notifyDataSetChanged()
-            }
+                override fun onClaimDownvote(claim_id: Int) {
+                    viewModel.downvoteClaimById(claim_id)
+                }
+
+            })
 
             with(binding.rvClaimer) {
                 layoutManager = LinearLayoutManager(context)
@@ -56,11 +66,44 @@ class ExploreNewsFragment : Fragment() {
                 setHasFixedSize(true)
             }
 
+            binding.refreshLayout.setOnRefreshListener {
+//                viewModel.getClaims().observe(viewLifecycleOwner, claimObserver)
+//                Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
+                binding.refreshLayout.isRefreshing = false
+            }
+
+            viewModel.getClaims().observe(viewLifecycleOwner, claimObserver)
         }
 
         binding.fab.setOnClickListener {
             val intent = Intent(activity, AddClaimActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private val claimObserver = Observer<Resource<PagedList<ClaimEntity>>> { claims ->
+        if (claims != null) {
+            when (claims.status) {
+                Status.LOADING -> showLoading(true)
+                Status.SUCCESS -> {
+                    showLoading(false)
+                    exploreAdapter.submitList(claims.data)
+                    exploreAdapter.notifyDataSetChanged()
+                    Toast.makeText(context, "Claim populated", Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR -> {
+                    showLoading(false)
+                    Toast.makeText(context, "Error: Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

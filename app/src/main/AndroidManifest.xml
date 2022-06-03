@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrueSightID">
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.EditProfileActivity"

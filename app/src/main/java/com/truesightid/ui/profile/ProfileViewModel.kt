@@ -1,7 +1,7 @@
 package com.truesightid.ui.profile
 
 import androidx.lifecycle.ViewModel
-import com.truesightid.data.source.local.room.LocalDataSource
+import com.truesightid.data.TrueSightRepository
 
-class ProfileViewModel(private val mTrueSightRepository: LocalDataSource) : ViewModel() {
+class ProfileViewModel(private val mTrueSightRepository: TrueSightRepository) : ViewModel() {
 }

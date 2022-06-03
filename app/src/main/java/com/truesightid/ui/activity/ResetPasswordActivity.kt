@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.truesightid.databinding.ActivityResetPasswordBinding
+import com.truesightid.ui.login.LoginActivity
 
 class ResetPasswordActivity : AppCompatActivity() {
 
