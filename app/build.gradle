@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.truesightid"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -94,4 +94,11 @@ dependencies {
      * Paging Library
      */
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    /**
+     * Shared Preferences
+     */
+    implementation "com.chibatching.kotpref:kotpref:2.13.1"
+
+    implementation 'com.github.TistoW:MyHelper:1.1.30'
 }

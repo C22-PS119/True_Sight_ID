@@ -41,7 +41,7 @@ data class DataItem(
 	val upvote: Int? = null,
 
 	@field:SerializedName("url")
-	val url: Any? = null,
+	val url: String? = null,
 
 	@field:SerializedName("verified_by")
 	val verifiedBy: Any? = null,

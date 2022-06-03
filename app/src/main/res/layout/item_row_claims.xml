@@ -8,9 +8,9 @@
     android:layout_gravity="center"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    card_view:elevation="15dp"
+    card_view:cardCornerRadius="8dp"
     card_view:cardMaxElevation="10dp"
-    card_view:cardCornerRadius="8dp">
+    card_view:elevation="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/fact_claim"
             android:gravity="center"
-            android:text="Fact"
+            android:text="@string/fact"
             android:textColor="@color/white"
             android:textSize="15sp"
             card_view:layout_constraintEnd_toEndOf="parent"
@@ -45,10 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_regular"
             android:layout_toEndOf="@+id/img_claimer"
+            android:fontFamily="@font/poppins_regular"
             android:gravity="center"
+            android:textColor="@color/black"
             android:textSize="12sp"
             card_view:layout_constraintStart_toEndOf="@+id/img_claimer"
             card_view:layout_constraintTop_toTopOf="@+id/img_claimer"
@@ -81,7 +81,7 @@
             android:fontFamily="@font/poppins_regular"
             android:gravity="start"
             android:textColor="@color/gray"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textStyle="normal"
             card_view:layout_constraintBottom_toBottomOf="@+id/img_claimer"
             card_view:layout_constraintStart_toStartOf="@+id/tv_title_claim"
@@ -91,22 +91,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/img_claimer">
+
 
             <ImageButton
                 android:id="@+id/ib_upvote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_upvote"
+                android:background="@drawable/ic_upvote"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -117,9 +117,9 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:paddingTop="2dp"
-                android:text="100K"
+                android:text="@string/_100k"
                 android:textColor="@color/black"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 card_view:layout_constraintStart_toEndOf="@+id/ib_upvote"
                 card_view:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
@@ -129,8 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_downvote"
+                android:background="@drawable/ic_downvote"
                 card_view:layout_constraintStart_toEndOf="@+id/tv_vote_count"
                 card_view:layout_constraintTop_toTopOf="parent" />
 

@@ -3,19 +3,14 @@ package com.truesightid.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.tabs.TabLayout
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ActivityClaimDetailBinding
 
 
 class DetailClaimActivity : AppCompatActivity() {
-
-    private lateinit var viewPager: ViewPager
-    private lateinit var tabs: TabLayout
     private lateinit var binding: ActivityClaimDetailBinding
 
     companion object {
@@ -57,9 +52,9 @@ class DetailClaimActivity : AppCompatActivity() {
                 .into(ivImageDetail)
 
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
-            tvDateDetail.text = items.date
+            tvDateDetail.text = items.date.toString()
 
-            if (items.fake) {
+            if (items.fake == 1) {
                 tvClaim.text = getString(R.string.fake_status)
                 tvClaim.background =
                     AppCompatResources.getDrawable(applicationContext, R.drawable.fake_claim)
