@@ -17,6 +17,7 @@ import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.activity.AddClaimActivity
 import com.truesightid.ui.adapter.ExploreAdapter
+import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
 import com.truesightid.utils.Status
 
@@ -46,7 +47,9 @@ class ExploreNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
-            val factory = ViewModelFactory.getInstance(requireContext())
+            val factory = ViewModelFactory.getInstance(
+                requireContext()
+            )
             viewModel = ViewModelProvider(this, factory)[ExploreNewsViewModel::class.java]
 
             exploreAdapter = ExploreAdapter(object : ExploreAdapter.ItemClaimClickListener {
@@ -58,7 +61,7 @@ class ExploreNewsFragment : Fragment() {
                     viewModel.downvoteClaimById(claim_id)
                 }
 
-            })
+            }, Prefs)
 
             with(binding.rvClaimer) {
                 layoutManager = LinearLayoutManager(context)
@@ -84,7 +87,7 @@ class ExploreNewsFragment : Fragment() {
     private val claimObserver = Observer<Resource<PagedList<ClaimEntity>>> { claims ->
         if (claims != null) {
             when (claims.status) {
-                Status.LOADING -> showLoading(true)
+                Status.LOADING -> showLoading(false)
                 Status.SUCCESS -> {
                     showLoading(false)
                     exploreAdapter.submitList(claims.data)

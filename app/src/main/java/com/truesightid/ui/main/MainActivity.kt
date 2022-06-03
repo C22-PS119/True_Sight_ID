@@ -1,31 +1,56 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.chibatching.kotpref.Kotpref
 import com.google.android.material.tabs.TabLayout
 import com.truesightid.R
+import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ViewPagerAdapter
 import com.truesightid.ui.explore.ExploreNewsFragment
+import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.prediction.NewsPredictFragment
 import com.truesightid.ui.profile.ProfileFragment
+import com.truesightid.utils.Prefs
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        Kotpref.init(this)
+        setupViewModel()
+        setupLogin()
         viewPager = findViewById(R.id.viewPager)
         tabs = findViewById(R.id.tabs)
 
         initTabs()
     }
 
-    private fun initTabs(){
+    private fun setupLogin() {
+        if (Prefs.isLogin) { //  true atau false
+            Log.d("TAG", "sudah login")
+        } else {
+            startActivity(Intent(this, LoginActivity::class.java))
+            Log.d("TAG", "belum login, pindah ke maenu login")
+        }
+    }
+
+    private fun setupViewModel() {
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+    }
+
+    private fun initTabs() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(ExploreNewsFragment(), "Explore News")
         adapter.addFragment(NewsPredictFragment(), "News Predict")

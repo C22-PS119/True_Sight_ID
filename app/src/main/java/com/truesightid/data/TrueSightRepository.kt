@@ -3,18 +3,15 @@ package com.truesightid.data
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.inyongtisto.myhelper.extension.logs
 import com.truesightid.data.source.local.entity.ClaimEntity
-import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.RemoteDataSource
 import com.truesightid.data.source.remote.request.LoginRequest
 import com.truesightid.data.source.remote.response.ClaimsResponse
+import com.truesightid.data.source.remote.response.LoginResponse
 import com.truesightid.utils.AppExecutors
-import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
-import kotlinx.coroutines.flow.flow
 
 class TrueSightRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -37,37 +34,51 @@ class TrueSightRepository(
             }
     }
 
-    override fun loginRequest(request: LoginRequest) = flow {
-        emit(Resource.loading(null))
-        try {
-            remoteDataSource.loginRequest(request).let {
-                if (it?.status == "success") {
-                    Prefs.isLogin = true
-                    val data = it.data
-                    val user = UserEntity(
-                        apiKey = data?.apiKey as String,
-                        id = data.userId as Int,
-                        username = data.username as String,
-                        email = data.email as String,
-                        password = null
-                    )
-                    Prefs.setUser(user)
-                    emit(Resource.success(user))
-                }
-            }
-        } catch (e: Exception) {
-            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
-            logs("Error:" + e.message)
-        }
-    }
-
-    override fun upVoteClaimById(id: Int) {
+    override fun upVoteClaimById(id: Int) =
         remoteDataSource.upVoteRequestById(id)
-    }
 
-    override fun downVoteClaimById(id: Int) {
+
+    override fun downVoteClaimById(id: Int) =
         remoteDataSource.downVoteRequestById(id)
-    }
+
+//    fun loginRequest(data: LoginRequest) = flow<Resource<UserEntity>> {
+//        emit(Resource.loading(null))
+//        try {
+//            remoteDataSource.loginRequest(data).let {
+//                val body = it.value?.body
+//                if (body != null) {
+//                    if (body.status == "success") {
+//                        Prefs.isLogin = true
+//                        val bodyData = body.data
+//                        val user = bodyData?.user
+//                        val userObj = UserEntity(
+//                            user?.id.toString(),
+//                            user?.apioauth.toString(),
+//                            user?.username as String,
+//                            user.email as String,
+//                            user.password as String,
+//                            true
+//                        )
+//                        Prefs.setUser(userObj)
+//                        emit(Resource.success(userObj))
+//                    }
+//                    if (body.status == "failed") {
+//                        Prefs.isLogin = false
+//                        emit(Resource.error("failed", null))
+//                    }
+//                }
+//
+//            }
+//        } catch (e: Exception) {
+//            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+//            logs("Error:" + e.message)
+//        }
+//    }
+
+
+    override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
+        remoteDataSource.loginRequest(loginRequest)
+
 
     override fun getAllClaims(): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {
@@ -96,9 +107,9 @@ class TrueSightRepository(
                         val claim = ClaimEntity(
                             response?.id as Int,
                             response.title as String,
-                            response.authorId.toString(),
+                            response.authorUsername as String,
                             response.description as String,
-                            image = null,
+                            response.attachment?.get(0) as String,
                             response.fake as Int,
                             response.upvote as Int,
                             response.downvote as Int,

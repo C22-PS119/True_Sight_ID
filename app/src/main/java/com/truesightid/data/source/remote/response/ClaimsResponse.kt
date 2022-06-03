@@ -50,7 +50,7 @@ data class DataItem(
 	val downvote: Int? = null,
 
 	@field:SerializedName("attachment")
-	val attachment: String? = null,
+	val attachment: List<String?>? = null,
 
 	@field:SerializedName("num_click")
 	val numClick: Int? = null,
@@ -62,5 +62,8 @@ data class DataItem(
 	val id: Int? = null,
 
 	@field:SerializedName("author_id")
-	val authorId: Int? = null
+	val authorId: Int? = null,
+
+	@field:SerializedName("author_username")
+	val authorUsername: String? = null
 )

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.truesightid.R
 import com.truesightid.databinding.ActivityAddClaimBinding
+import com.truesightid.ui.main.MainActivity
 
 class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 

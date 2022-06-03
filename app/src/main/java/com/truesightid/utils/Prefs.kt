@@ -5,7 +5,8 @@ import com.inyongtisto.myhelper.extension.toJson
 import com.inyongtisto.myhelper.extension.toModel
 import com.truesightid.data.source.local.entity.UserEntity
 
-object Prefs: KotprefModel() {
+object Prefs : KotprefModel() {
+
     var isLogin by booleanPref(false)
     var user by stringPref()
 
