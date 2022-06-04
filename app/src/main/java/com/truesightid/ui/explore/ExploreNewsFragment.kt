@@ -13,10 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.activity.AddClaimActivity
 import com.truesightid.ui.adapter.ExploreAdapter
+import com.truesightid.ui.add_claim.AddClaimActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
 import com.truesightid.utils.Status
@@ -31,6 +32,8 @@ class ExploreNewsFragment : Fragment() {
 
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
+
+    private val request = ClaimRequest(Prefs.getUser()?.apiKey as String)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,12 +73,13 @@ class ExploreNewsFragment : Fragment() {
             }
 
             binding.refreshLayout.setOnRefreshListener {
-//                viewModel.getClaims().observe(viewLifecycleOwner, claimObserver)
-//                Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
+                viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
+                Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
                 binding.refreshLayout.isRefreshing = false
             }
 
-            viewModel.getClaims().observe(viewLifecycleOwner, claimObserver)
+            viewModel.getClaims(request)
+                .observe(viewLifecycleOwner, claimObserver)
         }
 
         binding.fab.setOnClickListener {
@@ -84,10 +88,11 @@ class ExploreNewsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private val claimObserver = Observer<Resource<PagedList<ClaimEntity>>> { claims ->
         if (claims != null) {
             when (claims.status) {
-                Status.LOADING -> showLoading(false)
+                Status.LOADING -> showLoading(true)
                 Status.SUCCESS -> {
                     showLoading(false)
                     exploreAdapter.submitList(claims.data)
@@ -102,12 +107,10 @@ class ExploreNewsFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+    private fun showLoading(isLoading: Boolean) = if (isLoading) {
+        binding.progressBar.visibility = View.VISIBLE
+    } else {
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onDestroyView() {

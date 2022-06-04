@@ -1,9 +1,9 @@
 package com.truesightid.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +12,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ItemRowClaimsBinding
+import com.truesightid.ui.activity.DetailClaimActivity
+import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 
 class ExploreAdapter(private val callback: ItemClaimClickListener, private val pref: Prefs) :
@@ -53,9 +55,9 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
                     )
-                    .into(binding.imgClaimer)
+                    .into(binding.ivClaimer)
                 binding.tvTitleClaim.text = items.title
-                binding.tvDate.text = items.date.toString()
+                binding.tvDate.text = DateUtils.getDateTime(items.date.toLong())
                 binding.tvClaim.text = items.fake.toString()
 
                 if (items.fake == 1) {
@@ -134,11 +136,11 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
 
                 binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
                 itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailClaimActivity::class.java)
-//                    intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
-//                    itemView.context.startActivity(intent)
-                    Toast.makeText(holder.itemView.context, "$user", Toast.LENGTH_SHORT)
-                        .show()
+                    val intent = Intent(itemView.context, DetailClaimActivity::class.java)
+                    intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
+                    itemView.context.startActivity(intent)
+//                    Toast.makeText(holder.itemView.context, "$user", Toast.LENGTH_SHORT)
+//                        .show()
                 }
             }
         }

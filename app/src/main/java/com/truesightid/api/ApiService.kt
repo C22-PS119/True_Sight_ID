@@ -1,28 +1,28 @@
 package com.truesightid.api
 
 import com.truesightid.data.source.remote.response.*
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
     @POST("api/predict/")
     @Headers(
-        "Content-Type: application/x-www-form-urlencoded",
-        "x-api-key: nfuw4uh6zc52feq2ozyo7zg3oxs4apl0j6ii92oxbnyo0kro37kxf9c1cqfn3itp"
+        "Content-Type: application/x-www-form-urlencoded"
     )
-    fun getNewsPrediction(@Field("content") content: String): Call<NewsPredictionResponse>
+    fun getNewsPrediction(
+        @Header("x-api-key") apiKey: String,
+        @Field("content") content: String
+    ): Call<NewsPredictionResponse>
 
     @FormUrlEncoded
     @POST("api/registration/")
     @Headers(
-        "Content-Type: application/x-www-form-urlencoded",
-        "x-api-key: nfuw4uh6zc52feq2ozyo7zg3oxs4apl0j6ii92oxbnyo0kro37kxf9c1cqfn3itp"
+        "Content-Type: application/x-www-form-urlencoded"
     )
     fun postRegistrationForm(
+        @Header("x-api-key") apiKey: String,
         @Field("username") username: String,
         @Field("full_name") fullname: String,
         @Field("email") email: String,
@@ -33,8 +33,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/auth/")
     @Headers(
-        "Content-Type: application/x-www-form-urlencoded",
-        "x-api-key: nfuw4uh6zc52feq2ozyo7zg3oxs4apl0j6ii92oxbnyo0kro37kxf9c1cqfn3itp"
+        "Content-Type: application/x-www-form-urlencoded"
     )
     fun postLoginForm(
         @Field("email") email: String,
@@ -44,10 +43,12 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/search/")
     @Headers(
-        "Content-Type: application/x-www-form-urlencoded",
-        "x-api-key: nfuw4uh6zc52feq2ozyo7zg3oxs4apl0j6ii92oxbnyo0kro37kxf9c1cqfn3itp"
+        "Content-Type: application/x-www-form-urlencoded"
     )
-    fun getAllClaims(@Field("keyword") keyword: String): Call<ClaimsResponse>
+    fun getAllClaims(
+        @Header("x-api-key") apiKey: String,
+        @Field("keyword") keyword: String
+    ): Call<ClaimsResponse>
 
     @FormUrlEncoded
     @POST("api/votes/up/")
@@ -72,4 +73,15 @@ interface ApiService {
         "x-api-key: nfuw4uh6zc52feq2ozyo7zg3oxs4apl0j6ii92oxbnyo0kro37kxf9c1cqfn3itp"
     )
     fun addBookmarkByClaimID(@Field("id") id: Int): Call<VoteResponse>
+
+    @Multipart
+    @POST("api/create/claim/")
+    fun postClaimMultiPart(
+        @Header("x-api-key") apiKey: String,
+        @Part("title") title: String,
+        @Part("description") description: String,
+        @Part("fake") fake: Int,
+        @Part("url") url: String,
+        @Part attachment: MultipartBody.Part,
+    ): Call<PostClaimResponse>
 }

@@ -26,7 +26,7 @@ data class ClaimsResponse(
 data class DataItem(
 
 	@field:SerializedName("date_created")
-	val dateCreated: Int? = null,
+	val dateCreated: String? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,

@@ -29,6 +29,6 @@
         <activity android:name=".ui.activity.SignupActivity" />
         <activity android:name=".ui.activity.ForgotPasswordActivity" />
         <activity android:name=".ui.activity.ResetPasswordActivity" />
-        <activity android:name=".ui.activity.AddClaimActivity" />
+        <activity android:name=".ui.add_claim.AddClaimActivity" />
     </application>
 </manifest>

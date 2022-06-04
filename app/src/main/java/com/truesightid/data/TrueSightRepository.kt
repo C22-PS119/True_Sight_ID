@@ -7,9 +7,12 @@ import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.RemoteDataSource
+import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.request.PostClaimRequest
 import com.truesightid.data.source.remote.response.ClaimsResponse
 import com.truesightid.data.source.remote.response.LoginResponse
+import com.truesightid.data.source.remote.response.PostClaimResponse
 import com.truesightid.utils.AppExecutors
 import com.truesightid.utils.Resource
 
@@ -41,46 +44,15 @@ class TrueSightRepository(
     override fun downVoteClaimById(id: Int) =
         remoteDataSource.downVoteRequestById(id)
 
-//    fun loginRequest(data: LoginRequest) = flow<Resource<UserEntity>> {
-//        emit(Resource.loading(null))
-//        try {
-//            remoteDataSource.loginRequest(data).let {
-//                val body = it.value?.body
-//                if (body != null) {
-//                    if (body.status == "success") {
-//                        Prefs.isLogin = true
-//                        val bodyData = body.data
-//                        val user = bodyData?.user
-//                        val userObj = UserEntity(
-//                            user?.id.toString(),
-//                            user?.apioauth.toString(),
-//                            user?.username as String,
-//                            user.email as String,
-//                            user.password as String,
-//                            true
-//                        )
-//                        Prefs.setUser(userObj)
-//                        emit(Resource.success(userObj))
-//                    }
-//                    if (body.status == "failed") {
-//                        Prefs.isLogin = false
-//                        emit(Resource.error("failed", null))
-//                    }
-//                }
-//
-//            }
-//        } catch (e: Exception) {
-//            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
-//            logs("Error:" + e.message)
-//        }
-//    }
-
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)
 
+    override fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>> =
+        remoteDataSource.postClaimRequest(postClaimRequest)
 
-    override fun getAllClaims(): LiveData<Resource<PagedList<ClaimEntity>>> {
+
+    override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {
             override fun loadFromDB(): LiveData<PagedList<ClaimEntity>> {
                 val config = PagedList.Config.Builder()
@@ -97,25 +69,29 @@ class TrueSightRepository(
 
 
             override fun createCall(): LiveData<ApiResponse<ClaimsResponse>> =
-                remoteDataSource.getAllClaims()
+                remoteDataSource.getAllClaims(request)
 
             override fun saveCallResult(data: ClaimsResponse) {
                 val body = data.data
                 val claimList = ArrayList<ClaimEntity>()
                 if (body != null) {
                     for (response in body) {
-                        val claim = ClaimEntity(
-                            response?.id as Int,
-                            response.title as String,
-                            response.authorUsername as String,
-                            response.description as String,
-                            response.attachment?.get(0) as String,
-                            response.fake as Int,
-                            response.upvote as Int,
-                            response.downvote as Int,
-                            response.dateCreated as Int
-                        )
-                        claimList.add(claim)
+                        val claim = response?.dateCreated?.let {
+                            ClaimEntity(
+                                response.id as Int,
+                                response.title as String,
+                                response.authorUsername as String,
+                                response.description as String,
+                                response.attachment?.get(0) as String,
+                                response.fake as Int,
+                                response.upvote as Int,
+                                response.downvote as Int,
+                                it.toFloat()
+                            )
+                        }
+                        if (claim != null) {
+                            claimList.add(claim)
+                        }
                     }
                 }
                 localDataSource.insertClaims(claimList)

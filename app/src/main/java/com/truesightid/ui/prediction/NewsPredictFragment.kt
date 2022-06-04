@@ -13,12 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.truesightid.data.source.remote.response.NewsPredictionResponse
 import com.truesightid.databinding.FragmentPredictionBinding
 import com.truesightid.ui.ViewModelFactory
+import com.truesightid.utils.Prefs
 
 class NewsPredictFragment : Fragment() {
 
     private var _binding: FragmentPredictionBinding? = null
     private val binding get() = _binding!!
-//    private lateinit var dialog: Dialog
+
+    private val apiKey = Prefs.getUser()?.apiKey as String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +44,7 @@ class NewsPredictFragment : Fragment() {
             val predict =
                 "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
             Toast.makeText(requireContext(), "QWEQWE: $predict", Toast.LENGTH_LONG).show()
-            viewModel.getNewsPrediction(predict)
+            viewModel.getNewsPrediction(apiKey, predict)
         }
     }
 

@@ -3,11 +3,11 @@ package com.truesightid.api
 import android.content.Context
 import android.widget.Toast
 import com.truesightid.data.source.remote.RemoteDataSource
+import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.data.source.remote.request.LoginRequest
-import com.truesightid.data.source.remote.response.ClaimsResponse
-import com.truesightid.data.source.remote.response.LoginResponse
-import com.truesightid.data.source.remote.response.RegisterResponse
-import com.truesightid.data.source.remote.response.VoteResponse
+import com.truesightid.data.source.remote.request.PostClaimRequest
+import com.truesightid.data.source.remote.request.RegistrationRequest
+import com.truesightid.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,13 +34,17 @@ class ApiHelper(val context: Context) {
     }
 
     fun registrationRequest(
-        username: String,
-        email: String,
-        password: String,
+        request: RegistrationRequest,
         callback: RemoteDataSource.RegistrationRequestCallback
     ) {
         val client = ApiConfig.getApiService()
-            .postRegistrationForm(username, fullname = username, email, password)
+            .postRegistrationForm(
+                request.apiKey,
+                request.username,
+                fullname = request.username,
+                request.email,
+                request.password
+            )
         client.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
@@ -57,15 +61,15 @@ class ApiHelper(val context: Context) {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 Toast.makeText(
                     context,
-                    "onRegisterationRequestFailed: ${t.message}",
+                    "onRegistrationRequestFailed: ${t.message}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         })
     }
 
-    fun getClaimsRequest(callback: RemoteDataSource.ClaimsRequestCallback) {
-        val client = ApiConfig.getApiService().getAllClaims("")
+    fun getClaimsRequest(request: ClaimRequest, callback: RemoteDataSource.ClaimsRequestCallback) {
+        val client = ApiConfig.getApiService().getAllClaims(request.apiKey, "")
         client.enqueue(object : Callback<ClaimsResponse> {
             override fun onResponse(
                 call: Call<ClaimsResponse>,
@@ -91,11 +95,10 @@ class ApiHelper(val context: Context) {
     }
 
     fun voteByClaimIdRequest(isUpVote: Boolean, id: Int) {
-        lateinit var client: Call<*>
-        if (isUpVote) {
-            client = ApiConfig.getApiService().upvoteByClaimID(id)
+        val client: Call<VoteResponse> = if (isUpVote) {
+            ApiConfig.getApiService().upvoteByClaimID(id)
         } else {
-            client = ApiConfig.getApiService().downVoteByClaimID(id)
+            ApiConfig.getApiService().downVoteByClaimID(id)
         }
         client.enqueue(object : Callback<VoteResponse> {
             override fun onResponse(
@@ -121,6 +124,41 @@ class ApiHelper(val context: Context) {
                     .show()
             }
 
+        })
+    }
+
+    fun postResponse(
+        request: PostClaimRequest,
+        callback: RemoteDataSource.PostClaimRequestCallback
+    ) {
+        val client = ApiConfig.getApiService().postClaimMultiPart(
+            request.apiKey,
+            request.title,
+            request.description,
+            request.fake,
+            request.url,
+            request.attachment[0]
+        )
+        client.enqueue(object : Callback<PostClaimResponse> {
+            override fun onResponse(
+                call: Call<PostClaimResponse>,
+                response: Response<PostClaimResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onPostClaimRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PostClaimResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onPostClaimFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         })
     }
 }

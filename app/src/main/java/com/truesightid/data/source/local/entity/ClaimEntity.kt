@@ -37,5 +37,5 @@ data class ClaimEntity(
     var downvote: Int,
 
     @ColumnInfo(name = "date")
-    var date: Int
+    var date: Float
 ) : Parcelable

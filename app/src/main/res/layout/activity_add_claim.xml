@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.AddClaimActivity">
+    tools:context=".ui.add_claim.AddClaimActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -117,7 +117,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/title_form"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -128,6 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/claim_status">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
@@ -150,7 +151,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_form"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -161,6 +162,7 @@
             app:layout_constraintTop_toBottomOf="@id/title_form">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
@@ -184,7 +186,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/url_form"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -195,6 +197,7 @@
             app:layout_constraintTop_toBottomOf="@id/description_form">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
