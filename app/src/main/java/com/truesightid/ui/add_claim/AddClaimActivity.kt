@@ -6,15 +6,12 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.inyongtisto.myhelper.extension.toastError
-import com.inyongtisto.myhelper.extension.toastInfo
-import com.inyongtisto.myhelper.extension.toastWarning
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.PostClaimRequest
@@ -23,10 +20,13 @@ import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.AddClaimAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.pushActivity
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastWarning
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 
 class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
@@ -78,7 +78,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val url = binding.edtUrl.text.toString()
-
+        
         if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords)){
             Toast.makeText(this, "Your description contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
             return
@@ -86,7 +86,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this, "Your title contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
             return
         }
-
+        
         val postClaim = PostClaimRequest(
             apiKey = Prefs.getUser()?.apiKey as String,
             title = title,
@@ -95,25 +95,13 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
             url = url,
             listFile
         )
-
-        Toast.makeText(this, "${postClaim.fake}", Toast.LENGTH_LONG).show()
-
-//        logs("${postClaim.attachment}")
-
         viewModel.addClaim(postClaim).observe(this) { response ->
             when (response.status) {
-                StatusResponse.SUCCESS -> toastInfo("Success: ${response.body}")
+                StatusResponse.SUCCESS -> showSuccessAddClaim { pushActivity(MainActivity::class.java) }
                 StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
                 StatusResponse.ERROR -> toastError("Error: ${response.body}")
             }
         }
-
-        // Add intent to show toast in HomeActivity
-//        Intent(this, MainActivity::class.java).apply {
-//            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            startActivity(this)
-//        }
-//        finish()
     }
 
     override fun onClick(v: View) {
@@ -158,11 +146,23 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
             val file = uriToFile(selectedImg, this)
             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "file",
-                file.getName(),
-                RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                file.name,
+                file.asRequestBody("image/*".toMediaTypeOrNull())
             )
 
             listFile.add(filePart)
         }
+    }
+
+    private fun showSuccessAddClaim(onConfirmClickListener: () -> Unit) {
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Add Claim Successful")
+            .setContentText("Claim is added successfully, press Ok to back to main menu")
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setConfirmClickListener {
+                it.dismiss()
+                onConfirmClickListener()
+            }
+            .show()
     }
 }

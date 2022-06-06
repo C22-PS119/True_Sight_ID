@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.ApiResponse
-import com.truesightid.data.source.remote.request.*
+import com.truesightid.data.source.remote.request.ClaimRequest
+import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.request.PostClaimRequest
+import com.truesightid.data.source.remote.request.RegistrationRequest
 import com.truesightid.data.source.remote.response.LoginResponse
 import com.truesightid.data.source.remote.response.PostClaimResponse
-import com.truesightid.data.source.remote.response.PostProfileResponse
-import com.truesightid.data.source.remote.response.UserResponse
+import com.truesightid.data.source.remote.response.RegistrationResponse
 import com.truesightid.utils.Resource
 
 interface TrueSightDataSource {
@@ -30,5 +32,5 @@ interface TrueSightDataSource {
 
     fun deleteLocalClaims()
 
-//    fun getNewsPrediction(): LiveData<Resource<NewsPredictionEntity>>
+    fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>>
 }

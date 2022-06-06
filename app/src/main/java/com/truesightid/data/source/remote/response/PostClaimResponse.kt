@@ -8,7 +8,7 @@ data class PostClaimResponse(
 	val total: Int? = null,
 
 	@field:SerializedName("data")
-	val data: List<Any?>? = null,
+	val data: String? = null,
 
 	@field:SerializedName("dataname")
 	val dataname: String? = null,

@@ -23,7 +23,7 @@ class DirtyFilter {
         val WordException = arrayOf<String>("Mengintai","ASUS","Asupan","Kutai","Bantai","Mengatai","Masuk","Asuh")
 
         fun FilterAlfaNumWords(input: String): String {
-            var filteredword = input
+            return input
                 .replace('0', 'o')
                 .replace('1', 'i')
                 .replace('3', 'e')
@@ -32,8 +32,6 @@ class DirtyFilter {
                 .replace('6', 'b')
                 .replace('7', 't')
                 .replace('9', 'g')
-
-            return filteredword
         }
 
         private fun BuildRegexDirtyWord(word: String) : String {

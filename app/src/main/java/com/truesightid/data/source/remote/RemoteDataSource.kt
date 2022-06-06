@@ -4,8 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
-import com.truesightid.data.source.remote.request.*
-import com.truesightid.data.source.remote.response.*
+import com.truesightid.data.source.remote.request.ClaimRequest
+import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.request.PostClaimRequest
+import com.truesightid.data.source.remote.request.RegistrationRequest
+import com.truesightid.data.source.remote.response.ClaimsResponse
+import com.truesightid.data.source.remote.response.LoginResponse
+import com.truesightid.data.source.remote.response.PostClaimResponse
+import com.truesightid.data.source.remote.response.RegistrationResponse
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     companion object {
@@ -32,11 +38,11 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     fun registrationRequest(
         request: RegistrationRequest
-    ): LiveData<ApiResponse<RegisterResponse>> {
-        val resultRegister = MutableLiveData<ApiResponse<RegisterResponse>>()
+    ): LiveData<ApiResponse<RegistrationResponse>> {
+        val resultRegister = MutableLiveData<ApiResponse<RegistrationResponse>>()
         apiHelper.registrationRequest(request,
             object : RegistrationRequestCallback {
-                override fun onRegistrationRequestResponse(registerResponse: RegisterResponse) {
+                override fun onRegistrationRequestResponse(registerResponse: RegistrationResponse) {
                     resultRegister.value = ApiResponse.success(registerResponse)
                 }
             })
@@ -113,7 +119,7 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     }
 
     interface RegistrationRequestCallback {
-        fun onRegistrationRequestResponse(registerResponse: RegisterResponse)
+        fun onRegistrationRequestResponse(registerResponse: RegistrationResponse)
     }
 
     interface PostClaimRequestCallback {

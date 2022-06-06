@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.inyongtisto.myhelper.extension.toastInfo
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
@@ -23,6 +22,8 @@ import com.truesightid.ui.add_claim.AddClaimActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
 import com.truesightid.utils.Status
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastSuccess
 
 class ExploreNewsFragment : Fragment() {
 
@@ -76,7 +77,7 @@ class ExploreNewsFragment : Fragment() {
 
                 binding.refreshLayout.setOnRefreshListener {
                     viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                    Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
+                    toastSuccess("Refreshed")
                     binding.refreshLayout.isRefreshing = false
                 }
 
@@ -102,9 +103,7 @@ class ExploreNewsFragment : Fragment() {
                 if (query != null) {
                     val request = ClaimRequest(Prefs.getUser()?.apiKey as String, query)
                     viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
-                    toastInfo("Submit $request")
-                } else {
-                    toastInfo("You can find claims via Search Bar")
+                    toastInfo("Result of ${request.keyword}")
                 }
                 return false
             }
@@ -125,11 +124,11 @@ class ExploreNewsFragment : Fragment() {
                     showLoading(false)
                     exploreAdapter.submitList(claims.data)
                     exploreAdapter.notifyDataSetChanged()
-                    Toast.makeText(context, "Claims populated", Toast.LENGTH_SHORT).show()
                 }
                 Status.ERROR -> {
                     showLoading(false)
-                    Toast.makeText(context, "Error: Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Error: Somethings went wrong", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

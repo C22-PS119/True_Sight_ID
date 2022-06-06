@@ -8,8 +8,14 @@ import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.RemoteDataSource
-import com.truesightid.data.source.remote.request.*
-import com.truesightid.data.source.remote.response.*
+import com.truesightid.data.source.remote.request.ClaimRequest
+import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.request.PostClaimRequest
+import com.truesightid.data.source.remote.request.RegistrationRequest
+import com.truesightid.data.source.remote.response.ClaimsResponse
+import com.truesightid.data.source.remote.response.LoginResponse
+import com.truesightid.data.source.remote.response.PostClaimResponse
+import com.truesightid.data.source.remote.response.RegistrationResponse
 import com.truesightid.utils.AppExecutors
 import com.truesightid.utils.Resource
 
@@ -34,12 +40,12 @@ class TrueSightRepository(
             }
     }
 
-    override fun upVoteClaimById(api_key:String,id: Int) =
-        remoteDataSource.upVoteRequestById(api_key,id)
+    override fun upVoteClaimById(api_key: String, id: Int) =
+        remoteDataSource.upVoteRequestById(api_key, id)
 
 
-    override fun downVoteClaimById(api_key:String,id: Int) =
-        remoteDataSource.downVoteRequestById(api_key,id)
+    override fun downVoteClaimById(api_key: String, id: Int) =
+        remoteDataSource.downVoteRequestById(api_key, id)
 
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
@@ -59,6 +65,9 @@ class TrueSightRepository(
 
     override fun deleteLocalClaims() = localDataSource.deleteLocalClaims()
 
+    override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =
+        remoteDataSource.registrationRequest(registrationRequest)
+
 
     override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {
@@ -68,7 +77,10 @@ class TrueSightRepository(
                     .setInitialLoadSizeHint(1)
                     .setPageSize(1)
                     .build()
-                return LivePagedListBuilder(localDataSource.getClaims(request.keyword), config).build()
+                return LivePagedListBuilder(
+                    localDataSource.getClaims(request.keyword),
+                    config
+                ).build()
             }
 
 

@@ -37,16 +37,15 @@ class ApiHelper(val context: Context) {
     ) {
         val client = ApiConfig.getApiService()
             .postRegistrationForm(
-                request.apiKey,
                 request.username,
                 fullname = request.username,
                 request.email,
                 request.password
             )
-        client.enqueue(object : Callback<RegisterResponse> {
+        client.enqueue(object : Callback<RegistrationResponse> {
             override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
+                call: Call<RegistrationResponse>,
+                response: Response<RegistrationResponse>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -56,7 +55,7 @@ class ApiHelper(val context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+            override fun onFailure(call: Call<RegistrationResponse>, t: Throwable) {
                 Toast.makeText(
                     context,
                     "onRegistrationRequestFailed: ${t.message}",
@@ -92,10 +91,12 @@ class ApiHelper(val context: Context) {
         })
     }
 
-    fun voteByClaimIdRequest(isUpVote: Boolean, api_key: String,id: Int) {
+    fun voteByClaimIdRequest(isUpVote: Boolean, api_key: String, id: Int) {
         val client: Call<VoteResponse> = if (isUpVote) {
-            ApiConfig.getApiService().upvoteByClaimID(api_key,
-                id)
+            ApiConfig.getApiService().upvoteByClaimID(
+                api_key,
+                id
+            )
         } else {
             ApiConfig.getApiService().downVoteByClaimID(api_key, id)
         }
@@ -130,14 +131,26 @@ class ApiHelper(val context: Context) {
         request: PostClaimRequest,
         callback: RemoteDataSource.PostClaimRequestCallback
     ) {
-        val client = ApiConfig.getApiService().postClaimMultiPart(
-            request.apiKey,
-            request.title,
-            request.description,
-            request.fake,
-            request.url,
-            request.attachment[0]
-        )
+        val client = if (request.attachment.isNotEmpty()) {
+            ApiConfig.getApiService().postClaimMultiPart(
+                request.apiKey,
+                request.title,
+                request.description,
+                request.fake,
+                request.url,
+                request.attachment[0]
+            )
+        } else {
+            ApiConfig.getApiService().postClaimMultiPart(
+                request.apiKey,
+                request.title,
+                request.description,
+                request.fake,
+                request.url,
+                null
+            )
+        }
+
         client.enqueue(object : Callback<PostClaimResponse> {
             override fun onResponse(
                 call: Call<PostClaimResponse>,
