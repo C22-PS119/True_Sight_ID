@@ -2,8 +2,11 @@ package com.truesightid.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
+import com.google.gson.internal.LinkedTreeMap
 import com.inyongtisto.myhelper.extension.*
 import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.StatusResponse
@@ -15,6 +18,7 @@ import com.truesightid.ui.activity.SignupActivity
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator
+import com.truesightid.data.source.remote.response.Data
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
-
 
 
         binding.btnLogin.setOnClickListener {
@@ -63,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     Prefs.isLogin = true
 
                     val response = user.body
-                    val responseData = response.data
+                    val responseData = Gson().fromJson<Data>((response.data as LinkedTreeMap<*,*>).toJson())
                     val userData = responseData?.user
                     if (userData != null) {
                         Prefs.setUser(
@@ -80,9 +83,11 @@ class LoginActivity : AppCompatActivity() {
                     pushActivity(MainActivity::class.java)
                 }
                 StatusResponse.ERROR -> {
+                    dismisLoading()
                     toastError(user.message ?: "Error")
                 }
                 StatusResponse.EMPTY -> {
+                    dismisLoading()
                     toastInfo("Empty Response")
                 }
             }

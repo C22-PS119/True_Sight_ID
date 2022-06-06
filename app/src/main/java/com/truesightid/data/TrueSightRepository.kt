@@ -38,12 +38,12 @@ class TrueSightRepository(
             }
     }
 
-    override fun upVoteClaimById(id: Int) =
-        remoteDataSource.upVoteRequestById(id)
+    override fun upVoteClaimById(api_key:String,id: Int) =
+        remoteDataSource.upVoteRequestById(api_key,id)
 
 
-    override fun downVoteClaimById(id: Int) =
-        remoteDataSource.downVoteRequestById(id)
+    override fun downVoteClaimById(api_key:String,id: Int) =
+        remoteDataSource.downVoteRequestById(api_key,id)
 
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =

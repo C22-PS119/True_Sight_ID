@@ -8,7 +8,7 @@ data class LoginResponse(
 	val total: Int? = null,
 
 	@field:SerializedName("data")
-	val data: Data? = null,
+	val data: Any? = null,
 
 	@field:SerializedName("dataname")
 	val dataname: String? = null,

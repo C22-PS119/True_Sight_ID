@@ -34,7 +34,6 @@ class ExploreNewsFragment : Fragment() {
 
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
-
     private lateinit var requestAllClaims: ClaimRequest
 
     override fun onCreateView(
@@ -60,11 +59,11 @@ class ExploreNewsFragment : Fragment() {
 
                 exploreAdapter = ExploreAdapter(object : ExploreAdapter.ItemClaimClickListener {
                     override fun onClaimUpvote(claim_id: Int) {
-                        viewModel.upvoteClaimById(claim_id)
+                        viewModel.upvoteClaimById(Prefs.getUser()?.apiKey as String, claim_id)
                     }
 
                     override fun onClaimDownvote(claim_id: Int) {
-                        viewModel.downvoteClaimById(claim_id)
+                        viewModel.downvoteClaimById(Prefs.getUser()?.apiKey as String, claim_id)
                     }
 
                 }, Prefs)

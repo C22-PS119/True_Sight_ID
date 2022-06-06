@@ -26,7 +26,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultLogin = MutableLiveData<ApiResponse<LoginResponse>>()
         apiHelper.loginRequest(request, object : LoginRequestCallback {
             override fun onLoginRequestResponse(loginResponse: LoginResponse) {
-                resultLogin.value = ApiResponse.success(loginResponse)
+                if (loginResponse.status == "success")
+                    resultLogin.value = ApiResponse.success(loginResponse)
+                else
+                    resultLogin.value = ApiResponse.error(loginResponse.message ?: "Failed to GET message", LoginResponse())
             }
         })
         return resultLogin
@@ -66,12 +69,12 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultPost
     }
 
-    fun upVoteRequestById(id: Int) {
-        apiHelper.voteByClaimIdRequest(true, id)
+    fun upVoteRequestById(api_key:String, id: Int) {
+        apiHelper.voteByClaimIdRequest(true, api_key, id)
     }
 
-    fun downVoteRequestById(id: Int) {
-        apiHelper.voteByClaimIdRequest(false, id)
+    fun downVoteRequestById(api_key:String, id: Int) {
+        apiHelper.voteByClaimIdRequest(false,api_key, id)
     }
 
     interface ClaimsRequestCallback {

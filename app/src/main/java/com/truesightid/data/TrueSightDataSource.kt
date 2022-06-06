@@ -14,9 +14,9 @@ import com.truesightid.utils.Resource
 interface TrueSightDataSource {
     fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>>
 
-    fun upVoteClaimById(id: Int)
+    fun upVoteClaimById(api_key:String, id: Int)
 
-    fun downVoteClaimById(id: Int)
+    fun downVoteClaimById(api_key:String, id: Int)
 
     fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>>
 

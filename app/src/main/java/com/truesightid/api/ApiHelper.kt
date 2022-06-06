@@ -94,11 +94,12 @@ class ApiHelper(val context: Context) {
         })
     }
 
-    fun voteByClaimIdRequest(isUpVote: Boolean, id: Int) {
+    fun voteByClaimIdRequest(isUpVote: Boolean, api_key: String,id: Int) {
         val client: Call<VoteResponse> = if (isUpVote) {
-            ApiConfig.getApiService().upvoteByClaimID(id)
+            ApiConfig.getApiService().upvoteByClaimID(api_key,
+                id)
         } else {
-            ApiConfig.getApiService().downVoteByClaimID(id)
+            ApiConfig.getApiService().downVoteByClaimID(api_key, id)
         }
         client.enqueue(object : Callback<VoteResponse> {
             override fun onResponse(
