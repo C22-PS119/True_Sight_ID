@@ -24,4 +24,7 @@ interface TrueSightDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllClaims(claimEntity: List<ClaimEntity>)
+
+    @Query("DELETE FROM claim")
+    fun deleteAllLocalClaims()
 }

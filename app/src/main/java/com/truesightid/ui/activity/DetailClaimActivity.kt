@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ActivityClaimDetailBinding
+import com.truesightid.utils.DateUtils
 
 
 class DetailClaimActivity : AppCompatActivity() {
@@ -52,7 +53,7 @@ class DetailClaimActivity : AppCompatActivity() {
                 .into(ivImageDetail)
 
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
-            tvDateDetail.text = items.date.toString()
+            tvDateDetail.text = DateUtils.getDateTime(items.date.toLong())
 
             if (items.fake == 1) {
                 tvClaim.text = getString(R.string.fake_status)

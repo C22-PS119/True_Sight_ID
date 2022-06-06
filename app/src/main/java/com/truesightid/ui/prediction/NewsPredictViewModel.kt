@@ -23,9 +23,9 @@ class NewsPredictViewModel() : ViewModel() {
         const val TAG = "NewsPredictionViewModel"
     }
 
-    fun getNewsPrediction(predict: String) {
+    fun getNewsPrediction(apiKey: String, predict: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getNewsPrediction(predict)
+        val client = ApiConfig.getApiService().getNewsPrediction(apiKey, predict)
         client.enqueue(object : Callback<NewsPredictionResponse> {
             override fun onResponse(
                 call: Call<NewsPredictionResponse>,

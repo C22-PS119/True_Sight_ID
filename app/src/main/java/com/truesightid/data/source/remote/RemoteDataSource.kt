@@ -3,9 +3,13 @@ package com.truesightid.data.source.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
+import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.request.PostClaimRequest
+import com.truesightid.data.source.remote.request.RegistrationRequest
 import com.truesightid.data.source.remote.response.ClaimsResponse
 import com.truesightid.data.source.remote.response.LoginResponse
+import com.truesightid.data.source.remote.response.PostClaimResponse
 import com.truesightid.data.source.remote.response.RegisterResponse
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
@@ -28,23 +32,11 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultLogin
     }
 
-//    fun loginRequest(request: LoginRequest, callback: TrueSightRepository.loginAsyncCallback) {
-//        apiHelper.loginRequest(request, object : LoginRequestCallback {
-//            override fun onLoginRequestResponse(loginResponse: LoginResponse) {
-//                callback.onLoginAsyncResponse(ApiResponse.success(loginResponse))
-//            }
-//        })
-//    }
-
-//    fun loginRequest(request: LoginRequest) = ApiConfig.getApiService().postLoginForm(request.email, request.password)
-
     fun registrationRequest(
-        username: String,
-        email: String,
-        password: String
+        request: RegistrationRequest
     ): LiveData<ApiResponse<RegisterResponse>> {
         val resultRegister = MutableLiveData<ApiResponse<RegisterResponse>>()
-        apiHelper.registrationRequest(username, email, password,
+        apiHelper.registrationRequest(request,
             object : RegistrationRequestCallback {
                 override fun onRegistrationRequestResponse(registerResponse: RegisterResponse) {
                     resultRegister.value = ApiResponse.success(registerResponse)
@@ -53,14 +45,25 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultRegister
     }
 
-    fun getAllClaims(): LiveData<ApiResponse<ClaimsResponse>> {
+    fun getAllClaims(request: ClaimRequest): LiveData<ApiResponse<ClaimsResponse>> {
         val resultClaims = MutableLiveData<ApiResponse<ClaimsResponse>>()
-        apiHelper.getClaimsRequest(object : ClaimsRequestCallback {
+        apiHelper.getClaimsRequest(request, object : ClaimsRequestCallback {
             override fun onClaimsRequestResponse(claimsResponse: ClaimsResponse) {
                 resultClaims.value = ApiResponse.success(claimsResponse)
             }
         })
         return resultClaims
+    }
+
+    fun postClaimRequest(request: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>> {
+        val resultPost = MutableLiveData<ApiResponse<PostClaimResponse>>()
+        apiHelper.postResponse(request, object : PostClaimRequestCallback {
+            override fun onPostClaimRequestResponse(postClaimResponse: PostClaimResponse) {
+                resultPost.value = ApiResponse.success(postClaimResponse)
+            }
+
+        })
+        return resultPost
     }
 
     fun upVoteRequestById(id: Int) {
@@ -81,5 +84,9 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface RegistrationRequestCallback {
         fun onRegistrationRequestResponse(registerResponse: RegisterResponse)
+    }
+
+    interface PostClaimRequestCallback {
+        fun onPostClaimRequestResponse(postClaimResponse: PostClaimResponse)
     }
 }

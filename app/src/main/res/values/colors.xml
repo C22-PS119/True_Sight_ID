@@ -21,4 +21,5 @@
     <color name="bottom_navbar_colorblack">#263238</color>
     <color name="green_fact">#23E765</color>
     <color name="red_fake">#E90000</color>
+    <color name="gray_light">#718792</color>
 </resources>

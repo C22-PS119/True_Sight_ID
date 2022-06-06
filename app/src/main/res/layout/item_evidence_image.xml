@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_claimer"
+            android:id="@+id/iv_evidence"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:scaleType="centerCrop"
