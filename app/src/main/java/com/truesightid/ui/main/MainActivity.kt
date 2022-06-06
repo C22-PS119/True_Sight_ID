@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("TAG", "sudah login")
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
-            Log.d("TAG", "belum login, pindah ke maenu login")
+            Log.d("TAG", "belum login, pindah ke menu login")
         }
     }
 

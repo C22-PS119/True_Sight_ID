@@ -116,10 +116,6 @@ class ExploreNewsFragment : Fragment() {
         })
     }
 
-    fun doNothing() {
-
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private val claimObserver = Observer<Resource<PagedList<ClaimEntity>>> { claims ->
         if (claims != null) {
@@ -129,7 +125,7 @@ class ExploreNewsFragment : Fragment() {
                     showLoading(false)
                     exploreAdapter.submitList(claims.data)
                     exploreAdapter.notifyDataSetChanged()
-                    Toast.makeText(context, "Claim populated", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Claims populated", Toast.LENGTH_SHORT).show()
                 }
                 Status.ERROR -> {
                     showLoading(false)
