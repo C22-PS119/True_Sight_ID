@@ -10,6 +10,7 @@ import com.truesightid.ui.login.LoginViewModel
 import com.truesightid.ui.main.MainViewModel
 import com.truesightid.ui.prediction.NewsPredictViewModel
 import com.truesightid.ui.profile.ProfileViewModel
+import com.truesightid.ui.signup.SignupViewModel
 import com.truesightid.utils.Injection
 
 class ViewModelFactory private constructor(
@@ -49,6 +50,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(AddClaimViewModel::class.java) -> {
                 AddClaimViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
+                SignupViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

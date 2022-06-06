@@ -16,12 +16,11 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/registration/")
     fun postRegistrationForm(
-        @Header("x-api-key") apiKey: String,
         @Field("username") username: String,
         @Field("full_name") fullname: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<RegisterResponse>
+    ): Call<RegistrationResponse>
 
 
     @FormUrlEncoded
@@ -67,6 +66,6 @@ interface ApiService {
         @Part("description") description: String,
         @Part("fake") fake: Int,
         @Part("url") url: String,
-        @Part attachment: MultipartBody.Part,
+        @Part attachment: MultipartBody.Part?,
     ): Call<PostClaimResponse>
 }

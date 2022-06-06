@@ -2,23 +2,22 @@ package com.truesightid.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
-import com.inyongtisto.myhelper.extension.*
 import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.LoginRequest
+import com.truesightid.data.source.remote.response.Data
 import com.truesightid.databinding.ActivityLoginBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.activity.ForgotPasswordActivity
-import com.truesightid.ui.activity.SignupActivity
 import com.truesightid.ui.main.MainActivity
+import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator
-import com.truesightid.data.source.remote.response.Data
+import com.truesightid.utils.extension.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -67,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
 
                     val response = user.body
                     val responseData = Gson().fromJson<Data>((response.data as LinkedTreeMap<*,*>).toJson())
-                    val userData = responseData?.user
+                    val userData = responseData.user
                     if (userData != null) {
                         Prefs.setUser(
                             UserEntity(

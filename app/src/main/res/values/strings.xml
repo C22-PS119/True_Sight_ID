@@ -60,4 +60,6 @@
     <string name="preview_images">Preview Images</string>
     <string name="prediction_result">Prediction Result: </string>
     <string name="_100k">100K</string>
+    <string name="dialog_ok">OK</string>
+    <string name="oopss">Oops</string>
 </resources>

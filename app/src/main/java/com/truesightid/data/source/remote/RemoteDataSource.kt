@@ -10,7 +10,7 @@ import com.truesightid.data.source.remote.request.RegistrationRequest
 import com.truesightid.data.source.remote.response.ClaimsResponse
 import com.truesightid.data.source.remote.response.LoginResponse
 import com.truesightid.data.source.remote.response.PostClaimResponse
-import com.truesightid.data.source.remote.response.RegisterResponse
+import com.truesightid.data.source.remote.response.RegistrationResponse
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     companion object {
@@ -37,11 +37,11 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     fun registrationRequest(
         request: RegistrationRequest
-    ): LiveData<ApiResponse<RegisterResponse>> {
-        val resultRegister = MutableLiveData<ApiResponse<RegisterResponse>>()
+    ): LiveData<ApiResponse<RegistrationResponse>> {
+        val resultRegister = MutableLiveData<ApiResponse<RegistrationResponse>>()
         apiHelper.registrationRequest(request,
             object : RegistrationRequestCallback {
-                override fun onRegistrationRequestResponse(registerResponse: RegisterResponse) {
+                override fun onRegistrationRequestResponse(registerResponse: RegistrationResponse) {
                     resultRegister.value = ApiResponse.success(registerResponse)
                 }
             })
@@ -86,7 +86,7 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     }
 
     interface RegistrationRequestCallback {
-        fun onRegistrationRequestResponse(registerResponse: RegisterResponse)
+        fun onRegistrationRequestResponse(registerResponse: RegistrationResponse)
     }
 
     interface PostClaimRequestCallback {
