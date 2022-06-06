@@ -1,7 +1,9 @@
 package com.truesightid.api
 
+import com.truesightid.data.source.remote.request.EditProfileRequest
 import com.truesightid.data.source.remote.response.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -58,6 +60,13 @@ interface ApiService {
         @Field("id") id: Int
     ): Call<VoteResponse>
 
+    @FormUrlEncoded
+    @POST("api/get/profile/")
+    fun getProfileByID(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<UserResponse>
+
     @Multipart
     @POST("api/create/claim/")
     fun postClaimMultiPart(
@@ -68,4 +77,21 @@ interface ApiService {
         @Part("url") url: String,
         @Part attachment: MultipartBody.Part?,
     ): Call<PostClaimResponse>
+
+    @Multipart
+    @POST("api/set/profile/")
+    fun setProfileWithAvatar(
+        @Header("x-api-key") apiKey: String,
+        @Part("full_name") full_name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part avatar: MultipartBody.Part?,
+    ): Call<PostProfileResponse>
+
+    @Multipart
+    @POST("api/set/profile/")
+    fun setProfile(
+        @Header("x-api-key") apiKey: String,
+        @Part("full_name") full_name: RequestBody,
+        @Part("email") email: RequestBody,
+    ): Call<PostProfileResponse>
 }

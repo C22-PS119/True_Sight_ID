@@ -1,5 +1,6 @@
 package com.truesightid.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
@@ -69,6 +70,38 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultPost
     }
 
+    fun postProfileWithAvatarRequest(request: EditProfileWithAvatarRequest): LiveData<ApiResponse<PostProfileResponse>> {
+        val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
+        apiHelper.postProfileWithAvatarResponse(request, object : PostProfileRequestCallback {
+            override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
+                resultPost.value = ApiResponse.success(postProfileResponse)
+            }
+
+        })
+        return resultPost
+    }
+
+    fun postProfileRequest(request: EditProfileRequest): LiveData<ApiResponse<PostProfileResponse>> {
+        val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
+        apiHelper.postProfileResponse(request, object : PostProfileRequestCallback {
+            override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
+                resultPost.value = ApiResponse.success(postProfileResponse)
+            }
+
+        })
+        return resultPost
+    }
+
+    fun getUserProfileRequest(request: GetProfileRequest): LiveData<ApiResponse<UserResponse>> {
+        val resultPost = MutableLiveData<ApiResponse<UserResponse>>()
+        apiHelper.getUserProfileResponse(request, object : GetProfileRequestCallback {
+            override fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse) {
+                resultPost.value = ApiResponse.success(userProfileResponse)
+            }
+
+        })
+        return resultPost
+    }
     fun upVoteRequestById(api_key:String, id: Int) {
         apiHelper.voteByClaimIdRequest(true, api_key, id)
     }
@@ -91,5 +124,13 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface PostClaimRequestCallback {
         fun onPostClaimRequestResponse(postClaimResponse: PostClaimResponse)
+    }
+
+    interface PostProfileRequestCallback {
+        fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse)
+    }
+
+    interface GetProfileRequestCallback {
+        fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse)
     }
 }

@@ -62,4 +62,7 @@
     <string name="_100k">100K</string>
     <string name="dialog_ok">OK</string>
     <string name="oopss">Oops</string>
+    <string name="my_claims">My Claims</string>
+    <string name="go_to_my_claims">Go to my claims</string>
+    <string name="icon_my_claim">icon my claim</string>
 </resources>

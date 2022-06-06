@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
-    tools:context=".ui.activity.EditProfileActivity">
+    tools:context=".ui.editprofile.EditProfileActivity">
 
     <TextView
         android:id="@+id/textView8"
@@ -46,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ImageButton
+        android:id="@+id/btn_choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -75,6 +76,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_profile">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
@@ -101,6 +103,7 @@
         app:layout_constraintTop_toBottomOf="@id/name_form">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
@@ -112,7 +115,7 @@
 
 
     <Button
-        android:id="@+id/btn_edit_profile"
+        android:id="@+id/btn_save_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

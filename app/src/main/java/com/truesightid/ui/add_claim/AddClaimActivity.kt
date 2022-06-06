@@ -78,6 +78,15 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val url = binding.edtUrl.text.toString()
+        
+        if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords)){
+            Toast.makeText(this, "Your description contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
+            return
+        }else if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords)){
+            Toast.makeText(this, "Your title contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
+            return
+        }
+        
         val postClaim = PostClaimRequest(
             apiKey = Prefs.getUser()?.apiKey as String,
             title = title,

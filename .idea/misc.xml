@@ -43,6 +43,10 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1609375" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/drawable/dialog_bg.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/layout/view_loading.xml" value="0.25" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_prediction.xml" value="0.33" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_profile.xml" value="0.35" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/item_row_claims.xml" value="0.3810483870967742" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/bg_search.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/dialog_bg.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_search.xml" value="0.1655" />
@@ -60,10 +64,13 @@
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/item_row_claims.xml" value="0.2" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/prediction_dialog.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/view_loading.xml" value="0.18945699564011098" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_add_claim.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_edit_profile.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_profile.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

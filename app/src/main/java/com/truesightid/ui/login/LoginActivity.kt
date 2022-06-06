@@ -18,6 +18,9 @@ import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator
 import com.truesightid.utils.extension.*
+import com.truesightid.data.source.remote.response.Data
+import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
+import com.truesightid.ui.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -70,12 +73,14 @@ class LoginActivity : AppCompatActivity() {
                     if (userData != null) {
                         Prefs.setUser(
                             UserEntity(
-                                userData.id.toString(),
+                                userData.id ?: -1,
                                 responseData.apiKey.toString(),
                                 userData.username.toString(),
+                                userData.fullName.toString(),
+                                userData.avatar.toString(),
                                 userData.email.toString(),
                                 userData.password.toString(),
-                                VotesSeparator.separate(userData.votes.toString())
+                                VotesSeparator.separate(userData.votes)
                             )
                         )
                     }

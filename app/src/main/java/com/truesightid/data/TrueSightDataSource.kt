@@ -24,6 +24,12 @@ interface TrueSightDataSource {
 
     fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>>
 
+    fun postProfileWithAvatar(editProfileWithAvatarRequest: EditProfileWithAvatarRequest): LiveData<ApiResponse<PostProfileResponse>>
+
+    fun postProfile(editProfileRequest: EditProfileRequest): LiveData<ApiResponse<PostProfileResponse>>
+
+    fun getUserProfile(editProfileRequest: GetProfileRequest): LiveData<ApiResponse<UserResponse>>
+
     fun deleteLocalClaims()
 
     fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>>

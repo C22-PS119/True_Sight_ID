@@ -13,6 +13,10 @@ import com.truesightid.databinding.ActivitySignupBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.login.LoginActivity
 import com.truesightid.utils.extension.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.truesightid.databinding.ActivitySignupBinding
+import com.truesightid.ui.login.LoginActivity
 
 class SignupActivity : AppCompatActivity() {
 
@@ -25,6 +29,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
         val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[SignupViewModel::class.java]
+      
         binding.ibBackLogin.setOnClickListener {
             val intent = Intent(this@SignupActivity, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -32,6 +37,7 @@ class SignupActivity : AppCompatActivity() {
         }
 
         binding.btnSignup.setOnClickListener {
+
             request = RegistrationRequest(
                 binding.edtUsername.editText?.text.toString(),
                 binding.edtUsername.editText?.text.toString(),
@@ -48,7 +54,6 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     private val signupObserver = Observer<ApiResponse<RegistrationResponse>> { register ->
         showLoading()
         run {

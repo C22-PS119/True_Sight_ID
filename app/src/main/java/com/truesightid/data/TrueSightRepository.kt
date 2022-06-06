@@ -54,6 +54,15 @@ class TrueSightRepository(
     override fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>> =
         remoteDataSource.postClaimRequest(postClaimRequest)
 
+    override fun postProfileWithAvatar(editProfileWithAvatarRequest: EditProfileWithAvatarRequest): LiveData<ApiResponse<PostProfileResponse>> =
+        remoteDataSource.postProfileWithAvatarRequest(editProfileWithAvatarRequest)
+
+    override fun postProfile(editProfileRequest: EditProfileRequest): LiveData<ApiResponse<PostProfileResponse>> =
+        remoteDataSource.postProfileRequest(editProfileRequest)
+
+    override fun getUserProfile(getProfileRequest: GetProfileRequest): LiveData<ApiResponse<UserResponse>> =
+        remoteDataSource.getUserProfileRequest(getProfileRequest)
+
     override fun deleteLocalClaims() = localDataSource.deleteLocalClaims()
 
     override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =

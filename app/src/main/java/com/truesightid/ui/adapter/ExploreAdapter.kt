@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ItemRowClaimsBinding
-import com.truesightid.ui.activity.DetailClaimActivity
+import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 
@@ -164,6 +164,15 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     binding.tvVoteCount.tag = votes.getValue(items.id)
                 }else{
                     binding.tvVoteCount.tag = 0
+                }
+                binding.ibShare.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "Let's join us to discuss the claims from ${items.claimer} regarding ${items.title} in the True Sight ID application."
+                    )
+                    intent.type = "text/plain"
+                    itemView.context.startActivity(Intent.createChooser(intent, "Send to"))
                 }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailClaimActivity::class.java)
