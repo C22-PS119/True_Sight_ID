@@ -60,10 +60,10 @@ class TrueSightRepository(
             override fun loadFromDB(): LiveData<PagedList<ClaimEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
+                    .setInitialLoadSizeHint(1)
+                    .setPageSize(1)
                     .build()
-                return LivePagedListBuilder(localDataSource.getAllClaims(), config).build()
+                return LivePagedListBuilder(localDataSource.getClaims(request.keyword), config).build()
             }
 
 
