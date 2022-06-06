@@ -1,4 +1,4 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.detailclaim
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

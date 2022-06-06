@@ -1,4 +1,4 @@
-package com.truesightid.ui.activity
+package com.truesightid.ui.editprofile
 
 import android.content.Intent
 import android.os.Bundle
