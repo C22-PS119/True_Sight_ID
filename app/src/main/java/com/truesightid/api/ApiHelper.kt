@@ -69,7 +69,7 @@ class ApiHelper(val context: Context) {
     }
 
     fun getClaimsRequest(request: ClaimRequest, callback: RemoteDataSource.ClaimsRequestCallback) {
-        val client = ApiConfig.getApiService().getAllClaims(request.apiKey, "")
+        val client = ApiConfig.getApiService().getAllClaims(request.apiKey, request.keyword)
         client.enqueue(object : Callback<ClaimsResponse> {
             override fun onResponse(
                 call: Call<ClaimsResponse>,

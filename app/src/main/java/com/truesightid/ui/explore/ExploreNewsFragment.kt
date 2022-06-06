@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.inyongtisto.myhelper.extension.toastInfo
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
@@ -33,7 +35,7 @@ class ExploreNewsFragment : Fragment() {
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
 
-    private val request = ClaimRequest(Prefs.getUser()?.apiKey as String)
+    private val requestAllClaims = ClaimRequest(Prefs.getUser()?.apiKey as String, "")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,12 +75,12 @@ class ExploreNewsFragment : Fragment() {
             }
 
             binding.refreshLayout.setOnRefreshListener {
-                viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
+                viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
                 Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
                 binding.refreshLayout.isRefreshing = false
             }
 
-            viewModel.getClaims(request)
+            viewModel.getClaims(requestAllClaims)
                 .observe(viewLifecycleOwner, claimObserver)
         }
 
@@ -86,6 +88,28 @@ class ExploreNewsFragment : Fragment() {
             val intent = Intent(activity, AddClaimActivity::class.java)
             startActivity(intent)
         }
+
+        initSearch()
+    }
+
+    private fun initSearch() {
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    val request = ClaimRequest(Prefs.getUser()?.apiKey as String, query)
+                    viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
+                    toastInfo("Submit $request")
+                } else {
+                    toastInfo("You can find claims via Search Bar")
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")

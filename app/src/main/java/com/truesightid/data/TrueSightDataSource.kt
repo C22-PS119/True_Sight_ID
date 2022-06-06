@@ -22,5 +22,7 @@ interface TrueSightDataSource {
 
     fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>>
 
+    fun deleteLocalClaims()
+
 //    fun getNewsPrediction(): LiveData<Resource<NewsPredictionEntity>>
 }

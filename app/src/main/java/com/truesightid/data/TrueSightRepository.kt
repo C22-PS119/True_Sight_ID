@@ -1,5 +1,6 @@
 package com.truesightid.data
 
+
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -50,6 +51,8 @@ class TrueSightRepository(
 
     override fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>> =
         remoteDataSource.postClaimRequest(postClaimRequest)
+
+    override fun deleteLocalClaims() = localDataSource.deleteLocalClaims()
 
 
     override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
