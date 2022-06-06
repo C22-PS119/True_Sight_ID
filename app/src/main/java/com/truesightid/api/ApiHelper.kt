@@ -2,11 +2,9 @@ package com.truesightid.api
 
 import android.content.Context
 import android.widget.Toast
+import com.inyongtisto.myhelper.extension.toRequestBody
 import com.truesightid.data.source.remote.RemoteDataSource
-import com.truesightid.data.source.remote.request.ClaimRequest
-import com.truesightid.data.source.remote.request.LoginRequest
-import com.truesightid.data.source.remote.request.PostClaimRequest
-import com.truesightid.data.source.remote.request.RegistrationRequest
+import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -157,6 +155,102 @@ class ApiHelper(val context: Context) {
                 Toast.makeText(
                     context,
                     "onPostClaimFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    fun postProfileWithAvatarResponse(
+        request: EditProfileWithAvatarRequest,
+        callback: RemoteDataSource.PostProfileRequestCallback
+    ) {
+        val client = ApiConfig.getApiService().setProfileWithAvatar(
+            request.apiKey,
+            request.full_name,
+            request.email,
+            request.avatar
+        )
+        client.enqueue(object : Callback<PostProfileResponse> {
+            override fun onResponse(
+                call: Call<PostProfileResponse>,
+                response: Response<PostProfileResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onPostProfileRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PostProfileResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onSetUserFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    fun postProfileResponse(
+        request: EditProfileRequest,
+        callback: RemoteDataSource.PostProfileRequestCallback
+    ) {
+        val client = ApiConfig.getApiService().setProfile(
+            request.apiKey,
+            request.full_name,
+            request.email
+        )
+        client.enqueue(object : Callback<PostProfileResponse> {
+            override fun onResponse(
+                call: Call<PostProfileResponse>,
+                response: Response<PostProfileResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onPostProfileRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PostProfileResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onSetUserFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    fun getUserProfileResponse(
+        request: GetProfileRequest,
+        callback: RemoteDataSource.GetProfileRequestCallback
+    ) {
+        val client = ApiConfig.getApiService().getProfileByID(
+            request.apiKey,
+            request.id,
+        )
+        client.enqueue(object : Callback<UserResponse> {
+            override fun onResponse(
+                call: Call<UserResponse>,
+                response: Response<UserResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onGetUserProfileRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onGetUserFailed: ${t.message}",
                     Toast.LENGTH_SHORT
                 ).show()
             }

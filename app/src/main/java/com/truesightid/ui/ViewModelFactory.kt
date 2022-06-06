@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.truesightid.data.TrueSightRepository
+import com.truesightid.data.source.remote.request.GetProfileRequest
 import com.truesightid.ui.add_claim.AddClaimViewModel
+import com.truesightid.ui.editprofile.SetProfileViewModel
 import com.truesightid.ui.explore.ExploreNewsViewModel
 import com.truesightid.ui.login.LoginViewModel
 import com.truesightid.ui.main.MainViewModel
@@ -49,6 +51,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(AddClaimViewModel::class.java) -> {
                 AddClaimViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(SetProfileViewModel::class.java) -> {
+                SetProfileViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
