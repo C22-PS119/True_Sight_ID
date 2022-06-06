@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                                 userData.username.toString(),
                                 userData.email.toString(),
                                 userData.password.toString(),
-                                VotesSeparator.separate(userData.votes.toString())
+                                if (userData.votes == null) HashMap<Int, Int>() else VotesSeparator.separate(userData.votes)
                             )
                         )
                     }
