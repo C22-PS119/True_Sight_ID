@@ -13,8 +13,8 @@ import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.LoginRequest
 import com.truesightid.databinding.ActivityLoginBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.activity.ForgotPasswordActivity
-import com.truesightid.ui.activity.SignupActivity
+import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
+import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator

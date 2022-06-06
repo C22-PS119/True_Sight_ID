@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.truesightid.databinding.FragmentProfileBinding
-import com.truesightid.ui.activity.EditProfileActivity
+import com.truesightid.ui.editprofile.EditProfileActivity
 import com.truesightid.ui.login.LoginActivity
 
 class ProfileFragment : Fragment() {
