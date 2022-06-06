@@ -8,14 +8,8 @@ import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.RemoteDataSource
-import com.truesightid.data.source.remote.request.ClaimRequest
-import com.truesightid.data.source.remote.request.LoginRequest
-import com.truesightid.data.source.remote.request.PostClaimRequest
-import com.truesightid.data.source.remote.request.RegistrationRequest
-import com.truesightid.data.source.remote.response.ClaimsResponse
-import com.truesightid.data.source.remote.response.LoginResponse
-import com.truesightid.data.source.remote.response.PostClaimResponse
-import com.truesightid.data.source.remote.response.RegistrationResponse
+import com.truesightid.data.source.remote.request.*
+import com.truesightid.data.source.remote.response.*
 import com.truesightid.utils.AppExecutors
 import com.truesightid.utils.Resource
 

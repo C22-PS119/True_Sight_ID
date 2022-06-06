@@ -12,15 +12,12 @@ import com.truesightid.data.source.remote.request.LoginRequest
 import com.truesightid.data.source.remote.response.Data
 import com.truesightid.databinding.ActivityLoginBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.activity.ForgotPasswordActivity
+import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator
 import com.truesightid.utils.extension.*
-import com.truesightid.data.source.remote.response.Data
-import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
-import com.truesightid.ui.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
 

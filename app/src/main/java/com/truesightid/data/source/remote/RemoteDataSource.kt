@@ -1,17 +1,10 @@
 package com.truesightid.data.source.remote
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
-import com.truesightid.data.source.remote.request.ClaimRequest
-import com.truesightid.data.source.remote.request.LoginRequest
-import com.truesightid.data.source.remote.request.PostClaimRequest
-import com.truesightid.data.source.remote.request.RegistrationRequest
-import com.truesightid.data.source.remote.response.ClaimsResponse
-import com.truesightid.data.source.remote.response.LoginResponse
-import com.truesightid.data.source.remote.response.PostClaimResponse
-import com.truesightid.data.source.remote.response.RegistrationResponse
+import com.truesightid.data.source.remote.request.*
+import com.truesightid.data.source.remote.response.*
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     companion object {

@@ -1,37 +1,32 @@
 package com.truesightid.ui.editprofile
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.gson.Gson
-import com.google.gson.internal.LinkedTreeMap
-import com.inyongtisto.myhelper.extension.*
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.EditProfileRequest
 import com.truesightid.data.source.remote.request.EditProfileWithAvatarRequest
 import com.truesightid.data.source.remote.request.GetProfileRequest
-import com.truesightid.data.source.remote.request.PostClaimRequest
-import com.truesightid.data.source.remote.response.Data
-import com.truesightid.data.source.remote.response.UserResponse
 import com.truesightid.databinding.ActivityEditProfileBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.add_claim.AddClaimViewModel
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.VotesSeparator
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -52,7 +47,7 @@ class EditProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (Prefs.user != null){
+        if (Prefs.user != null) {
             binding.tvName.setText(Prefs.getUser()?.fullname)
             binding.tvEmail.setText(Prefs.getUser()?.email)
             Glide.with(binding.root.context)
@@ -81,8 +76,8 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    fun ChangeProfile(viewModel : SetProfileViewModel){
-        if (avatar != null){
+    fun ChangeProfile(viewModel: SetProfileViewModel) {
+        if (avatar != null) {
             val userProfile = EditProfileWithAvatarRequest(
                 apiKey = Prefs.getUser()?.apiKey as String,
                 full_name = binding.tvName.text.toString().toRequestBody(),
@@ -97,7 +92,7 @@ class EditProfileActivity : AppCompatActivity() {
                     StatusResponse.ERROR -> toastError("Error: ${response.body}")
                 }
             }
-        }else{
+        } else {
             val userProfile = EditProfileRequest(
                 apiKey = Prefs.getUser()?.apiKey as String,
                 full_name = binding.tvName.text.toString().toRequestBody(),
@@ -117,7 +112,7 @@ class EditProfileActivity : AppCompatActivity() {
             apiKey = Prefs.getUser()?.apiKey as String,
             id = Prefs.getUser()?.id ?: -1
         )
-        viewModel.getUserProfile(getUserProfile).observe(this){ response ->
+        viewModel.getUserProfile(getUserProfile).observe(this) { response ->
             when (response.status) {
                 StatusResponse.SUCCESS -> {
                     val userData = response.body.data
@@ -160,7 +155,7 @@ class EditProfileActivity : AppCompatActivity() {
                 file.getName(),
                 RequestBody.create("image/*".toMediaTypeOrNull(), file)
             )
-            avatar  = filePart
+            avatar = filePart
         }
     }
 }
