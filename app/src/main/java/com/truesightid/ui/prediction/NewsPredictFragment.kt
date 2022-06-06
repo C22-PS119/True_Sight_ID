@@ -20,7 +20,7 @@ class NewsPredictFragment : Fragment() {
     private var _binding: FragmentPredictionBinding? = null
     private val binding get() = _binding!!
 
-    private val apiKey = Prefs.getUser()?.apiKey as String
+    private lateinit var apiKey: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +36,20 @@ class NewsPredictFragment : Fragment() {
         val factory = ViewModelFactory.getInstance(
             requireContext()
         )
-        val viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
+        if (Prefs.isLogin) {
+            apiKey = Prefs.getUser()?.apiKey as String
+            val viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
-        observingViewModel(viewModel)
+            observingViewModel(viewModel)
 
-        binding.btnPredict.setOnClickListener {
-            val predict =
-                "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
-            Toast.makeText(requireContext(), "QWEQWE: $predict", Toast.LENGTH_LONG).show()
-            viewModel.getNewsPrediction(apiKey, predict)
+            binding.btnPredict.setOnClickListener {
+                val predict =
+                    "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
+                Toast.makeText(requireContext(), "QWEQWE: $predict", Toast.LENGTH_LONG).show()
+                viewModel.getNewsPrediction(apiKey, predict)
+            }
         }
+
     }
 
     private fun observingViewModel(viewModel: NewsPredictViewModel) {

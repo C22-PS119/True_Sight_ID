@@ -35,7 +35,7 @@ class ExploreNewsFragment : Fragment() {
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
 
-    private val requestAllClaims = ClaimRequest(Prefs.getUser()?.apiKey as String, "")
+    private lateinit var requestAllClaims: ClaimRequest
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,45 +51,50 @@ class ExploreNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            if (Prefs.isLogin) {
+                requestAllClaims = ClaimRequest(Prefs.getUser()?.apiKey as String, "")
+                val factory = ViewModelFactory.getInstance(
+                    requireContext()
+                )
+                viewModel = ViewModelProvider(this, factory)[ExploreNewsViewModel::class.java]
 
-            val factory = ViewModelFactory.getInstance(
-                requireContext()
-            )
-            viewModel = ViewModelProvider(this, factory)[ExploreNewsViewModel::class.java]
+                exploreAdapter = ExploreAdapter(object : ExploreAdapter.ItemClaimClickListener {
+                    override fun onClaimUpvote(claim_id: Int) {
+                        viewModel.upvoteClaimById(claim_id)
+                    }
 
-            exploreAdapter = ExploreAdapter(object : ExploreAdapter.ItemClaimClickListener {
-                override fun onClaimUpvote(claim_id: Int) {
-                    viewModel.upvoteClaimById(claim_id)
+                    override fun onClaimDownvote(claim_id: Int) {
+                        viewModel.downvoteClaimById(claim_id)
+                    }
+
+                }, Prefs)
+
+                with(binding.rvClaimer) {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = exploreAdapter
+                    setHasFixedSize(true)
                 }
 
-                override fun onClaimDownvote(claim_id: Int) {
-                    viewModel.downvoteClaimById(claim_id)
+                binding.refreshLayout.setOnRefreshListener {
+                    viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
+                    Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
+                    binding.refreshLayout.isRefreshing = false
                 }
 
-            }, Prefs)
-
-            with(binding.rvClaimer) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = exploreAdapter
-                setHasFixedSize(true)
+                viewModel.getClaims(requestAllClaims)
+                    .observe(viewLifecycleOwner, claimObserver)
             }
 
-            binding.refreshLayout.setOnRefreshListener {
-                viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                Toast.makeText(context, "Refreshing", Toast.LENGTH_LONG).show()
-                binding.refreshLayout.isRefreshing = false
+            binding.fab.setOnClickListener {
+                val intent = Intent(activity, AddClaimActivity::class.java)
+                startActivity(intent)
             }
 
-            viewModel.getClaims(requestAllClaims)
-                .observe(viewLifecycleOwner, claimObserver)
+            initSearch()
+
         }
 
-        binding.fab.setOnClickListener {
-            val intent = Intent(activity, AddClaimActivity::class.java)
-            startActivity(intent)
-        }
 
-        initSearch()
     }
 
     private fun initSearch() {
@@ -110,6 +115,10 @@ class ExploreNewsFragment : Fragment() {
             }
 
         })
+    }
+
+    fun doNothing() {
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
