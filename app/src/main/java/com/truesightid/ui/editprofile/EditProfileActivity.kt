@@ -50,8 +50,13 @@ class EditProfileActivity : AppCompatActivity() {
         if (Prefs.user != null) {
             binding.tvName.setText(Prefs.getUser()?.fullname)
             binding.tvEmail.setText(Prefs.getUser()?.email)
+            Thread(Runnable {
+                Glide.get(binding.root.context).clearDiskCache()
+            }).start()
+            Glide.get(binding.root.context).clearMemory()
             Glide.with(binding.root.context)
                 .load(Prefs.getUser()?.avatar)
+                .timeout(5000)
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
