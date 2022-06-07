@@ -67,9 +67,6 @@ class EditProfileActivity : AppCompatActivity() {
 
         binding.btnSaveProfile.setOnClickListener {
             ChangeProfile(viewModel)
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
         }
 
         binding.btnChoose.setOnClickListener {
@@ -106,38 +103,41 @@ class EditProfileActivity : AppCompatActivity() {
 
             viewModel.setProfile(userProfile).observe(this) { response ->
                 when (response.status) {
-                    StatusResponse.SUCCESS -> toastInfo("Success: ${response.body}")
+                    StatusResponse.SUCCESS -> {
+                        val getUserProfile = GetProfileRequest(
+                            apiKey = Prefs.getUser()?.apiKey as String,
+                            id = Prefs.getUser()?.id ?: -1
+                        )
+                        viewModel.getUserProfile(getUserProfile).observe(this) { response ->
+                            when (response.status) {
+                                StatusResponse.SUCCESS -> {
+                                    val userData = response.body.data
+                                    if (userData != null) {
+                                        Prefs.setUser(
+                                            UserEntity(
+                                                userData.id ?: -1,
+                                                Prefs.getUser()?.apiKey as String,
+                                                userData.username.toString(),
+                                                userData.fullName.toString(),
+                                                userData.avatar.toString(),
+                                                userData.email.toString(),
+                                                userData.password.toString(),
+                                                VotesSeparator.separate(userData.votes)
+                                            )
+                                        )
+                                    }
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    startActivity(intent)
+                                }
+                                StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
+                                StatusResponse.ERROR -> toastError("Error: ${response.body}")
+                            }
+                        }
+                    }
                     StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
                     StatusResponse.ERROR -> toastError("Error: ${response.body}")
                 }
-            }
-        }
-
-        val getUserProfile = GetProfileRequest(
-            apiKey = Prefs.getUser()?.apiKey as String,
-            id = Prefs.getUser()?.id ?: -1
-        )
-        viewModel.getUserProfile(getUserProfile).observe(this) { response ->
-            when (response.status) {
-                StatusResponse.SUCCESS -> {
-                    val userData = response.body.data
-                    if (userData != null) {
-                        Prefs.setUser(
-                            UserEntity(
-                                userData.id ?: -1,
-                                Prefs.getUser()?.apiKey as String,
-                                userData.username.toString(),
-                                userData.fullName.toString(),
-                                userData.avatar.toString(),
-                                userData.email.toString(),
-                                userData.password.toString(),
-                                VotesSeparator.separate(userData.votes)
-                            )
-                        )
-                    }
-                }
-                StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                StatusResponse.ERROR -> toastError("Error: ${response.body}")
             }
         }
     }
