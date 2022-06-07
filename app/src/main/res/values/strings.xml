@@ -65,4 +65,14 @@
     <string name="my_claims">My Claims</string>
     <string name="go_to_my_claims">Go to my claims</string>
     <string name="icon_my_claim">icon my claim</string>
+    <string name="email_verification">Email\nVerification</string>
+    <string name="verification_info">We have sent code to your email:</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="did_not_receive_code">Didn’t receive code?</string>
+    <string name="resend">Resend</string>
+    <string name="change_password">Change Password</string>
+    <string name="cancel_changes">Cancel Changes</string>
+    <string name="current_password">Current Password</string>
+    <string name="re_type_new_password">Re-type New Password</string>
+    <string name="empty" />
 </resources>

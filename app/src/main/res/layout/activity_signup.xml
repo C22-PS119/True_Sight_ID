@@ -137,7 +137,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:hint="@string/password"
+                android:hint="@string/new_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/gray_form" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/icon_password_confirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_password"
+            app:layout_constraintStart_toStartOf="@+id/icon_at"
+            app:layout_constraintTop_toBottomOf="@+id/edt_password"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_password_confirmation"
+            style="?attr/textInputFilledStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_password_confirmation"
+            app:layout_constraintEnd_toEndOf="@+id/edt_password"
+            app:layout_constraintStart_toEndOf="@+id/icon_password_confirmation"
+            app:layout_constraintTop_toTopOf="@+id/icon_password_confirmation"
+            app:passwordToggleDrawable="@drawable/password_toggle_drawable"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="@string/confirm_new_password"
                 android:inputType="textPassword"
                 android:textColorHint="@color/gray_form" />
 
@@ -157,7 +190,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/edt_password"
             app:layout_constraintStart_toStartOf="@+id/icon_password"
-            app:layout_constraintTop_toBottomOf="@+id/edt_password" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_password_confirmation" />
 
         <LinearLayout
             android:id="@+id/login"
