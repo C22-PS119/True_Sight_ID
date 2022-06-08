@@ -14,6 +14,9 @@
         android:theme="@style/Theme.TrueSightID"
         tools:replace="android:icon">
         <activity
+            android:name=".ui.mybookmark.MyBookmarkActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.myclaim.MyClaimActivity"
             android:exported="false"
             android:label="@string/title_activity_my_claim"

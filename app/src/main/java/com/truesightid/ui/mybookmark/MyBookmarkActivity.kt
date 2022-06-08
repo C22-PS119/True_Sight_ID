@@ -1,4 +1,4 @@
-package com.truesightid.ui.myclaim
+package com.truesightid.ui.mybookmark
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -11,30 +11,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.StatusResponse
+import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.data.source.remote.request.MyDataRequest
 import com.truesightid.databinding.ActivityMyclaimBinding
 import com.truesightid.ui.ViewModelFactory
-import com.truesightid.ui.adapter.MyClaimAdapter
+import com.truesightid.ui.adapter.MyBookmarksAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
 
-class MyClaimActivity : AppCompatActivity() {
+class MyBookmarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyclaimBinding
-    private lateinit var myClaimAdapter: MyClaimAdapter
+    private lateinit var myBookmarksAdapter: MyBookmarksAdapter
     private lateinit var alertDialog: AlertDialog
+    private lateinit var viewModel: MyBookmarkViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyclaimBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[MyClaimViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[MyBookmarkViewModel::class.java]
 
         binding.ibBackLogin.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -44,7 +47,7 @@ class MyClaimActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        myClaimAdapter = MyClaimAdapter(object : MyClaimAdapter.ItemClaimClickListener {
+        myBookmarksAdapter = MyBookmarksAdapter(object : MyBookmarksAdapter.ItemClaimClickListener {
             override fun onClaimUpvote(claim_id: Int) {
                 viewModel.upvoteClaimById(Prefs.getUser()?.apiKey as String, claim_id)
             }
@@ -53,23 +56,27 @@ class MyClaimActivity : AppCompatActivity() {
                 viewModel.downvoteClaimById(Prefs.getUser()?.apiKey as String, claim_id)
             }
 
+            override fun onRemoveClaimtoBookmark(claim_id: Int) {
+                removeBookmarkPrompt(claim_id)
+            }
+
         }, Prefs)
 
         with(binding.rvMyClaim) {
             layoutManager = LinearLayoutManager(context)
-            adapter = myClaimAdapter
+            adapter = myBookmarksAdapter
             setHasFixedSize(true)
         }
 
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.getMyClaims(MyDataRequest(Prefs.getUser()?.apiKey as String))
+            viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
                 .observe(this, claimObserver)
             toastSuccess("Page Refreshed")
             binding.refreshLayout.isRefreshing = false
         }
 
 
-        viewModel.getMyClaims(MyDataRequest(Prefs.getUser()?.apiKey as String))
+        viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
             .observe(this, claimObserver)
     }
 
@@ -86,11 +93,11 @@ class MyClaimActivity : AppCompatActivity() {
                     alertDialog.dismiss()
                     if (claims.body.isNotEmpty()) {
                         showIllustrator(false)
-                    }else{
+                    } else {
                         showIllustrator(true)
                     }
-                    myClaimAdapter.setData(claims.body)
-                    myClaimAdapter.notifyDataSetChanged()
+                    myBookmarksAdapter.setData(claims.body)
+                    myBookmarksAdapter.notifyDataSetChanged()
                 }
                 StatusResponse.EMPTY -> {
                     toastInfo("EMPTY: Something went wrong")
@@ -110,6 +117,30 @@ class MyClaimActivity : AppCompatActivity() {
             binding.tvIllustrator1.visibility = View.GONE
             binding.tvIllustrator2.visibility = View.GONE
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun removeBookmarkPrompt(claim_id: Int) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Are you sure to delete this bookmark?")
+            .setContentText("click delete to continue")
+            .setConfirmText("Delete")
+            .setConfirmClickListener {
+                viewModel.removeBookmarkById(
+                    AddRemoveBookmarkRequest(
+                        Prefs.getUser()?.apiKey as String,
+                        claim_id
+                    )
+                )
+                viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
+                    .observe(this, claimObserver)
+                it.dismiss()
+            }
+            .setCancelText("Cancel")
+            .setCancelClickListener {
+                it.dismiss()
+            }
+            .show()
     }
 
     private fun showLoading() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="include_tv_tittle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="include_tv_subTittle" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+</resources>

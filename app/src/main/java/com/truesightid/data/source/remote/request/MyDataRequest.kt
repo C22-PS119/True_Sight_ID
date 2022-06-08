@@ -1,5 +1,6 @@
 package com.truesightid.data.source.remote.request
 
-data class MyClaimRequest(
+// For MyClaims and MyBookmarks Request
+data class MyDataRequest(
     val apiKey: String
 )

@@ -100,4 +100,25 @@ interface ApiService {
         @Header("x-api-key") apiKey: String,
         @Field("start") start: Int = 0
     ): Call<MyClaimResponse>
+
+    @FormUrlEncoded
+    @POST("/api/bookmarks/list/")
+    fun getMyBookmark(
+        @Header("x-api-key") apiKey: String,
+        @Field("start") start: Int = 0
+    ): Call<MyBookmarkResponse>
+
+    @FormUrlEncoded
+    @POST("/api/bookmarks/add/")
+    fun addBookmarkByClaimId(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<AddRemoveBookmarkResponse>
+
+    @FormUrlEncoded
+    @POST("/api/bookmarks/remove/")
+    fun removeBookmarkByClaimId(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<AddRemoveBookmarkResponse>
 }

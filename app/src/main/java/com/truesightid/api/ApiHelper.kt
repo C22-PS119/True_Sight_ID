@@ -270,7 +270,7 @@ class ApiHelper(val context: Context) {
         })
     }
 
-    fun getMyClaims(request: MyClaimRequest, callback: RemoteDataSource.MyClaimRequestCallback) {
+    fun getMyClaims(request: MyDataRequest, callback: RemoteDataSource.MyClaimRequestCallback) {
         val client = ApiConfig.getApiService().getMyClaims(request.apiKey)
         client.enqueue(object : Callback<MyClaimResponse> {
             override fun onResponse(
@@ -291,6 +291,67 @@ class ApiHelper(val context: Context) {
                     "onGetMyClaimsFailed: ${t.message}",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+
+        })
+    }
+
+    fun getMyBookmark(request: MyDataRequest, callback: RemoteDataSource.MyBookmarksCallback) {
+        val client = ApiConfig.getApiService().getMyBookmark(request.apiKey)
+        client.enqueue(object : Callback<MyBookmarkResponse> {
+            override fun onResponse(
+                call: Call<MyBookmarkResponse>,
+                response: Response<MyBookmarkResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onMyBookmarksRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyBookmarkResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onGetMyBookmarksFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+    }
+
+
+    fun addRemoveBookmarkByClaimId(
+        isAddBookmark: Boolean,
+        request: AddRemoveBookmarkRequest
+    ) {
+        val client = if (isAddBookmark) {
+            ApiConfig.getApiService().addBookmarkByClaimId(request.apiKey, request.id)
+        } else {
+            ApiConfig.getApiService().removeBookmarkByClaimId(request.apiKey, request.id)
+        }
+        client.enqueue(object : Callback<AddRemoveBookmarkResponse> {
+            override fun onResponse(
+                call: Call<AddRemoveBookmarkResponse>,
+                response: Response<AddRemoveBookmarkResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        Toast.makeText(context, "${responseBody.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddRemoveBookmarkResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onBookmarkFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
 
         })

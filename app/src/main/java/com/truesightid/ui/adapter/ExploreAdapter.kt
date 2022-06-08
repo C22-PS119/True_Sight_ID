@@ -30,7 +30,6 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
             }
         }
     }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,8 +39,8 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
         return ExploreViewHolder(itemRowClaimsBinding)
     }
 
-    fun applyUserVotes(claim_id: Int, vote:Int){
-        var user = Prefs.getUser()
+    private fun applyUserVotes(claim_id: Int, vote: Int) {
+        val user = Prefs.getUser()
         if (vote == 0)
             user?.votes?.remove(claim_id)
         else
@@ -98,7 +97,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                         }
                     }
-                }else{
+                } else {
                     binding.tvVoteCount.tag = 0
                     binding.ibUpvote.background =
                         itemView.context.getDrawable(R.drawable.ic_upvote)
@@ -113,7 +112,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
-                            items.upvote++;
+                            items.upvote++
                             binding.tvVoteCount.tag = 1
                             applyUserVotes(items.id, 1)
                             callback.onClaimUpvote(items.id)
@@ -131,7 +130,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_upvote)
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
-                            items.upvote++;
+                            items.upvote++
                             binding.tvVoteCount.tag = 0
                             applyUserVotes(items.id, 0)
                             callback.onClaimUpvote(items.id)
@@ -148,7 +147,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_upvote)
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
-                            items.downvote++;
+                            items.downvote++
                             binding.tvVoteCount.tag = -1
                             applyUserVotes(items.id, -1)
                             callback.onClaimDownvote(items.id)
@@ -158,7 +157,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_upvote)
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
-                            items.downvote++;
+                            items.downvote++
                             binding.tvVoteCount.tag = 0
                             applyUserVotes(items.id, 0)
                             callback.onClaimDownvote(items.id)
@@ -177,6 +176,30 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                 }
 
                 binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+
+                val bookmark = user.bookmark
+                if (items.id in bookmark) {
+                    binding.ibBookmark.background =
+                        itemView.context.getDrawable(R.drawable.ic_bookmark_cardview_pressed)
+                }
+
+                binding.ibBookmark.setOnClickListener {
+                    if (items.id in bookmark) {
+                        binding.ibBookmark.background =
+                            itemView.context.getDrawable(R.drawable.ic_bookmark_cardview)
+                        callback.onBookmarkRemoved(items.id)
+                    } else {
+                        binding.ibBookmark.background =
+                            itemView.context.getDrawable(R.drawable.ic_bookmark_cardview_pressed)
+                        callback.onBookmarkAdded(items.id)
+                    }
+                }
+
+                if (votes.containsKey(items.id)) {
+                    binding.tvVoteCount.tag = votes.getValue(items.id)
+                } else {
+                    binding.tvVoteCount.tag = 0
+                }
 
                 binding.ibShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
@@ -202,6 +225,8 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
     interface ItemClaimClickListener {
         fun onClaimUpvote(claim_id: Int)
         fun onClaimDownvote(claim_id: Int)
+        fun onBookmarkAdded(claim_id: Int)
+        fun onBookmarkRemoved(claim_id: Int)
     }
 
 }

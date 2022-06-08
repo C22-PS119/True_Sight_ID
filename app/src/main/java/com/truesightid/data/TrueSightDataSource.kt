@@ -15,6 +15,10 @@ interface TrueSightDataSource {
 
     fun downVoteClaimById(api_key: String, id: Int)
 
+    fun addBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest)
+
+    fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest)
+
     fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>>
 
     fun postClaim(postClaimRequest: PostClaimRequest): LiveData<ApiResponse<PostClaimResponse>>
@@ -29,5 +33,9 @@ interface TrueSightDataSource {
 
     fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>>
 
-    fun getMyClaims(myClaimRequest: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>>
+    fun getMyClaims(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>>
+
+    fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>>
+
+
 }

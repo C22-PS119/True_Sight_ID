@@ -1,6 +1,5 @@
 package com.truesightid.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if(extras != null){
-            if(extras.getBoolean("fromEditProfile")){
+            if(extras.getBoolean("shouldProfile")){
                 // Go to profile
                 tabs.selectTab(tabs.getTabAt(2))
             }

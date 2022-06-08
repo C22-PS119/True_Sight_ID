@@ -76,6 +76,13 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="back_button">Back button</string>
     <string name="list_of_your_claims">List of your Claims</string>
+    <string name="no_claims_result">you have no claims, maybe create one?</string>
+    <string name="you_have_no_claims">You have no claims</string>
+    <string name="prompt_create_one">maybe you can create one</string>
+    <string name="no_search_result">No result for such keyword maybe try a different keyword</string>
+    <string name="no_claims_found">No claims found</string>
+    <string name="you_have_no_bookmarks">You have no bookmarks</string>
+    <string name="you_can_add_one_in_explore_page">you can add one in explore page</string>
     <string name="email_verification">Email\nVerification</string>
     <string name="verification_info">We have sent code to your email:</string>
     <string name="verify_account">Verify Account</string>
@@ -86,4 +93,8 @@
     <string name="current_password">Current Password</string>
     <string name="re_type_new_password">Re-type New Password</string>
     <string name="empty" />
+    <string name="dark_mode_icon">Dark Mode Icon</string>
+    <string name="dark_mode_button">Dark Mode Button</string>
+    <string name="icon_logout">Icon Logout</string>
+    <string name="logout_button">Logout Button</string>
 </resources>
