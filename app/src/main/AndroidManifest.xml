@@ -38,6 +38,7 @@
         <activity android:name=".ui.forgotpassword.ForgotPasswordActivity" />
         <activity android:name=".ui.resetpassword.ResetPasswordActivity" />
         <activity android:name=".ui.add_claim.AddClaimActivity" />
+        <activity android:name=".ui.verification.VerificationActivity" />
     </application>
 
 </manifest>

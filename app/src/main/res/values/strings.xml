@@ -76,4 +76,14 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="back_button">Back button</string>
     <string name="list_of_your_claims">List of your Claims</string>
+    <string name="email_verification">Email\nVerification</string>
+    <string name="verification_info">We have sent code to your email:</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="did_not_receive_code">Didn’t receive code?</string>
+    <string name="resend">Resend</string>
+    <string name="change_password">Change Password</string>
+    <string name="cancel_changes">Cancel Changes</string>
+    <string name="current_password">Current Password</string>
+    <string name="re_type_new_password">Re-type New Password</string>
+    <string name="empty" />
 </resources>
