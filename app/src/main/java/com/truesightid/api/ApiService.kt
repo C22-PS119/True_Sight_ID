@@ -1,6 +1,5 @@
 package com.truesightid.api
 
-import com.truesightid.data.source.remote.request.EditProfileRequest
 import com.truesightid.data.source.remote.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -71,10 +70,10 @@ interface ApiService {
     @POST("api/create/claim/")
     fun postClaimMultiPart(
         @Header("x-api-key") apiKey: String,
-        @Part("title") title: String,
-        @Part("description") description: String,
+        @Part("title") title: RequestBody,
+        @Part("description") description: RequestBody,
         @Part("fake") fake: Int,
-        @Part("url") url: String,
+        @Part("url") url: RequestBody,
         @Part attachment: MultipartBody.Part?,
     ): Call<PostClaimResponse>
 
@@ -94,4 +93,11 @@ interface ApiService {
         @Part("full_name") full_name: RequestBody,
         @Part("email") email: RequestBody,
     ): Call<PostProfileResponse>
+
+    @FormUrlEncoded
+    @POST("/api/get/myclaims/")
+    fun getMyClaims(
+        @Header("x-api-key") apiKey: String,
+        @Field("start") start: Int = 0
+    ): Call<MyClaimResponse>
 }

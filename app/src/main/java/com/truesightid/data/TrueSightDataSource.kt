@@ -11,9 +11,9 @@ import com.truesightid.utils.Resource
 interface TrueSightDataSource {
     fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>>
 
-    fun upVoteClaimById(api_key:String, id: Int)
+    fun upVoteClaimById(api_key: String, id: Int)
 
-    fun downVoteClaimById(api_key:String, id: Int)
+    fun downVoteClaimById(api_key: String, id: Int)
 
     fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>>
 
@@ -23,9 +23,11 @@ interface TrueSightDataSource {
 
     fun postProfile(editProfileRequest: EditProfileRequest): LiveData<ApiResponse<PostProfileResponse>>
 
-    fun getUserProfile(editProfileRequest: GetProfileRequest): LiveData<ApiResponse<UserResponse>>
+    fun getUserProfile(getProfileRequest: GetProfileRequest): LiveData<ApiResponse<UserResponse>>
 
     fun deleteLocalClaims()
 
     fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>>
+
+    fun getMyClaims(myClaimRequest: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>>
 }

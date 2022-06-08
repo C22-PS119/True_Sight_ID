@@ -2,7 +2,6 @@ package com.truesightid.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -178,8 +177,6 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     val intent = Intent(itemView.context, DetailClaimActivity::class.java)
                     intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
                     itemView.context.startActivity(intent)
-//                    Toast.makeText(holder.itemView.context, "$user", Toast.LENGTH_SHORT)
-//                        .show()
                 }
             }
         }

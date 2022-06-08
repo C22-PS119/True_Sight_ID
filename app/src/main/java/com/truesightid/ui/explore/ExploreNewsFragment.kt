@@ -77,7 +77,7 @@ class ExploreNewsFragment : Fragment() {
 
                 binding.refreshLayout.setOnRefreshListener {
                     viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                    toastSuccess("Refreshed")
+                    toastSuccess("Page Refreshed")
                     binding.refreshLayout.isRefreshing = false
                 }
 

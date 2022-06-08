@@ -104,14 +104,15 @@
             android:paddingTop="20dp"
             android:paddingEnd="32dp"
             android:paddingBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content_border">
 
             <ImageView
                 android:id="@+id/iv_bookmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bookmark"
-                android:contentDescription="@string/icon_bookmark" />
+                android:contentDescription="@string/icon_bookmark"
+                android:src="@drawable/ic_bookmark" />
 
             <TextView
                 android:id="@+id/tv_bookmark"
@@ -127,8 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_right_arrow_black"
-                android:contentDescription="@string/go_to_bookmark" />
+                android:contentDescription="@string/go_to_bookmark"
+                android:src="@drawable/ic_right_arrow_black" />
 
         </RelativeLayout>
 
@@ -140,14 +141,15 @@
             android:paddingTop="20dp"
             android:paddingEnd="32dp"
             android:paddingBottom="20dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rl_bookmark">
 
             <ImageView
                 android:id="@+id/iv_my_claims"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_my_claims"
-                android:contentDescription="@string/icon_my_claim" />
+                android:contentDescription="@string/icon_my_claim"
+                android:src="@drawable/ic_my_claims" />
 
             <TextView
                 android:id="@+id/tv_my_claims"
@@ -163,8 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_right_arrow_black"
-                android:contentDescription="@string/go_to_my_claims" />
+                android:contentDescription="@string/go_to_my_claims"
+                android:src="@drawable/ic_right_arrow_black" />
 
         </RelativeLayout>
 

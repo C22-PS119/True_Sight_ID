@@ -6,22 +6,19 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
-import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.EditProfileRequest
 import com.truesightid.data.source.remote.request.EditProfileWithAvatarRequest
-import com.truesightid.data.source.remote.request.GetProfileRequest
 import com.truesightid.databinding.ActivityEditProfileBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.VotesSeparator
-import com.truesightid.utils.extension.toastError
-import com.truesightid.utils.extension.toastInfo
-import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -44,29 +41,27 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnCancel.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("fromEditProfile", true)
             startActivity(intent)
         }
-
-        if (Prefs.user != null) {
-            binding.tvName.setText(Prefs.getUser()?.fullname)
-            binding.tvEmail.setText(Prefs.getUser()?.email)
-            Thread(Runnable {
-                Glide.get(binding.root.context).clearDiskCache()
-            }).start()
-            Glide.get(binding.root.context).clearMemory()
-            Glide.with(binding.root.context)
-                .load(Prefs.getUser()?.avatar)
-                .timeout(5000)
-                .apply(
-                    RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                )
-                .into(binding.ivProfile)
-        }
+        
+        binding.tvName.setText(Prefs.getUser()?.fullname)
+        binding.tvEmail.setText(Prefs.getUser()?.email)
+        Glide.with(binding.root.context)
+            .load(Prefs.getUser()?.avatar)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .centerInside()
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+            )
+            .into(binding.ivProfile)
+        toastInfo(Prefs.getUser()?.avatar.toString())
 
 
         binding.btnSaveProfile.setOnClickListener {
-            ChangeProfile(viewModel)
+            changeProfile(viewModel)
         }
 
         binding.btnChoose.setOnClickListener {
@@ -78,7 +73,20 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    fun ChangeProfile(viewModel: SetProfileViewModel) {
+    private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Edit Profile Success")
+            .setContentText("Your profile has been updated, go back to profile page to see the changes")
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setConfirmClickListener {
+                it.dismiss()
+                onConfirmClickListener()
+            }
+            .show()
+    }
+
+    private fun changeProfile(viewModel: SetProfileViewModel) {
+        showLoading()
         if (avatar != null) {
             val userProfile = EditProfileWithAvatarRequest(
                 apiKey = Prefs.getUser()?.apiKey as String,
@@ -89,9 +97,24 @@ class EditProfileActivity : AppCompatActivity() {
 
             viewModel.setProfileWithAvatar(userProfile).observe(this) { response ->
                 when (response.status) {
-                    StatusResponse.SUCCESS -> toastInfo("Success: ${response.body}")
-                    StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                    StatusResponse.ERROR -> toastError("Error: ${response.body}")
+                    StatusResponse.SUCCESS -> {
+                        toastInfo("Success: ${response.body}")
+                        dismisLoading()
+                        showSuccessDialog() {
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            intent.putExtra("fromEditProfile", true)
+                            startActivity(intent)
+                        }
+                    }
+                    StatusResponse.EMPTY -> {
+                        toastWarning("Empty: ${response.body}")
+                        dismisLoading()
+                    }
+                    StatusResponse.ERROR -> {
+                        toastError("Error: ${response.body}")
+                        dismisLoading()
+                    }
                 }
             }
         } else {
@@ -104,39 +127,17 @@ class EditProfileActivity : AppCompatActivity() {
             viewModel.setProfile(userProfile).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        val getUserProfile = GetProfileRequest(
-                            apiKey = Prefs.getUser()?.apiKey as String,
-                            id = Prefs.getUser()?.id ?: -1
-                        )
-                        viewModel.getUserProfile(getUserProfile).observe(this) { response ->
-                            when (response.status) {
-                                StatusResponse.SUCCESS -> {
-                                    val userData = response.body.data
-                                    if (userData != null) {
-                                        Prefs.setUser(
-                                            UserEntity(
-                                                userData.id ?: -1,
-                                                Prefs.getUser()?.apiKey as String,
-                                                userData.username.toString(),
-                                                userData.fullName.toString(),
-                                                userData.avatar.toString(),
-                                                userData.email.toString(),
-                                                userData.password.toString(),
-                                                VotesSeparator.separate(userData.votes)
-                                            )
-                                        )
-                                    }
-                                    val intent = Intent(this, MainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                    startActivity(intent)
-                                }
-                                StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                                StatusResponse.ERROR -> toastError("Error: ${response.body}")
-                            }
-                        }
+                        toastInfo("Success: ${response.body}")
+                        dismisLoading()
                     }
-                    StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                    StatusResponse.ERROR -> toastError("Error: ${response.body}")
+                    StatusResponse.EMPTY -> {
+                        toastWarning("Empty: ${response.body}")
+                        dismisLoading()
+                    }
+                    StatusResponse.ERROR -> {
+                        toastError("Error: ${response.body}")
+                        dismisLoading()
+                    }
                 }
             }
         }
