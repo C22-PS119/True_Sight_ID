@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
@@ -22,8 +21,9 @@ import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import kotlin.random.Random
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -44,13 +44,11 @@ class EditProfileActivity : AppCompatActivity() {
             intent.putExtra("fromEditProfile", true)
             startActivity(intent)
         }
-        
+
         binding.tvName.setText(Prefs.getUser()?.fullname)
         binding.tvEmail.setText(Prefs.getUser()?.email)
         Glide.with(binding.root.context)
-            .load(Prefs.getUser()?.avatar)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
+            .load(Prefs.getUser()?.avatar + "?rand=" + Random.nextInt())
             .centerInside()
             .apply(
                 RequestOptions.placeholderOf(R.drawable.ic_loading)
@@ -159,7 +157,7 @@ class EditProfileActivity : AppCompatActivity() {
             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "avatar",
                 file.getName(),
-                RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                file.asRequestBody("image/*".toMediaTypeOrNull())
             )
             avatar = filePart
         }
