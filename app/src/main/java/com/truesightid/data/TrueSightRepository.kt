@@ -63,6 +63,9 @@ class TrueSightRepository(
     override fun getUserProfile(getProfileRequest: GetProfileRequest): LiveData<ApiResponse<UserResponse>> =
         remoteDataSource.getUserProfileRequest(getProfileRequest)
 
+    override fun setPassword(setPasswordRequest: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> =
+        remoteDataSource.setPasswordRequest(setPasswordRequest)
+
     override fun deleteLocalClaims() = localDataSource.deleteLocalClaims()
 
     override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =

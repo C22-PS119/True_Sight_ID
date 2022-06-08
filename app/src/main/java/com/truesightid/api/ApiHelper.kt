@@ -270,6 +270,37 @@ class ApiHelper(val context: Context) {
         })
     }
 
+    fun getSetPasswordResponse(
+        request: SetPasswordRequest,
+        callback: RemoteDataSource.GetSetUserPasswordRequestResponseCallback
+    ) {
+        val client = ApiConfig.getApiService().changePassword(
+            request.apiKey,
+            request.current_password,
+            request.new_password
+        )
+        client.enqueue(object : Callback<SetPasswordResponse> {
+            override fun onResponse(
+                call: Call<SetPasswordResponse>,
+                response: Response<SetPasswordResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onGetSetPasswordRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SetPasswordResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onSetUserPasswordFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
     fun getMyClaims(request: MyDataRequest, callback: RemoteDataSource.MyClaimRequestCallback) {
         val client = ApiConfig.getApiService().getMyClaims(request.apiKey)
         client.enqueue(object : Callback<MyClaimResponse> {

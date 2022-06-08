@@ -37,5 +37,5 @@ interface TrueSightDataSource {
 
     fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>>
 
-
+    fun setPassword(setPasswordRequest: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>>
 }

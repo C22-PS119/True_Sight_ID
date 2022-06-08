@@ -124,6 +124,22 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultPost
     }
 
+    fun setPasswordRequest(request: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> {
+        val resultPost = MutableLiveData<ApiResponse<SetPasswordResponse>>()
+        apiHelper.getSetPasswordResponse(request, object : GetSetUserPasswordRequestResponseCallback {
+            override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
+                if (setPasswordResponse.status == "success")
+                    resultPost.value = ApiResponse.success(setPasswordResponse)
+                else
+                    resultPost.value = ApiResponse.error(
+                        setPasswordResponse.message ?: "Failed to GET message",
+                        SetPasswordResponse()
+                    )
+            }
+
+        })
+        return resultPost
+    }
     fun getMyClaimRequest(request: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
         val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
         apiHelper.getMyClaims(request, object : MyClaimRequestCallback {
@@ -222,6 +238,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface GetProfileRequestCallback {
         fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse)
+    }
+
+    interface GetSetUserPasswordRequestResponseCallback {
+        fun onGetSetPasswordRequestResponse(userSetPasswordResponse: SetPasswordResponse)
     }
 
     interface MyClaimRequestCallback {

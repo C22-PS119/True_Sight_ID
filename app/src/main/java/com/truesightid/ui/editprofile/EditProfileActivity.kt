@@ -14,6 +14,7 @@ import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.EditProfileRequest
 import com.truesightid.data.source.remote.request.EditProfileWithAvatarRequest
+import com.truesightid.data.source.remote.request.SetPasswordRequest
 import com.truesightid.databinding.ActivityEditProfileBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.main.MainActivity
@@ -57,8 +58,6 @@ class EditProfileActivity : AppCompatActivity() {
                     .error(R.drawable.ic_error)
             )
             .into(binding.ivProfile)
-        toastInfo(Prefs.getUser()?.avatar.toString())
-
 
         binding.btnSaveProfile.setOnClickListener {
             changeProfile(viewModel)
@@ -86,6 +85,7 @@ class EditProfileActivity : AppCompatActivity() {
             tvChangePassword.visibility = View.INVISIBLE
             tvCancelChanges.visibility = View.VISIBLE
             titleCurrentPassword.setText(R.string.current_password)
+            tvCurrentPassword.isEnabled = true
             tvCurrentPassword.setText(R.string.empty)
             titleNewPassword.visibility = View.VISIBLE
             newPasswordForm.visibility = View.VISIBLE
@@ -103,6 +103,8 @@ class EditProfileActivity : AppCompatActivity() {
             tvChangePassword.visibility = View.VISIBLE
             tvCancelChanges.visibility = View.INVISIBLE
             titleCurrentPassword.setText(R.string.password)
+            tvCurrentPassword.isEnabled = false
+            tvCurrentPassword.setText("********")
             titleNewPassword.visibility = View.GONE
             newPasswordForm.visibility = View.GONE
             tvNewPassword.visibility = View.GONE
@@ -139,13 +141,14 @@ class EditProfileActivity : AppCompatActivity() {
             viewModel.setProfileWithAvatar(userProfile).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Success: ${response.body}")
-                        dismisLoading()
-                        showSuccessDialog() {
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            intent.putExtra("fromEditProfile", true)
-                            startActivity(intent)
+                        if (binding.tvCurrentPassword.isEnabled){
+                            changePassword(viewModel)
+                        }else{
+                            toastInfo("Success: ${response.body}")
+                            dismisLoading()
+                            showSuccessDialog() {
+                                backToMainActivity()
+                            }
                         }
                     }
                     StatusResponse.EMPTY -> {
@@ -168,13 +171,13 @@ class EditProfileActivity : AppCompatActivity() {
             viewModel.setProfile(userProfile).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Success: ${response.body}")
-                        dismisLoading()
-                        showSuccessDialog() {
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            intent.putExtra("fromEditProfile", true)
-                            startActivity(intent)
+                        if (binding.tvCurrentPassword.isEnabled){
+                            changePassword(viewModel)
+                        }else{
+                            dismisLoading()
+                            showSuccessDialog() {
+                                backToMainActivity()
+                            }
                         }
                     }
                     StatusResponse.EMPTY -> {
@@ -188,6 +191,48 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun changePassword(viewModel: SetProfileViewModel){
+        val userPassword = SetPasswordRequest(
+            apiKey = Prefs.getUser()?.apiKey as String,
+            new_password = binding.tvNewPassword.text.toString(),
+            current_password = binding.tvCurrentPassword.text.toString()
+        )
+
+        if (binding.tvNewPassword.text.toString().isNullOrEmpty() or binding.tvReTypePassword.toString().isNullOrEmpty() or binding.tvCurrentPassword.toString().isNullOrEmpty()){
+            toastError("Please fill all blanks")
+            dismisLoading()
+        }else if (binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString()){
+            viewModel.setPassword(userPassword).observe(this) { response ->
+                when (response.status) {
+                    StatusResponse.SUCCESS -> {
+                        dismisLoading()
+                        showSuccessDialog() {
+                            backToMainActivity()
+                        }
+                    }
+                    StatusResponse.EMPTY -> {
+                        toastWarning("Empty: ${response.body}")
+                        dismisLoading()
+                    }
+                    StatusResponse.ERROR -> {
+                        toastError("Error: ${response.message}")
+                        dismisLoading()
+                    }
+                }
+            }
+        }else{
+            toastError("Error: Password not match")
+            dismisLoading()
+        }
+    }
+
+    private fun backToMainActivity(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("fromEditProfile", true)
+        startActivity(intent)
     }
 
     private val launcherIntentGallery = registerForActivityResult(

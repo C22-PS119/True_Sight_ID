@@ -121,4 +121,12 @@ interface ApiService {
         @Header("x-api-key") apiKey: String,
         @Field("id") id: Int
     ): Call<AddRemoveBookmarkResponse>
+
+    @FormUrlEncoded
+    @POST("/api/set/password/")
+    fun changePassword(
+        @Header("x-api-key") apiKey: String,
+        @Field("current_password") current_password: String,
+        @Field("new_password") new_password: String
+    ): Call<SetPasswordResponse>
 }

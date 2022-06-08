@@ -167,8 +167,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textPassword"
+                android:enabled="false"
                 android:singleLine="true"
-                android:text="" />
+                android:text="********" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
