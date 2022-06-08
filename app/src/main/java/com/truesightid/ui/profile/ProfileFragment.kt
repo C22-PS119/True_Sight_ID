@@ -1,17 +1,13 @@
 package com.truesightid.ui.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.SharedElementCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.UserEntity
@@ -27,6 +23,7 @@ import com.truesightid.utils.VotesSeparator
 import com.truesightid.utils.extension.pushActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastWarning
+import kotlin.random.Random
 
 class ProfileFragment : Fragment() {
 
@@ -78,9 +75,7 @@ class ProfileFragment : Fragment() {
                         binding.tvName.text = userData.username
                         binding.tvEmail.text = userData.email
                         Glide.with(requireContext())
-                            .load(userData.avatar)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(true)
+                            .load(userData.avatar.toString() + "?rand=" + Random.nextInt())
                             .centerInside()
                             .apply(
                                 RequestOptions.placeholderOf(R.drawable.ic_loading)
