@@ -40,7 +40,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         apiHelper.registrationRequest(request,
             object : RegistrationRequestCallback {
                 override fun onRegistrationRequestResponse(registerResponse: RegistrationResponse) {
-                    resultRegister.value = ApiResponse.success(registerResponse)
+                    if (registerResponse.status == "success")
+                        resultRegister.value = ApiResponse.success(registerResponse)
+                    else
+                        resultRegister.value = ApiResponse.error(registerResponse.message ?: "Failed to GET message", RegistrationResponse())
                 }
             })
         return resultRegister
@@ -71,7 +74,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
         apiHelper.postProfileWithAvatarResponse(request, object : PostProfileRequestCallback {
             override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
-                resultPost.value = ApiResponse.success(postProfileResponse)
+                if (postProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(postProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
             }
 
         })
@@ -82,7 +88,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
         apiHelper.postProfileResponse(request, object : PostProfileRequestCallback {
             override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
-                resultPost.value = ApiResponse.success(postProfileResponse)
+                if (postProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(postProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
             }
 
         })
@@ -93,7 +102,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<UserResponse>>()
         apiHelper.getUserProfileResponse(request, object : GetProfileRequestCallback {
             override fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse) {
-                resultPost.value = ApiResponse.success(userProfileResponse)
+                if (userProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(userProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(userProfileResponse.message ?: "Failed to GET message", UserResponse())
             }
 
         })

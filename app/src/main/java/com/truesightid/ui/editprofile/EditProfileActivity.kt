@@ -44,7 +44,7 @@ class EditProfileActivity : AppCompatActivity() {
             intent.putExtra("fromEditProfile", true)
             startActivity(intent)
         }
-
+        
         binding.tvName.setText(Prefs.getUser()?.fullname)
         binding.tvEmail.setText(Prefs.getUser()?.email)
         Glide.with(binding.root.context)
