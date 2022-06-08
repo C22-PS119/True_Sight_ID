@@ -3,6 +3,7 @@ package com.truesightid.ui.editprofile
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -70,6 +71,45 @@ class EditProfileActivity : AppCompatActivity() {
             val chooser = Intent.createChooser(intent, "Choose a Picture")
             launcherIntentGallery.launch(chooser)
         }
+
+        binding.tvChangePassword.setOnClickListener {
+            changePasswordPressed()
+        }
+
+        binding.tvCancelChanges.setOnClickListener {
+            cancelChangesPressed()
+        }
+    }
+
+    fun changePasswordPressed() {
+        with(binding) {
+            tvChangePassword.visibility = View.INVISIBLE
+            tvCancelChanges.visibility = View.VISIBLE
+            titleCurrentPassword.setText(R.string.current_password)
+            tvCurrentPassword.setText(R.string.empty)
+            titleNewPassword.visibility = View.VISIBLE
+            newPasswordForm.visibility = View.VISIBLE
+            tvNewPassword.visibility = View.VISIBLE
+            tvNewPassword.setText(R.string.empty)
+            titleReTypeNewPassword.visibility = View.VISIBLE
+            reTypePasswordForm.visibility = View.VISIBLE
+            tvReTypePassword.visibility = View.VISIBLE
+            tvReTypePassword.setText(R.string.empty)
+        }
+    }
+
+    fun cancelChangesPressed() {
+        with(binding) {
+            tvChangePassword.visibility = View.VISIBLE
+            tvCancelChanges.visibility = View.INVISIBLE
+            titleCurrentPassword.setText(R.string.password)
+            titleNewPassword.visibility = View.GONE
+            newPasswordForm.visibility = View.GONE
+            tvNewPassword.visibility = View.GONE
+            titleReTypeNewPassword.visibility = View.GONE
+            reTypePasswordForm.visibility = View.GONE
+            tvReTypePassword.visibility = View.GONE
+        }
     }
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
@@ -130,6 +170,12 @@ class EditProfileActivity : AppCompatActivity() {
                     StatusResponse.SUCCESS -> {
                         toastInfo("Success: ${response.body}")
                         dismisLoading()
+                        showSuccessDialog() {
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            intent.putExtra("fromEditProfile", true)
+                            startActivity(intent)
+                        }
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,21 +36,24 @@
                 android:layout_width="92dp"
                 android:layout_height="92dp"
                 android:layout_marginTop="16dp"
+                android:contentDescription="@string/your_image_profile"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_broken_image_black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
-                android:contentDescription="@string/your_image_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text=""
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/iv_profile"
+                tools:layout_editor_absoluteX="32dp"
                 tools:text="Username" />
 
             <TextView
@@ -122,7 +125,8 @@
                 android:layout_alignBottom="@+id/iv_bookmark"
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/iv_bookmark"
-                android:text="@string/bookmark" />
+                android:text="@string/bookmark"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -159,7 +163,8 @@
                 android:layout_alignBottom="@+id/iv_my_claims"
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/iv_my_claims"
-                android:text="@string/my_claims" />
+                android:text="@string/my_claims"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -197,8 +202,8 @@
                 android:id="@+id/iv_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_language"
-                android:contentDescription="@string/icon_change_language" />
+                android:contentDescription="@string/icon_change_language"
+                android:src="@drawable/ic_language" />
 
             <TextView
                 android:id="@+id/tv_language"
@@ -208,14 +213,15 @@
                 android:layout_alignBottom="@+id/iv_language"
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/iv_language"
-                android:text="@string/language" />
+                android:text="@string/language"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_right_arrow_black"
-                android:contentDescription="@string/go_to_change_language" />
+                android:contentDescription="@string/go_to_change_language"
+                android:src="@drawable/ic_right_arrow_black" />
 
         </RelativeLayout>
 
@@ -233,6 +239,7 @@
                 android:id="@+id/iv_darkmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/dark_mode_icon"
                 android:src="@drawable/ic_darkmode" />
 
             <TextView
@@ -243,12 +250,14 @@
                 android:layout_alignBottom="@+id/iv_darkmode"
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/iv_darkmode"
-                android:text="@string/dark_mode" />
+                android:text="@string/dark_mode"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:contentDescription="@string/dark_mode_button"
                 android:src="@drawable/switch_off" />
 
         </RelativeLayout>
@@ -267,6 +276,7 @@
                 android:id="@+id/iv_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/icon_logout"
                 android:src="@drawable/ic_logout" />
 
             <TextView
@@ -277,12 +287,14 @@
                 android:layout_alignBottom="@+id/iv_logout"
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/iv_logout"
-                android:text="@string/log_out" />
+                android:text="@string/log_out"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:contentDescription="@string/logout_button"
                 android:src="@drawable/ic_right_arrow_black" />
 
         </RelativeLayout>

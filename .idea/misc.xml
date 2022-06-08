@@ -72,8 +72,19 @@
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/prediction_dialog.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/view_loading.xml" value="0.18945699564011098" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_add_claim.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_claim_detail.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_edit_profile.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_forgot_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_reset_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_signup.xml" value="0.2604166666666667" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/contain_status.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_explore.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_prediction.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_profile.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/item_evidence_image.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/view_loading.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

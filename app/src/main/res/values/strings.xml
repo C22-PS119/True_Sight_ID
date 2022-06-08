@@ -83,4 +83,18 @@
     <string name="no_claims_found">No claims found</string>
     <string name="you_have_no_bookmarks">You have no bookmarks</string>
     <string name="you_can_add_one_in_explore_page">you can add one in explore page</string>
+    <string name="email_verification">Email\nVerification</string>
+    <string name="verification_info">We have sent code to your email:</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="did_not_receive_code">Didn’t receive code?</string>
+    <string name="resend">Resend</string>
+    <string name="change_password">Change Password</string>
+    <string name="cancel_changes">Cancel Changes</string>
+    <string name="current_password">Current Password</string>
+    <string name="re_type_new_password">Re-type New Password</string>
+    <string name="empty" />
+    <string name="dark_mode_icon">Dark Mode Icon</string>
+    <string name="dark_mode_button">Dark Mode Button</string>
+    <string name="icon_logout">Icon Logout</string>
+    <string name="logout_button">Logout Button</string>
 </resources>
