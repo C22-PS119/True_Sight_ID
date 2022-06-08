@@ -9,5 +9,6 @@ data class UserEntity(
     val avatar: String,
     val email: String,
     val password: String,
+    val bookmark: List<Int>,
     val votes: HashMap<Int, Int>
 )

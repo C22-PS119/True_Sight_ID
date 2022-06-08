@@ -9,6 +9,7 @@ import com.truesightid.ui.editprofile.SetProfileViewModel
 import com.truesightid.ui.explore.ExploreNewsViewModel
 import com.truesightid.ui.login.LoginViewModel
 import com.truesightid.ui.main.MainViewModel
+import com.truesightid.ui.mybookmark.MyBookmarkViewModel
 import com.truesightid.ui.myclaim.MyClaimViewModel
 import com.truesightid.ui.prediction.NewsPredictViewModel
 import com.truesightid.ui.profile.ProfileViewModel
@@ -61,6 +62,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(MyClaimViewModel::class.java) -> {
                 MyClaimViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(MyBookmarkViewModel::class.java) -> {
+                MyBookmarkViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

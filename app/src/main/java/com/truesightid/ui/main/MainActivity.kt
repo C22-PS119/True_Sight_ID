@@ -1,6 +1,5 @@
 package com.truesightid.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.prediction.NewsPredictFragment
 import com.truesightid.ui.profile.ProfileFragment
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.pushActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if(extras != null){
-            if(extras.getBoolean("fromEditProfile")){
+            if(extras.getBoolean("shouldProfile")){
                 // Go to profile
                 tabs.selectTab(tabs.getTabAt(2))
             }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         if (Prefs.isLogin) { //  true atau false
             Log.d("TAG", "sudah login")
         } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+            pushActivity(LoginActivity::class.java)
             Log.d("TAG", "belum login, pindah ke menu login")
         }
     }

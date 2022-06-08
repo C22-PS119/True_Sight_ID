@@ -16,7 +16,7 @@ import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.VotesSeparator
+import com.truesightid.utils.StringSeparatorUtils
 import com.truesightid.utils.extension.*
 
 class LoginActivity : AppCompatActivity() {
@@ -62,7 +62,8 @@ class LoginActivity : AppCompatActivity() {
                 StatusResponse.SUCCESS -> {
                     Prefs.isLogin = true
                     val response = user.body
-                    val responseData = Gson().fromJson<Data>((response.data as LinkedTreeMap<*,*>).toJson())
+                    val responseData =
+                        Gson().fromJson<Data>((response.data as LinkedTreeMap<*, *>).toJson())
                     val userData = responseData.user
                     if (userData != null) {
                         Prefs.setUser(
@@ -74,7 +75,8 @@ class LoginActivity : AppCompatActivity() {
                                 userData.avatar.toString(),
                                 userData.email.toString(),
                                 userData.password.toString(),
-                                VotesSeparator.separate(userData.votes)
+                                StringSeparatorUtils.separateBookmarkResponse(userData.bookmarks),
+                                StringSeparatorUtils.separateVoteResponse(userData.votes)
                             )
                         )
                     }

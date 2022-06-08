@@ -1,7 +1,10 @@
 package com.truesightid.ui.explore
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +16,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
@@ -36,6 +41,7 @@ class ExploreNewsFragment : Fragment() {
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
     private lateinit var requestAllClaims: ClaimRequest
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +73,26 @@ class ExploreNewsFragment : Fragment() {
                         viewModel.downvoteClaimById(Prefs.getUser()?.apiKey as String, claim_id)
                     }
 
+                    override fun onBookmarkAdded(claim_id: Int) {
+                        viewModel.addBookmarkById(
+                            AddRemoveBookmarkRequest(
+                                Prefs.getUser()?.apiKey as String,
+                                claim_id
+                            )
+                        )
+                        toastInfo("Added to Bookmark")
+                    }
+
+                    override fun onBookmarkRemoved(claim_id: Int) {
+                        viewModel.removeBookmarkById(
+                            AddRemoveBookmarkRequest(
+                                Prefs.getUser()?.apiKey as String,
+                                claim_id
+                            )
+                        )
+                        toastInfo("Removed from Bookmark")
+                    }
+
                 }, Prefs)
 
                 with(binding.rvClaimer) {
@@ -91,10 +117,7 @@ class ExploreNewsFragment : Fragment() {
             }
 
             initSearch()
-
         }
-
-
     }
 
     private fun initSearch() {
@@ -117,16 +140,22 @@ class ExploreNewsFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private val claimObserver = Observer<Resource<PagedList<ClaimEntity>>> { claims ->
+        showLoading()
         if (claims != null) {
             when (claims.status) {
-                Status.LOADING -> showLoading(true)
+                Status.LOADING -> alertDialog.dismiss()
                 Status.SUCCESS -> {
-                    showLoading(false)
+                    alertDialog.dismiss()
+                    if (claims.data?.isNotEmpty() as Boolean) {
+                        showIllustrator(false)
+                    } else {
+                        showIllustrator(true)
+                    }
                     exploreAdapter.submitList(claims.data)
                     exploreAdapter.notifyDataSetChanged()
                 }
                 Status.ERROR -> {
-                    showLoading(false)
+                    alertDialog.dismiss()
                     Toast.makeText(context, "Error: Somethings went wrong", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -134,10 +163,26 @@ class ExploreNewsFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) = if (isLoading) {
-        binding.progressBar.visibility = View.VISIBLE
-    } else {
-        binding.progressBar.visibility = View.GONE
+    private fun showIllustrator(isIllustrator: Boolean) {
+        if (isIllustrator) {
+            binding.ivIllustrator.visibility = View.VISIBLE
+            binding.tvIllustrator1.visibility = View.VISIBLE
+            binding.tvIllustrator2.visibility = View.VISIBLE
+        } else {
+            binding.ivIllustrator.visibility = View.GONE
+            binding.tvIllustrator1.visibility = View.GONE
+            binding.tvIllustrator2.visibility = View.GONE
+        }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(requireContext()).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

@@ -43,7 +43,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                     if (registerResponse.status == "success")
                         resultRegister.value = ApiResponse.success(registerResponse)
                     else
-                        resultRegister.value = ApiResponse.error(registerResponse.message ?: "Failed to GET message", RegistrationResponse())
+                        resultRegister.value = ApiResponse.error(
+                            registerResponse.message ?: "Failed to GET message",
+                            RegistrationResponse()
+                        )
                 }
             })
         return resultRegister
@@ -77,7 +80,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                 if (postProfileResponse.status == "success")
                     resultPost.value = ApiResponse.success(postProfileResponse)
                 else
-                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
+                    resultPost.value = ApiResponse.error(
+                        postProfileResponse.message ?: "Failed to GET message",
+                        PostProfileResponse()
+                    )
             }
 
         })
@@ -91,7 +97,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                 if (postProfileResponse.status == "success")
                     resultPost.value = ApiResponse.success(postProfileResponse)
                 else
-                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
+                    resultPost.value = ApiResponse.error(
+                        postProfileResponse.message ?: "Failed to GET message",
+                        PostProfileResponse()
+                    )
             }
 
         })
@@ -105,14 +114,17 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                 if (userProfileResponse.status == "success")
                     resultPost.value = ApiResponse.success(userProfileResponse)
                 else
-                    resultPost.value = ApiResponse.error(userProfileResponse.message ?: "Failed to GET message", UserResponse())
+                    resultPost.value = ApiResponse.error(
+                        userProfileResponse.message ?: "Failed to GET message",
+                        UserResponse()
+                    )
             }
 
         })
         return resultPost
     }
 
-    fun getMyClaimRequest(request: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
+    fun getMyClaimRequest(request: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
         val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
         apiHelper.getMyClaims(request, object : MyClaimRequestCallback {
             override fun onMyClaimRequestResponse(myClaimResponse: MyClaimResponse) {
@@ -142,12 +154,50 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultClaims
     }
 
+    fun getMyBookmarkRequest(request: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
+        val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
+        apiHelper.getMyBookmark(request, object : MyBookmarksCallback {
+            override fun onMyBookmarksRequestResponse(myBookmarkResponse: MyBookmarkResponse) {
+                val responseData = myBookmarkResponse.data
+                val claimList = ArrayList<ClaimEntity>()
+                if (responseData != null) {
+                    for (item in responseData) {
+                        val claim = item?.dateCreated?.let {
+                            ClaimEntity(
+                                item.id as Int,
+                                item.title as String,
+                                item.authorUsername as String,
+                                item.description as String,
+                                item.attachment as String,
+                                item.fake as Int,
+                                item.upvote as Int,
+                                item.downvote as Int,
+                                it.toFloat()
+                            )
+                        }
+                        claimList.add(claim as ClaimEntity)
+                    }
+                }
+                resultClaims.value = ApiResponse.success(claimList)
+            }
+        })
+        return resultClaims
+    }
+
     fun upVoteRequestById(api_key: String, id: Int) {
         apiHelper.voteByClaimIdRequest(true, api_key, id)
     }
 
     fun downVoteRequestById(api_key: String, id: Int) {
         apiHelper.voteByClaimIdRequest(false, api_key, id)
+    }
+
+    fun addBookmarkById(request: AddRemoveBookmarkRequest) {
+        apiHelper.addRemoveBookmarkByClaimId(true, request)
+    }
+
+    fun removeBookmarkById(request: AddRemoveBookmarkRequest) {
+        apiHelper.addRemoveBookmarkByClaimId(false, request)
     }
 
     interface ClaimsRequestCallback {
@@ -177,8 +227,8 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     interface MyClaimRequestCallback {
         fun onMyClaimRequestResponse(myClaimResponse: MyClaimResponse)
     }
-//
-//    interface MyBookmarksCallback{
-//        fun onMyBookmarksRequestResponse(myBookmarkResponse: MyBookmarkResponse)
-//    }
+
+    interface MyBookmarksCallback {
+        fun onMyBookmarksRequestResponse(myBookmarkResponse: MyBookmarkResponse)
+    }
 }

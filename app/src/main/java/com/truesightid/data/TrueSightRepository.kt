@@ -41,6 +41,12 @@ class TrueSightRepository(
     override fun downVoteClaimById(api_key: String, id: Int) =
         remoteDataSource.downVoteRequestById(api_key, id)
 
+    override fun addBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
+        remoteDataSource.addBookmarkById(addRemoveBookmarkRequest)
+
+    override fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
+        remoteDataSource.removeBookmarkById(addRemoveBookmarkRequest)
+
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)
@@ -62,9 +68,11 @@ class TrueSightRepository(
     override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =
         remoteDataSource.registrationRequest(registrationRequest)
 
-    override fun getMyClaims(myClaimRequest: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
-        remoteDataSource.getMyClaimRequest(myClaimRequest)
+    override fun getMyClaims(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
+        remoteDataSource.getMyClaimRequest(myDataRequest)
 
+    override fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
+        remoteDataSource.getMyBookmarkRequest(myDataRequest)
 
     override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {

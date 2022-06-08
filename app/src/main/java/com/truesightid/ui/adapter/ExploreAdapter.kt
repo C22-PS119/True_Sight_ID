@@ -158,10 +158,28 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     return@setOnClickListener
                 }
 
+                val bookmark = user.bookmark
+                if (items.id in bookmark) {
+                    binding.ibBookmark.background =
+                        itemView.context.getDrawable(R.drawable.ic_bookmark_cardview_pressed)
+                }
+
+                binding.ibBookmark.setOnClickListener {
+                    if (items.id in bookmark) {
+                        binding.ibBookmark.background =
+                            itemView.context.getDrawable(R.drawable.ic_bookmark_cardview)
+                        callback.onBookmarkRemoved(items.id)
+                    } else {
+                        binding.ibBookmark.background =
+                            itemView.context.getDrawable(R.drawable.ic_bookmark_cardview_pressed)
+                        callback.onBookmarkAdded(items.id)
+                    }
+                }
+
                 binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
                 if (votes.containsKey(items.id)) {
                     binding.tvVoteCount.tag = votes.getValue(items.id)
-                }else{
+                } else {
                     binding.tvVoteCount.tag = 0
                 }
                 binding.ibShare.setOnClickListener {
@@ -188,6 +206,8 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
     interface ItemClaimClickListener {
         fun onClaimUpvote(claim_id: Int)
         fun onClaimDownvote(claim_id: Int)
+        fun onBookmarkAdded(claim_id: Int)
+        fun onBookmarkRemoved(claim_id: Int)
     }
 
 }

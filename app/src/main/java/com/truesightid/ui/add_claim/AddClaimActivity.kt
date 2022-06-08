@@ -2,11 +2,14 @@ package com.truesightid.ui.add_claim
 
 import DirtyFilter
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +25,10 @@ import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.AddClaimAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.MyLoading
+import com.truesightid.utils.extension.pushActivity
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastWarning
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -78,15 +84,23 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val url = binding.edtUrl.text.toString()
-        
-        if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords)){
-            Toast.makeText(this, "Your description contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
+
+        if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords)) {
+            Toast.makeText(
+                this,
+                "Your description contains dirty words, please fix it!",
+                Toast.LENGTH_LONG
+            ).show()
             return
-        }else if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords)){
-            Toast.makeText(this, "Your title contains dirty words, please fix it!", Toast.LENGTH_LONG).show()
+        } else if (DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords)) {
+            Toast.makeText(
+                this,
+                "Your title contains dirty words, please fix it!",
+                Toast.LENGTH_LONG
+            ).show()
             return
         }
-        
+
         val postClaim = PostClaimRequest(
             apiKey = Prefs.getUser()?.apiKey as String,
             title = title,
@@ -112,6 +126,25 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        val alertDialog: AlertDialog = MyLoading.newInstance(this)
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        try {
+            alertDialog.show()
+        } catch (e: WindowManager.BadTokenException) {
+            //use a log message
+        }
+    }
+
+    private fun dismisLoading() {
+        val alertDialog: AlertDialog = MyLoading.newInstance(this)
+        alertDialog.dismiss()
     }
 
     override fun onClick(v: View) {
@@ -165,14 +198,15 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showSuccessAddClaim(onConfirmClickListener: () -> Unit) {
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Add Claim Successful")
-            .setContentText("Claim is added successfully, press Ok to back to main menu")
-            .setConfirmText(getString(R.string.dialog_ok))
-            .setConfirmClickListener {
-                it.dismiss()
-                onConfirmClickListener()
-            }
-            .show()
+        val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+        dialog.titleText = "Add Claim Successful"
+        dialog.contentText = "Claim is added successfully, press Ok to back to main menu"
+        dialog.confirmText = getString(R.string.dialog_ok)
+        dialog.setConfirmClickListener {
+            it.dismiss()
+            onConfirmClickListener()
+        }
+        dialog.setCancelable(false)
+        dialog.show()
     }
 }

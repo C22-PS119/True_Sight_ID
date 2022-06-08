@@ -40,8 +40,9 @@ class EditProfileActivity : AppCompatActivity() {
         // Setup back button
         binding.btnCancel.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.putExtra("fromEditProfile", true)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.putExtra("shouldProfile", true)
             startActivity(intent)
         }
 
@@ -72,15 +73,17 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Edit Profile Success")
-            .setContentText("Your profile has been updated, go back to profile page to see the changes")
-            .setConfirmText(getString(R.string.dialog_ok))
-            .setConfirmClickListener {
-                it.dismiss()
-                onConfirmClickListener()
-            }
-            .show()
+        val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+        dialog.titleText = "Edit Profile Success"
+        dialog.contentText =
+            "Your profile has been updated, go back to profile page to see the changes"
+        dialog.confirmText = getString(R.string.dialog_ok)
+        dialog.setConfirmClickListener {
+            it.dismiss()
+            onConfirmClickListener()
+        }
+        dialog.setCancelable(false)
+        dialog.show()
     }
 
     private fun changeProfile(viewModel: SetProfileViewModel) {

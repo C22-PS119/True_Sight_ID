@@ -17,9 +17,10 @@ import com.truesightid.databinding.FragmentProfileBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.editprofile.EditProfileActivity
 import com.truesightid.ui.login.LoginActivity
+import com.truesightid.ui.mybookmark.MyBookmarkActivity
 import com.truesightid.ui.myclaim.MyClaimActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.VotesSeparator
+import com.truesightid.utils.StringSeparatorUtils
 import com.truesightid.utils.extension.pushActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastWarning
@@ -60,6 +61,12 @@ class ProfileFragment : Fragment() {
         binding.rlLogout.setOnClickListener {
             pushActivity(LoginActivity::class.java)
             Prefs.setUser(null)
+            Prefs.isLogin = false
+        }
+
+        binding.rlBookmark.setOnClickListener {
+            val i = Intent(context, MyBookmarkActivity::class.java)
+            startActivity(i)
         }
 
         val getUserProfile = GetProfileRequest(
@@ -91,7 +98,8 @@ class ProfileFragment : Fragment() {
                                 userData.avatar.toString(),
                                 userData.email.toString(),
                                 userData.password.toString(),
-                                VotesSeparator.separate(userData.votes)
+                                StringSeparatorUtils.separateBookmarkResponse(userData.bookmarks),
+                                StringSeparatorUtils.separateVoteResponse(userData.votes)
                             )
                         )
                     }

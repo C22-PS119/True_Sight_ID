@@ -3,7 +3,6 @@ package com.truesightid.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,26 +14,27 @@ import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 
-class MyClaimAdapter(
+class MyBookmarksAdapter(
     private val callback: ItemClaimClickListener,
     private val pref: Prefs
-) : RecyclerView.Adapter<MyClaimAdapter.MyClaimViewHolder>() {
+) : RecyclerView.Adapter<MyBookmarksAdapter.MyBookmarkViewHolder>() {
     private val myClaimsList = ArrayList<ClaimEntity>()
 
     fun setData(data: List<ClaimEntity>?) {
+        myClaimsList.clear()
         if (data != null) {
             myClaimsList.addAll(data)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyClaimViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyBookmarkViewHolder {
         val itemRowClaimsBinding =
             ItemRowClaimsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyClaimViewHolder(itemRowClaimsBinding)
+        return MyBookmarkViewHolder(itemRowClaimsBinding)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    override fun onBindViewHolder(holder: MyClaimViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyBookmarkViewHolder, position: Int) {
         val items = myClaimsList[position]
         with(holder) {
             val claimer = "Claim by ${items.claimer}:"
@@ -148,15 +148,18 @@ class MyClaimAdapter(
                 return@setOnClickListener
             }
 
+            binding.ibBookmark.background =
+                itemView.context.getDrawable(R.drawable.ic_bookmark_cardview_pressed)
+            binding.ibBookmark.setOnClickListener {
+                callback.onRemoveClaimtoBookmark(items.id)
+            }
+
             binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
             if (votes.containsKey(items.id)) {
                 binding.tvVoteCount.tag = votes.getValue(items.id)
             } else {
                 binding.tvVoteCount.tag = 0
             }
-
-            binding.ibBookmark.visibility = View.GONE
-
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(
@@ -177,11 +180,12 @@ class MyClaimAdapter(
     override fun getItemCount(): Int = myClaimsList.size
 
 
-    class MyClaimViewHolder(val binding: ItemRowClaimsBinding) :
+    class MyBookmarkViewHolder(val binding: ItemRowClaimsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     interface ItemClaimClickListener {
         fun onClaimUpvote(claim_id: Int)
         fun onClaimDownvote(claim_id: Int)
+        fun onRemoveClaimtoBookmark(claim_id: Int)
     }
 }
