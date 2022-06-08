@@ -62,6 +62,9 @@ class TrueSightRepository(
     override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =
         remoteDataSource.registrationRequest(registrationRequest)
 
+    override fun getMyClaims(myClaimRequest: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
+        remoteDataSource.getMyClaimRequest(myClaimRequest)
+
 
     override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {

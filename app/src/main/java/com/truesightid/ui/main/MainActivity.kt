@@ -34,6 +34,14 @@ class MainActivity : AppCompatActivity() {
         tabs = findViewById(R.id.tabs)
 
         initTabs()
+
+        val extras = intent.extras
+        if(extras != null){
+            if(extras.getBoolean("fromEditProfile")){
+                // Go to profile
+                tabs.selectTab(tabs.getTabAt(2))
+            }
+        }
     }
 
     private fun setupLogin() {
