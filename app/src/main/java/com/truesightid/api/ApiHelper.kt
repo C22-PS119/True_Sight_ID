@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.truesightid.data.source.remote.RemoteDataSource
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -133,19 +134,19 @@ class ApiHelper(val context: Context) {
         val client = if (request.attachment.isNotEmpty()) {
             ApiConfig.getApiService().postClaimMultiPart(
                 request.apiKey,
-                request.title,
-                request.description,
+                request.title.toRequestBody(),
+                request.description.toRequestBody(),
                 request.fake,
-                request.url,
+                request.url.toRequestBody(),
                 request.attachment[0]
             )
         } else {
             ApiConfig.getApiService().postClaimMultiPart(
                 request.apiKey,
-                request.title,
-                request.description,
+                request.title.toRequestBody(),
+                request.description.toRequestBody(),
                 request.fake,
-                request.url,
+                request.url.toRequestBody(),
                 null
             )
         }
@@ -266,6 +267,32 @@ class ApiHelper(val context: Context) {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        })
+    }
+
+    fun getMyClaims(request: MyClaimRequest, callback: RemoteDataSource.MyClaimRequestCallback) {
+        val client = ApiConfig.getApiService().getMyClaims(request.apiKey)
+        client.enqueue(object : Callback<MyClaimResponse> {
+            override fun onResponse(
+                call: Call<MyClaimResponse>,
+                response: Response<MyClaimResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onMyClaimRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyClaimResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onGetMyClaimsFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         })
     }
 }

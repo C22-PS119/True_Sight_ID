@@ -13,4 +13,15 @@ object VotesSeparator {
         }
         return result
     }
+
+    fun join(votes: HashMap<Int,Int>): String? {
+        var sb = ArrayList<String>()
+        for(vote in votes){
+            sb.add(vote.key.toString() + ":" + vote.value.toString())
+        }
+        if (sb.count() == 0)
+            return null
+        else
+            return sb.joinToString()
+    }
 }

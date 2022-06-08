@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
@@ -77,7 +78,7 @@ class ExploreNewsFragment : Fragment() {
 
                 binding.refreshLayout.setOnRefreshListener {
                     viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                    toastSuccess("Refreshed")
+                    toastSuccess("Page Refreshed")
                     binding.refreshLayout.isRefreshing = false
                 }
 
@@ -93,8 +94,6 @@ class ExploreNewsFragment : Fragment() {
             initSearch()
 
         }
-
-
     }
 
     private fun initSearch() {

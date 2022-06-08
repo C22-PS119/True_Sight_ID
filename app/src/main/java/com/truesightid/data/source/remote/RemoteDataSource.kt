@@ -3,6 +3,7 @@ package com.truesightid.data.source.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
+import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
 
@@ -23,7 +24,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                 if (loginResponse.status == "success")
                     resultLogin.value = ApiResponse.success(loginResponse)
                 else
-                    resultLogin.value = ApiResponse.error(loginResponse.message ?: "Failed to GET message", LoginResponse())
+                    resultLogin.value = ApiResponse.error(
+                        loginResponse.message ?: "Failed to GET message",
+                        LoginResponse()
+                    )
             }
         })
         return resultLogin
@@ -36,7 +40,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         apiHelper.registrationRequest(request,
             object : RegistrationRequestCallback {
                 override fun onRegistrationRequestResponse(registerResponse: RegistrationResponse) {
-                    resultRegister.value = ApiResponse.success(registerResponse)
+                    if (registerResponse.status == "success")
+                        resultRegister.value = ApiResponse.success(registerResponse)
+                    else
+                        resultRegister.value = ApiResponse.error(registerResponse.message ?: "Failed to GET message", RegistrationResponse())
                 }
             })
         return resultRegister
@@ -67,7 +74,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
         apiHelper.postProfileWithAvatarResponse(request, object : PostProfileRequestCallback {
             override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
-                resultPost.value = ApiResponse.success(postProfileResponse)
+                if (postProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(postProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
             }
 
         })
@@ -78,7 +88,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<PostProfileResponse>>()
         apiHelper.postProfileResponse(request, object : PostProfileRequestCallback {
             override fun onPostProfileRequestResponse(postProfileResponse: PostProfileResponse) {
-                resultPost.value = ApiResponse.success(postProfileResponse)
+                if (postProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(postProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(postProfileResponse.message ?: "Failed to GET message", PostProfileResponse())
             }
 
         })
@@ -89,18 +102,52 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         val resultPost = MutableLiveData<ApiResponse<UserResponse>>()
         apiHelper.getUserProfileResponse(request, object : GetProfileRequestCallback {
             override fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse) {
-                resultPost.value = ApiResponse.success(userProfileResponse)
+                if (userProfileResponse.status == "success")
+                    resultPost.value = ApiResponse.success(userProfileResponse)
+                else
+                    resultPost.value = ApiResponse.error(userProfileResponse.message ?: "Failed to GET message", UserResponse())
             }
 
         })
         return resultPost
     }
-    fun upVoteRequestById(api_key:String, id: Int) {
+
+    fun getMyClaimRequest(request: MyClaimRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
+        val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
+        apiHelper.getMyClaims(request, object : MyClaimRequestCallback {
+            override fun onMyClaimRequestResponse(myClaimResponse: MyClaimResponse) {
+                val responseData = myClaimResponse.data
+                val claimList = ArrayList<ClaimEntity>()
+                if (responseData != null) {
+                    for (item in responseData) {
+                        val claim = item?.dateCreated?.let {
+                            ClaimEntity(
+                                item.id as Int,
+                                item.title as String,
+                                item.authorUsername as String,
+                                item.description as String,
+                                item.attachment?.get(0) as String,
+                                item.fake as Int,
+                                item.upvote as Int,
+                                item.downvote as Int,
+                                it.toFloat()
+                            )
+                        }
+                        claimList.add(claim as ClaimEntity)
+                    }
+                }
+                resultClaims.value = ApiResponse.success(claimList)
+            }
+        })
+        return resultClaims
+    }
+
+    fun upVoteRequestById(api_key: String, id: Int) {
         apiHelper.voteByClaimIdRequest(true, api_key, id)
     }
 
-    fun downVoteRequestById(api_key:String, id: Int) {
-        apiHelper.voteByClaimIdRequest(false,api_key, id)
+    fun downVoteRequestById(api_key: String, id: Int) {
+        apiHelper.voteByClaimIdRequest(false, api_key, id)
     }
 
     interface ClaimsRequestCallback {
@@ -126,4 +173,12 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     interface GetProfileRequestCallback {
         fun onGetUserProfileRequestResponse(userProfileResponse: UserResponse)
     }
+
+    interface MyClaimRequestCallback {
+        fun onMyClaimRequestResponse(myClaimResponse: MyClaimResponse)
+    }
+//
+//    interface MyBookmarksCallback{
+//        fun onMyBookmarksRequestResponse(myBookmarkResponse: MyBookmarkResponse)
+//    }
 }

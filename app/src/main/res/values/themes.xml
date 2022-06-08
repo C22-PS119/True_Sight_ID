@@ -34,4 +34,10 @@
     <style name="GoogleButtonLogin" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/blue_soft</item>
     </style>
+    <style name="Theme.TrueSightID.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.TrueSightID.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.TrueSightID.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

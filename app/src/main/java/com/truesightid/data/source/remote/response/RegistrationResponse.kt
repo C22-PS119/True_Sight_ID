@@ -8,7 +8,7 @@ data class RegistrationResponse(
     val total: Int? = null,
 
 	@field:SerializedName("data")
-    val data: RegisterData? = null,
+    val data: Any? = null,
 
 	@field:SerializedName("dataname")
     val dataname: String? = null,

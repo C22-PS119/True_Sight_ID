@@ -22,9 +22,7 @@ import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.AddClaimAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.pushActivity
-import com.truesightid.utils.extension.toastError
-import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -41,11 +39,11 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[AddClaimViewModel::class.java]
-
         binding = ActivityAddClaimBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[AddClaimViewModel::class.java]
 
         addPhotoAdapter = AddClaimAdapter()
 
@@ -97,11 +95,21 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
             url = url,
             listFile
         )
+        showLoading()
         viewModel.addClaim(postClaim).observe(this) { response ->
             when (response.status) {
-                StatusResponse.SUCCESS -> showSuccessAddClaim { pushActivity(MainActivity::class.java) }
-                StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                StatusResponse.ERROR -> toastError("Error: ${response.body}")
+                StatusResponse.SUCCESS -> {
+                    showSuccessAddClaim { pushActivity(MainActivity::class.java) }
+                    dismisLoading()
+                }
+                StatusResponse.EMPTY -> {
+                    toastWarning("Empty: ${response.body}")
+                    dismisLoading()
+                }
+                StatusResponse.ERROR -> {
+                    toastError("Error: ${response.body}")
+                    dismisLoading()
+                }
             }
         }
     }
