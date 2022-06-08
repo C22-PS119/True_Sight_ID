@@ -129,6 +129,12 @@ class EditProfileActivity : AppCompatActivity() {
                     StatusResponse.SUCCESS -> {
                         toastInfo("Success: ${response.body}")
                         dismisLoading()
+                        showSuccessDialog() {
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            intent.putExtra("fromEditProfile", true)
+                            startActivity(intent)
+                        }
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")

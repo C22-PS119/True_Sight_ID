@@ -2,6 +2,7 @@ package com.truesightid.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -30,8 +31,6 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
         }
     }
 
-    private var upvotePressed = false
-    private var downvotePressed = false
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -41,6 +40,16 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
         return ExploreViewHolder(itemRowClaimsBinding)
     }
 
+    fun applyUserVotes(claim_id: Int, vote:Int){
+        var user = Prefs.getUser()
+        if (vote == 0)
+            user?.votes?.remove(claim_id)
+        else
+            user?.votes!![claim_id] = vote
+        Log.d("LOG", "VOTES AFTER:${user?.votes}")
+        Prefs.setUser(user)
+    }
+
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun onBindViewHolder(holder: ExploreViewHolder, position: Int) {
         val items = getItem(position)
@@ -48,6 +57,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
         if (items != null) {
             with(holder) {
                 val claimer = "Claim by ${items.claimer}:"
+
                 binding.tvClaimer.text = claimer
                 Glide.with(itemView.context)
                     .load(items.image)
@@ -71,14 +81,10 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
 
                 val user = pref.getUser()
                 val votes = user?.votes as HashMap<Int, Int>
+                Log.d("LOG", "votes:${votes}")
                 if (votes.containsKey(items.id)) {
+                    binding.tvVoteCount.tag = votes.getValue(items.id)
                     when (votes.getValue(items.id)) {
-                        0 -> {
-                            binding.ibUpvote.background =
-                                itemView.context.getDrawable(R.drawable.ic_upvote)
-                            binding.ibDownvote.background =
-                                itemView.context.getDrawable(R.drawable.ic_downvote)
-                        }
                         1 -> {
                             binding.ibUpvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
@@ -92,6 +98,12 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                         }
                     }
+                }else{
+                    binding.tvVoteCount.tag = 0
+                    binding.ibUpvote.background =
+                        itemView.context.getDrawable(R.drawable.ic_upvote)
+                    binding.ibDownvote.background =
+                        itemView.context.getDrawable(R.drawable.ic_downvote)
                 }
 
                 binding.ibUpvote.setOnClickListener {
@@ -103,6 +115,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
                             items.upvote++;
                             binding.tvVoteCount.tag = 1
+                            applyUserVotes(items.id, 1)
                             callback.onClaimUpvote(items.id)
                         }
                         1 -> {
@@ -111,6 +124,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
                             binding.tvVoteCount.tag = 1
+                            applyUserVotes(items.id, 1)
                         }
                         -1 -> {
                             binding.ibUpvote.background =
@@ -119,6 +133,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
                             items.upvote++;
                             binding.tvVoteCount.tag = 0
+                            applyUserVotes(items.id, 0)
                             callback.onClaimUpvote(items.id)
                         }
                     }
@@ -135,6 +150,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                             items.downvote++;
                             binding.tvVoteCount.tag = -1
+                            applyUserVotes(items.id, -1)
                             callback.onClaimDownvote(items.id)
                         }
                         1 -> {
@@ -144,6 +160,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_downvote)
                             items.downvote++;
                             binding.tvVoteCount.tag = 0
+                            applyUserVotes(items.id, 0)
                             callback.onClaimDownvote(items.id)
                         }
                         -1 -> {
@@ -151,6 +168,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                                 itemView.context.getDrawable(R.drawable.ic_upvote)
                             binding.ibDownvote.background =
                                 itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
+                            applyUserVotes(items.id, -1)
                             binding.tvVoteCount.tag = -1
                         }
                     }
@@ -159,11 +177,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                 }
 
                 binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
-                if (votes.containsKey(items.id)) {
-                    binding.tvVoteCount.tag = votes.getValue(items.id)
-                }else{
-                    binding.tvVoteCount.tag = 0
-                }
+
                 binding.ibShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra(

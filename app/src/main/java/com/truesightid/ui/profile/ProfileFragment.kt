@@ -62,6 +62,7 @@ class ProfileFragment : Fragment() {
 
         binding.rlLogout.setOnClickListener {
             pushActivity(LoginActivity::class.java)
+            Prefs.isLogin = false
             Prefs.setUser(null)
         }
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.request.ClaimRequest
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
@@ -93,8 +94,6 @@ class ExploreNewsFragment : Fragment() {
             initSearch()
 
         }
-
-
     }
 
     private fun initSearch() {

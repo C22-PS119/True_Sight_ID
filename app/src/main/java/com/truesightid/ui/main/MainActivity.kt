@@ -16,6 +16,7 @@ import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.prediction.NewsPredictFragment
 import com.truesightid.ui.profile.ProfileFragment
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.pushActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (Prefs.isLogin) { //  true atau false
             Log.d("TAG", "sudah login")
         } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+            pushActivity(LoginActivity::class.java)
             Log.d("TAG", "belum login, pindah ke menu login")
         }
     }
