@@ -59,12 +59,9 @@ class LoginActivity : AppCompatActivity() {
         )
 
         viewModel.login(request).observe(this) { user ->
-            showLoading()
             when (user.status) {
                 StatusResponse.SUCCESS -> {
-                    dismisLoading()
                     Prefs.isLogin = true
-
                     val response = user.body
                     val responseData = Gson().fromJson<Data>((response.data as LinkedTreeMap<*,*>).toJson())
                     val userData = responseData.user
