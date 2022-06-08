@@ -27,6 +27,7 @@ import com.truesightid.ui.add_claim.AddClaimActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
 import com.truesightid.utils.Status
+import com.truesightid.utils.UserAction
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
 
@@ -80,6 +81,7 @@ class ExploreNewsFragment : Fragment() {
                                 claim_id
                             )
                         )
+                        UserAction.applyUserBookmarks(claim_id, true)
                         toastInfo("Added to Bookmark")
                     }
 
@@ -90,6 +92,7 @@ class ExploreNewsFragment : Fragment() {
                                 claim_id
                             )
                         )
+                        UserAction.applyUserBookmarks(claim_id, false)
                         toastInfo("Removed from Bookmark")
                     }
 

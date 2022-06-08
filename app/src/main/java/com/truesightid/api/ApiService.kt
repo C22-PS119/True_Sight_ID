@@ -74,7 +74,7 @@ interface ApiService {
         @Part("description") description: RequestBody,
         @Part("fake") fake: Int,
         @Part("url") url: RequestBody,
-        @Part attachment: MultipartBody.Part?,
+        @Part attachment: List<MultipartBody.Part>?,
     ): Call<PostClaimResponse>
 
     @Multipart

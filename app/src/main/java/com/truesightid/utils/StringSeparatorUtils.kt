@@ -14,7 +14,7 @@ object StringSeparatorUtils {
         return result
     }
 
-    fun separateBookmarkResponse(bookmark: String?): List<Int> {
+    fun separateBookmarkResponse(bookmark: String?): ArrayList<Int> {
         if (bookmark == null)
             return ArrayList<Int>()
         val result = ArrayList<Int>()

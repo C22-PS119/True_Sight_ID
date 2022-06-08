@@ -13,6 +13,7 @@ import com.truesightid.databinding.ItemRowClaimsBinding
 import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.UserAction
 
 class MyBookmarksAdapter(
     private val callback: ItemClaimClickListener,
@@ -58,17 +59,11 @@ class MyBookmarksAdapter(
                 binding.tvClaim.background = itemView.context.getDrawable(R.drawable.fact_claim)
             }
 
-
             val user = pref.getUser()
             val votes = user?.votes as HashMap<Int, Int>
             if (votes.containsKey(items.id)) {
+                binding.tvVoteCount.tag = votes.getValue(items.id)
                 when (votes.getValue(items.id)) {
-                    0 -> {
-                        binding.ibUpvote.background =
-                            itemView.context.getDrawable(R.drawable.ic_upvote)
-                        binding.ibDownvote.background =
-                            itemView.context.getDrawable(R.drawable.ic_downvote)
-                    }
                     1 -> {
                         binding.ibUpvote.background =
                             itemView.context.getDrawable(R.drawable.ic_upvote_pressed)
@@ -82,6 +77,12 @@ class MyBookmarksAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                     }
                 }
+            }else{
+                binding.tvVoteCount.tag = 0
+                binding.ibUpvote.background =
+                    itemView.context.getDrawable(R.drawable.ic_upvote)
+                binding.ibDownvote.background =
+                    itemView.context.getDrawable(R.drawable.ic_downvote)
             }
 
             binding.ibUpvote.setOnClickListener {
@@ -93,6 +94,7 @@ class MyBookmarksAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote)
                         items.upvote++
                         binding.tvVoteCount.tag = 1
+                        UserAction.applyUserVotes(items.id, 1)
                         callback.onClaimUpvote(items.id)
                     }
                     1 -> {
@@ -101,6 +103,7 @@ class MyBookmarksAdapter(
                         binding.ibDownvote.background =
                             itemView.context.getDrawable(R.drawable.ic_downvote)
                         binding.tvVoteCount.tag = 1
+                        UserAction.applyUserVotes(items.id, 1)
                     }
                     -1 -> {
                         binding.ibUpvote.background =
@@ -109,6 +112,7 @@ class MyBookmarksAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote)
                         items.upvote++
                         binding.tvVoteCount.tag = 0
+                        UserAction.applyUserVotes(items.id, 0)
                         callback.onClaimUpvote(items.id)
                     }
                 }
@@ -125,6 +129,7 @@ class MyBookmarksAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                         items.downvote++
                         binding.tvVoteCount.tag = -1
+                        UserAction.applyUserVotes(items.id, -1)
                         callback.onClaimDownvote(items.id)
                     }
                     1 -> {
@@ -134,6 +139,7 @@ class MyBookmarksAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote)
                         items.downvote++
                         binding.tvVoteCount.tag = 0
+                        UserAction.applyUserVotes(items.id, 0)
                         callback.onClaimDownvote(items.id)
                     }
                     -1 -> {
@@ -142,6 +148,7 @@ class MyBookmarksAdapter(
                         binding.ibDownvote.background =
                             itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                         binding.tvVoteCount.tag = -1
+                        UserAction.applyUserVotes(items.id, -1)
                     }
                 }
                 binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
@@ -155,11 +162,6 @@ class MyBookmarksAdapter(
             }
 
             binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
-            if (votes.containsKey(items.id)) {
-                binding.tvVoteCount.tag = votes.getValue(items.id)
-            } else {
-                binding.tvVoteCount.tag = 0
-            }
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(

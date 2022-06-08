@@ -138,7 +138,7 @@ class ApiHelper(val context: Context) {
                 request.description.toRequestBody(),
                 request.fake,
                 request.url.toRequestBody(),
-                request.attachment[0]
+                request.attachment
             )
         } else {
             ApiConfig.getApiService().postClaimMultiPart(

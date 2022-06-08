@@ -2,15 +2,11 @@ package com.truesightid.ui.add_claim
 
 import DirtyFilter
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -25,11 +21,10 @@ import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.AddClaimAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.MyLoading
-import com.truesightid.utils.extension.pushActivity
-import com.truesightid.utils.extension.toastError
-import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.TextValidation
+import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -84,67 +79,55 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val url = binding.edtUrl.text.toString()
-
-        if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords)) {
-            Toast.makeText(
-                this,
-                "Your description contains dirty words, please fix it!",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        } else if (DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords)) {
-            Toast.makeText(
-                this,
-                "Your title contains dirty words, please fix it!",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
-
-        val postClaim = PostClaimRequest(
-            apiKey = Prefs.getUser()?.apiKey as String,
-            title = title,
-            description = description,
-            fake = if (fake) 1 else 0,
-            url = url,
-            listFile
-        )
+        var error:String? = null
         showLoading()
-        viewModel.addClaim(postClaim).observe(this) { response ->
-            when (response.status) {
-                StatusResponse.SUCCESS -> {
-                    showSuccessAddClaim { pushActivity(MainActivity::class.java) }
-                    dismisLoading()
-                }
-                StatusResponse.EMPTY -> {
-                    toastWarning("Empty: ${response.body}")
-                    dismisLoading()
-                }
-                StatusResponse.ERROR -> {
-                    toastError("Error: ${response.body}")
-                    dismisLoading()
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(500) // Avoiding skip frames error
+            error = validateInput(title, description)
+        }.invokeOnCompletion {
+            if (error != null){
+                showErrorDialog(error.toString())
+                dismisLoading()
+            }else{
+                val postClaim = PostClaimRequest(
+                    apiKey = Prefs.getUser()?.apiKey as String,
+                    title = title,
+                    description = description,
+                    fake = if (fake) 1 else 0,
+                    url = url,
+                    listFile
+                )
+
+                viewModel.addClaim(postClaim).observe(this) { response ->
+                    when (response.status) {
+                        StatusResponse.SUCCESS -> {
+                            showSuccessAddClaim { pushActivity(MainActivity::class.java) }
+                            dismisLoading()
+                        }
+                        StatusResponse.EMPTY -> {
+                            toastWarning("Empty: ${response.body}")
+                            dismisLoading()
+                        }
+                        StatusResponse.ERROR -> {
+                            toastError("Error: ${response.body}")
+                            dismisLoading()
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun showLoading() {
-        val inflater = layoutInflater
-        val layout = inflater.inflate(R.layout.view_loading, null)
-        val alertDialog: AlertDialog = MyLoading.newInstance(this)
-        alertDialog.setView(layout)
-        alertDialog.setCancelable(false)
-        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        try {
-            alertDialog.show()
-        } catch (e: WindowManager.BadTokenException) {
-            //use a log message
-        }
-    }
-
-    private fun dismisLoading() {
-        val alertDialog: AlertDialog = MyLoading.newInstance(this)
-        alertDialog.dismiss()
+    fun validateInput(title:String, description:String) : String? {
+        if (TextValidation.getTotalWords(description) < 10)
+            return "Description must be at least 10 words"
+        if (TextValidation.getTotalWords(title) < 5)
+            return "Title must be at least 5 words"
+        if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords))
+            return "Your description contains dirty words, please fix it!"
+        if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
+            return "Your title contains dirty words, please fix it!"
+        return null
     }
 
     override fun onClick(v: View) {
@@ -188,7 +171,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
             addPhotoAdapter.notifyDataSetChanged()
             val file = uriToFile(selectedImg, this)
             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "file",
+                "file-" + listFile.count(),
                 file.name,
                 file.asRequestBody("image/*".toMediaTypeOrNull())
             )
@@ -198,15 +181,14 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showSuccessAddClaim(onConfirmClickListener: () -> Unit) {
-        val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.titleText = "Add Claim Successful"
-        dialog.contentText = "Claim is added successfully, press Ok to back to main menu"
-        dialog.confirmText = getString(R.string.dialog_ok)
-        dialog.setConfirmClickListener {
-            it.dismiss()
-            onConfirmClickListener()
-        }
-        dialog.setCancelable(false)
-        dialog.show()
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Add Claim Successful")
+            .setContentText("Claim is added successfully, press Ok to back to main menu")
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setConfirmClickListener {
+                it.dismiss()
+                onConfirmClickListener()
+            }
+            .show()
     }
 }

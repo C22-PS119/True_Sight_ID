@@ -19,7 +19,6 @@ class ExploreNewsViewModel(private val mTrueSightRepository: TrueSightRepository
     fun downvoteClaimById(api_key: String, id: Int) =
         mTrueSightRepository.downVoteClaimById(api_key, id)
 
-
     fun addBookmarkById(request: AddRemoveBookmarkRequest) =
         mTrueSightRepository.addBookmarkById(request)
 

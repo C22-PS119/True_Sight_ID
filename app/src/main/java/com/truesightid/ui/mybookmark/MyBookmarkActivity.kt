@@ -25,6 +25,8 @@ import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
+import com.truesightid.utils.UserAction
+import java.lang.Thread.sleep
 
 class MyBookmarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyclaimBinding
@@ -126,12 +128,14 @@ class MyBookmarkActivity : AppCompatActivity() {
             .setContentText("click delete to continue")
             .setConfirmText("Delete")
             .setConfirmClickListener {
+                UserAction.applyUserBookmarks(claim_id, false)
                 viewModel.removeBookmarkById(
                     AddRemoveBookmarkRequest(
                         Prefs.getUser()?.apiKey as String,
                         claim_id
                     )
                 )
+                sleep(300) // Must be delayed because MySQL is up to 200 ms per query
                 viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
                     .observe(this, claimObserver)
                 it.dismiss()
