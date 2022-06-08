@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.UserEntity
@@ -24,6 +25,9 @@ import com.truesightid.utils.StringSeparatorUtils
 import com.truesightid.utils.extension.pushActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastWarning
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class ProfileFragment : Fragment() {
@@ -82,14 +86,22 @@ class ProfileFragment : Fragment() {
                     if (userData != null) {
                         binding.tvName.text = userData.username
                         binding.tvEmail.text = userData.email
-                        Glide.with(requireContext())
-                            .load(userData.avatar.toString() + "?rand=" + Random.nextInt())
-                            .centerInside()
-                            .apply(
-                                RequestOptions.placeholderOf(R.drawable.ic_loading)
-                                    .error(R.drawable.ic_error)
-                            )
-                            .into(binding.ivProfile)
+                        Glide.get(binding.root.context).clearMemory()
+                        GlobalScope.launch(Dispatchers.IO) {
+                            Glide.get(binding.root.context).clearDiskCache()
+                        }.invokeOnCompletion {
+                            GlobalScope.launch(Dispatchers.Main) {
+                                Glide.with(requireContext())
+                                    .load(userData.avatar.toString())
+                                    .centerInside()
+                                    .timeout(3000)
+                                    .apply(
+                                        RequestOptions.placeholderOf(R.drawable.ic_loading)
+                                            .error(R.drawable.ic_error)
+                                    )
+                                    .into(binding.ivProfile)
+                            }
+                        }
                         Prefs.setUser(
                             UserEntity(
                                 userData.id ?: -1,
