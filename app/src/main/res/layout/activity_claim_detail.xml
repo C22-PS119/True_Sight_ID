@@ -28,10 +28,10 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="27dp"
                 android:background="@color/transparent"
+                android:contentDescription="@string/go_back_to_the_previous_page"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/go_back_to_the_previous_page" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/ib_share"
@@ -39,10 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@color/transparent"
+                android:contentDescription="@string/share_this_claim_to_other_users"
                 android:src="@drawable/ic_share_detail_claim"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                android:contentDescription="@string/share_this_claim_to_other_users" />
+                app:layout_constraintEnd_toStartOf="@+id/imageButton" />
 
             <ImageButton
                 android:id="@+id/imageButton"
@@ -51,10 +51,10 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="27dp"
                 android:background="@color/transparent"
+                android:contentDescription="@string/save_this_claim_to_your_bookmark"
                 android:src="@drawable/ic_add_bookmark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/save_this_claim_to_your_bookmark" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_claim"
@@ -262,13 +262,15 @@
 
         <TextView
             android:id="@+id/tv_my_comment"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/add_a_comment"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -281,6 +283,7 @@
             android:drawableEnd="@drawable/ic_send"
             android:fontFamily="@font/poppins_regular"
             android:hint="@string/add_a_comment"
+            android:inputType="textMultiLine"
             android:maxLines="4"
             android:textSize="11sp"
             android:visibility="invisible"
@@ -288,9 +291,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            tools:text="@string/add_a_comment"
             tools:ignore="Autofill"
-            android:inputType="textMultiLine" />
+            tools:text="@string/add_a_comment" />
 
         <View
             android:id="@+id/view_two"
