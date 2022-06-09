@@ -26,4 +26,18 @@ object StringSeparatorUtils {
         }
         return result
     }
+
+    fun separateUrlResponse(url: String?): ArrayList<String> {
+        if (url == null)
+            return ArrayList<String>()
+        val result = ArrayList<String>()
+        val filter = url.filterNot { it.isWhitespace() }
+        val ans = filter.split(",")
+        if (ans.isNotEmpty()) {
+            for (item in ans) {
+                result.add(item)
+            }
+        }
+        return result
+    }
 }
