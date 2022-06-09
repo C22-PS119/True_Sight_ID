@@ -25,6 +25,7 @@ import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ExploreAdapter
 import com.truesightid.ui.add_claim.AddClaimActivity
+import com.truesightid.utils.InputPreprocessUtils.searchQueryFilter
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.Resource
 import com.truesightid.utils.Status
@@ -153,7 +154,8 @@ class ExploreNewsFragment : Fragment() {
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    val request = ClaimRequest(Prefs.getUser()?.apiKey as String, query)
+                    val request =
+                        ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
                     viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
                     toastInfo("Result of ${request.keyword}")
                 }

@@ -95,7 +95,7 @@ class ProfileFragment : Fragment() {
                                     .timeout(3000)
                                     .apply(
                                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                                            .error(R.drawable.ic_error)
+                                            .error(R.drawable.logo_true_sight)
                                     )
                                     .into(binding.ivProfile)
                             }

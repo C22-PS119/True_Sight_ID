@@ -54,7 +54,7 @@ class DetailImagesAdapter(val context: Context, val callback: DetailImagesCallba
         Glide.with(itemView.context)
             .load(items)
             .apply(
-                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.logo_true_sight)
             )
             .into(imageView)
 
