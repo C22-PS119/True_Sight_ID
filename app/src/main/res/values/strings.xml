@@ -98,4 +98,13 @@
     <string name="icon_logout">Icon Logout</string>
     <string name="logout_button">Logout Button</string>
     <string name="you_can_filter_what_you_want_to_search_here">You can filter what you want to search here</string>
+    <string name="view_more">View more</string>
+    <string name="view_less">View less</string>
+    <string name="comment">Comment</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="read_more">… Read more</string>
+    <string name="go_back_to_the_previous_page">Go back to the previous page</string>
+    <string name="share_this_claim_to_other_users">Share this claim to other users</string>
+    <string name="save_this_claim_to_your_bookmark">Save this claim to your Bookmark</string>
+    <string name="image_preview">Image Preview</string>
 </resources>
