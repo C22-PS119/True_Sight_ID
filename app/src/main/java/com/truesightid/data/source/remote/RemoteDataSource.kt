@@ -6,6 +6,7 @@ import com.truesightid.api.ApiHelper
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
+import com.truesightid.utils.StringSeparatorUtils
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     companion object {
@@ -161,7 +162,8 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,
-                                it.toFloat()
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(item.url)
                             )
                         }
                         claimList.add(claim as ClaimEntity)
@@ -191,7 +193,8 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,
-                                it.toFloat()
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(item.url)
                             )
                         }
                         claimList.add(claim as ClaimEntity)

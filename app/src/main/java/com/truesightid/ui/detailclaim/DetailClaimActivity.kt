@@ -23,7 +23,17 @@ class DetailClaimActivity : AppCompatActivity() {
         binding = ActivityClaimDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        imagesAdapter = DetailImagesAdapter(this)
+        imagesAdapter =
+            DetailImagesAdapter(this, object : DetailImagesAdapter.DetailImagesCallback {
+                override fun onNextArrow(position: Int) {
+                    binding.vpImages.currentItem = position
+                }
+
+                override fun onPrevArrow(position: Int) {
+                    binding.vpImages.currentItem = position
+                }
+
+            })
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
             finish()
@@ -42,6 +52,7 @@ class DetailClaimActivity : AppCompatActivity() {
         // Set adapter
         binding.vpImages.adapter = imagesAdapter
 
+
     }
 
     private fun setupView(items: ClaimEntity) {
@@ -51,6 +62,20 @@ class DetailClaimActivity : AppCompatActivity() {
 
             imagesAdapter.setImages(items.image)
 
+            var url = StringBuilder()
+            items.url.forEachIndexed { index, s ->
+                if (index == 0 && items.url.count() == 1) {
+                    url = StringBuilder().append(s)
+                } else if (index == 0 && items.url.count() > 1) {
+                    url = StringBuilder().append("$s\n")
+                } else if (index > 0 && items.url.count() > 1 && index != items.url.count()) {
+                    url.append("$s\n")
+                } else if (index > 0 && items.url.count() > 1 && index == items.url.count()) {
+                    url.append(s)
+                }
+            }
+
+            tvSourceDetail.text = url
 
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
             tvDateDetail.text = DateUtils.getDateTime(items.date.toLong())
