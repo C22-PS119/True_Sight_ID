@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
@@ -22,14 +21,10 @@ import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import kotlin.random.Random
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -237,7 +232,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun backToMainActivity(){
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        intent.putExtra("fromEditProfile", true)
+        intent.putExtra("shouldProfile", true)
         startActivity(intent)
     }
 
