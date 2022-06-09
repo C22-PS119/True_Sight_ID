@@ -122,18 +122,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_detail"
                 tools:text="12 Mei 2022" />
 
-            <ImageView
-                android:id="@+id/iv_image_detail"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_images"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_claimer_detail" />
+
+            <TextView
+                android:id="@+id/tv_title_source"
                 android:layout_width="0dp"
-                android:layout_height="213dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/preview_detail_claim"
-                app:layout_constraintEnd_toEndOf="@+id/tv_title_detail"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/tv_claimer_detail"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                android:contentDescription="@string/image_preview" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@string/references"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/vp_images"
+                app:layout_constraintTop_toBottomOf="@id/vp_images" />
 
 
             <TextView
@@ -148,9 +162,9 @@
                 android:text=""
                 android:textColor="@color/gray"
                 android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="@+id/iv_image_detail"
-                app:layout_constraintStart_toStartOf="@+id/iv_image_detail"
-                app:layout_constraintTop_toBottomOf="@+id/iv_image_detail"
+                app:layout_constraintEnd_toEndOf="@+id/vp_images"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_source"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_source"
                 tools:text="Source: periksafakta.afp.com" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
