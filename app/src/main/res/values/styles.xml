@@ -9,4 +9,9 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="fab_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">35%</item>
+    </style>
+
 </resources>
