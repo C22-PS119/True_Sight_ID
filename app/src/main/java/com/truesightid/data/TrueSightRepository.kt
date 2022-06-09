@@ -118,7 +118,7 @@ class TrueSightRepository(
                                 response.title as String,
                                 response.authorUsername as String,
                                 response.description as String,
-                                response.attachment?.get(0) as String,
+                                response.attachment as List<String>,
                                 response.fake as Int,
                                 response.upvote as Int,
                                 response.downvote as Int,

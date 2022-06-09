@@ -97,5 +97,7 @@
     <string name="dark_mode_button">Dark Mode Button</string>
     <string name="icon_logout">Icon Logout</string>
     <string name="logout_button">Logout Button</string>
+    <string name="your_post">Your post</string>
+    <string name="_1_3">1/3</string>
     <string name="you_can_filter_what_you_want_to_search_here">You can filter what you want to search here</string>
 </resources>

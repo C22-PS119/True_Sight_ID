@@ -23,6 +23,7 @@ class MyClaimAdapter(
     private val myClaimsList = ArrayList<ClaimEntity>()
 
     fun setData(data: List<ClaimEntity>?) {
+        myClaimsList.clear()
         if (data != null) {
             myClaimsList.clear()
             myClaimsList.addAll(data)
