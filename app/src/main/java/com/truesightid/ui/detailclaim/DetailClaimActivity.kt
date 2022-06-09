@@ -7,17 +7,24 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnLayoutChangeListener
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.ViewModelProvider
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.databinding.ActivityClaimDetailBinding
+import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.DetailImagesAdapter
+import com.truesightid.ui.myclaim.MyClaimViewModel
 import com.truesightid.utils.DateUtils
+import com.truesightid.utils.Prefs
+import com.truesightid.utils.UserAction
 
 
 class DetailClaimActivity : AppCompatActivity() {
@@ -45,6 +52,7 @@ class DetailClaimActivity : AppCompatActivity() {
                 }
 
             })
+
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
             finish()
@@ -120,9 +128,22 @@ class DetailClaimActivity : AppCompatActivity() {
     }
 
     private fun setupView(items: ClaimEntity) {
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailClaimViewModel::class.java]
+
         with(binding) {
             tvTitleDetail.text = items.title
             tvDescription.text = items.description
+
+            binding.tvDescription.maxLines = 10
+            binding.tvDescription.post(Runnable {
+                if (binding.tvDescription.lineCount > 6){
+                    hideText()
+                }else{
+                    binding.tvViewMore.visibility = View.GONE
+                    binding.tvViewLess.visibility = View.GONE
+                }
+            })
 
             imagesAdapter.setImages(items.image)
 
@@ -153,6 +174,29 @@ class DetailClaimActivity : AppCompatActivity() {
                 tvClaim.background =
                     AppCompatResources.getDrawable(applicationContext, R.drawable.fact_claim)
             }
+
+            binding.ibBookmark.setOnClickListener {
+                val user = Prefs.getUser()
+                val bookmark = user?.bookmark
+                if (bookmark?.contains(items.id) == true) {
+                    binding.ibBookmark.setImageResource(R.drawable.ic_add_bookmark)
+                    viewModel.removeBookmarkById(AddRemoveBookmarkRequest(user?.apiKey.toString(), items.id))
+                    UserAction.applyUserBookmarks(items.id, false)
+                } else {
+                    binding.ibBookmark.setImageResource(R.drawable.ic_remove_bookmark)
+                    viewModel.addBookmarkById(AddRemoveBookmarkRequest(user?.apiKey.toString(), items.id))
+                    UserAction.applyUserBookmarks(items.id, true)
+                }
+            }
+
+            val user = Prefs.getUser()
+            val bookmark = user?.bookmark
+            if (bookmark?.contains(items.id) == true) {
+                binding.ibBookmark.setImageResource(R.drawable.ic_remove_bookmark)
+            } else {
+                binding.ibBookmark.setImageResource(R.drawable.ic_add_bookmark)
+            }
+
 
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)

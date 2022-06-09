@@ -177,6 +177,8 @@ class MyClaimAdapter(
                 itemView.context.startActivity(intent)
             }
 
+            binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+
             binding.ibBookmark.visibility = View.GONE
         }
     }

@@ -63,11 +63,11 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.btnChoose.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            val chooser = Intent.createChooser(intent, "Choose a Picture")
-            launcherIntentGallery.launch(chooser)
+            chooseAvatar()
+        }
+
+        binding.ivProfile.setOnClickListener {
+            chooseAvatar()
         }
 
         binding.tvChangePassword.setOnClickListener {
@@ -77,6 +77,14 @@ class EditProfileActivity : AppCompatActivity() {
         binding.tvCancelChanges.setOnClickListener {
             cancelChangesPressed()
         }
+    }
+
+    fun chooseAvatar(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
     }
 
     fun changePasswordPressed() {

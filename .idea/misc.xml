@@ -41,23 +41,26 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.6659641728134879" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1609375" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_filter.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_search.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/btn_rounded_search.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_bookmark_cardview_pressed.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_logo_true_sight_id.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_search.xml" value="0.176" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_explore.xml" value="0.16666666666666666" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_prediction.xml" value="0.33" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_profile.xml" value="0.35" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/item_row_claims.xml" value="0.3810483870967742" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/drawable/dialog_bg.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/layout/view_loading.xml" value="0.25" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/background_image_position.xml" value="0.1645" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/bg_search.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/dialog_bg.xml" value="0.1655" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/fact_claim.xml" value="0.1645" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_bookmark.xml" value="0.1575" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_bookmark_cardview.xml" value="0.1575" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_bookmark_cardview_pressed.xml" value="0.1575" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_explore_state.xml" value="0.239" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_loading.xml" value="0.1645" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_next_image.xml" value="0.1645" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_prev_image.xml" value="0.1645" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_search.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/ic_upvote.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/il_no_result.xml" value="0.1575" />
@@ -66,7 +69,6 @@
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/search_background.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_add_claim.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_claim_detail.xml" value="0.25" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_claim_detail2.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/activity_login.xml" value="0.25" />
@@ -80,22 +82,28 @@
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/item_evidence_image.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/item_row_claims.xml" value="0.4" />
-        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/item_row_images.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/item_row_images.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/prediction_dialog.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/layout/view_loading.xml" value="0.18945699564011098" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_add_bookmark.xml" value="0.1925" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_remove_bookmark.xml" value="0.1925" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_add_claim.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_claim_detail.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_edit_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_forgot_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_myclaim.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_reset_password.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_signup.xml" value="0.2604166666666667" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_verification.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/contain_status.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_explore.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_prediction.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/fragment_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/item_evidence_image.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/item_row_claims.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/prediction_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/view_loading.xml" value="0.27447916666666666" />
       </map>
     </option>

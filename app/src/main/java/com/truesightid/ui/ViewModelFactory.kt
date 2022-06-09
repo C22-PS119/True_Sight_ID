@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.truesightid.data.TrueSightRepository
 import com.truesightid.ui.add_claim.AddClaimViewModel
+import com.truesightid.ui.detailclaim.DetailClaimViewModel
 import com.truesightid.ui.editprofile.SetProfileViewModel
 import com.truesightid.ui.explore.ExploreNewsViewModel
 import com.truesightid.ui.forgotpassword.ForgotPasswordViewModel
@@ -77,6 +78,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(ResetPasswordViewModel::class.java) -> {
                 ResetPasswordViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(DetailClaimViewModel::class.java) -> {
+                DetailClaimViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
