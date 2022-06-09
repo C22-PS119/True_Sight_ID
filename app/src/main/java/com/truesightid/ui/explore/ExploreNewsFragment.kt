@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
@@ -118,6 +119,30 @@ class ExploreNewsFragment : Fragment() {
                 val intent = Intent(activity, AddClaimActivity::class.java)
                 startActivity(intent)
             }
+
+            binding.rvClaimer.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    // if the recycler view is scrolled
+                    // above hide the FAB
+                    if (dy > 10 && binding.fab.isShown) {
+                        binding.fab.hide()
+                    }
+
+                    // if the recycler view is
+                    // scrolled above show the FAB
+                    if (dy < -10 && !binding.fab.isShown) {
+                        binding.fab.show()
+                    }
+
+                    // of the recycler view is at the first
+                    // item always show the FAB
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        binding.fab.show()
+                    }
+                }
+            })
 
             initSearch()
 
