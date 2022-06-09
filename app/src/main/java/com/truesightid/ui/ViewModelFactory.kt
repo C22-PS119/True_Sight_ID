@@ -7,13 +7,16 @@ import com.truesightid.data.TrueSightRepository
 import com.truesightid.ui.add_claim.AddClaimViewModel
 import com.truesightid.ui.editprofile.SetProfileViewModel
 import com.truesightid.ui.explore.ExploreNewsViewModel
+import com.truesightid.ui.forgotpassword.ForgotPasswordViewModel
 import com.truesightid.ui.login.LoginViewModel
 import com.truesightid.ui.main.MainViewModel
 import com.truesightid.ui.mybookmark.MyBookmarkViewModel
 import com.truesightid.ui.myclaim.MyClaimViewModel
 import com.truesightid.ui.prediction.NewsPredictViewModel
 import com.truesightid.ui.profile.ProfileViewModel
+import com.truesightid.ui.resetpassword.ResetPasswordViewModel
 import com.truesightid.ui.signup.SignupViewModel
+import com.truesightid.ui.verification.VerificationViewModel
 import com.truesightid.utils.Injection
 
 class ViewModelFactory private constructor(
@@ -65,6 +68,15 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(MyBookmarkViewModel::class.java) -> {
                 MyBookmarkViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(ForgotPasswordViewModel::class.java) -> {
+                ForgotPasswordViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(VerificationViewModel::class.java) -> {
+                VerificationViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(ResetPasswordViewModel::class.java) -> {
+                ResetPasswordViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -42,8 +42,10 @@
                     app:iconifiedByDefault="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
                     app:queryHint="@string/hint_search_bar"
                     app:searchIcon="@drawable/ic_search"
                     tools:ignore="Autofill" />

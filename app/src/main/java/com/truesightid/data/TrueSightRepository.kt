@@ -12,6 +12,7 @@ import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
 import com.truesightid.utils.AppExecutors
 import com.truesightid.utils.Resource
+import com.truesightid.utils.StringSeparatorUtils
 
 class TrueSightRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -47,6 +48,14 @@ class TrueSightRepository(
     override fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
         remoteDataSource.removeBookmarkById(addRemoveBookmarkRequest)
 
+    override fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> =
+        remoteDataSource.sendEmailVerification(sendEmailVerificationRequest)
+
+    override fun confirmEmailVerification(confirmEmailVerificationRequest: ConfirmEmailVerificationRequest): LiveData<ApiResponse<ConfirmVerificationRespond>> =
+        remoteDataSource.confirmEmailVerification(confirmEmailVerificationRequest)
+
+    override fun resetPassword(resetPasswordRequest: ResetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> =
+        remoteDataSource.resetPasswordRequest(resetPasswordRequest)
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)
@@ -110,11 +119,12 @@ class TrueSightRepository(
                                 response.title as String,
                                 response.authorUsername as String,
                                 response.description as String,
-                                response.attachment?.get(0) as String,
+                                response.attachment as List<String>,
                                 response.fake as Int,
                                 response.upvote as Int,
                                 response.downvote as Int,
-                                it.toFloat()
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(response.url)
                             )
                         }
                         if (claim != null) {

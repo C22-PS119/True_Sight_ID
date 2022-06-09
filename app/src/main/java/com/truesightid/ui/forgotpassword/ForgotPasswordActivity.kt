@@ -4,9 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.truesightid.data.source.remote.StatusResponse
+import com.truesightid.data.source.remote.request.EditProfileWithAvatarRequest
+import com.truesightid.data.source.remote.request.SendEmailVerificationRequest
 import com.truesightid.databinding.ActivityForgotPasswordBinding
+import com.truesightid.ui.ViewModelFactory
+import com.truesightid.ui.editprofile.SetProfileViewModel
 import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.verification.VerificationActivity
+import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.*
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -16,6 +25,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[ForgotPasswordViewModel::class.java]
 
         binding.ibBackLogin.setOnClickListener {
             val intent = Intent(this@ForgotPasswordActivity, LoginActivity::class.java)
@@ -24,10 +35,32 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            Toast.makeText(this, "on developed [must connect to such as API or something like that", Toast.LENGTH_LONG).show()
-            val intent = Intent(this@ForgotPasswordActivity, VerificationActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            val userProfile = SendEmailVerificationRequest(
+                email = binding.tvEmail.text.toString(),
+            )
+
+            showLoading()
+            viewModel.sendEmailVerification(userProfile).observe(this) { response ->
+                when (response.status) {
+                    StatusResponse.SUCCESS -> {
+                        dismisLoading()
+                        toastInfo("Verification code has been sent to your email, please check your inbox")
+                        val intent = Intent(this@ForgotPasswordActivity, VerificationActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        intent.putExtra("user_id", response.body.data)
+                        intent.putExtra("email", binding.tvEmail.text.toString())
+                        startActivity(intent)
+                    }
+                    StatusResponse.EMPTY -> {
+                        toastWarning("Empty: ${response.body}")
+                        dismisLoading()
+                    }
+                    StatusResponse.ERROR -> {
+                        toastError("Error: ${response.message}")
+                        dismisLoading()
+                    }
+                }
+            }
         }
     }
 }

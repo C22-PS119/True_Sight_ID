@@ -387,4 +387,103 @@ class ApiHelper(val context: Context) {
 
         })
     }
+
+    fun sendEmailVerification(
+        request: SendEmailVerificationRequest,
+        callback: RemoteDataSource.EmailVerificationRequestResponseCallback
+    ) {
+        val client = ApiConfig.getApiService().sendEmailVerification(
+            request.email
+        )
+        client.enqueue(object : Callback<EmailVerificationRespond> {
+            override fun onResponse(
+                call: Call<EmailVerificationRespond>,
+                response: Response<EmailVerificationRespond>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onEmailVerificationRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<EmailVerificationRespond>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onSendEmailVerificationFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+        })
+    }
+
+    fun confirmEmailVerification(
+        request: ConfirmEmailVerificationRequest,
+        callback: RemoteDataSource.ConfirmVerificationRequestResponseCallback
+    ) {
+        val client = ApiConfig.getApiService().confirmVerificationCode(
+            request.user_id,
+            request.verification_code
+        )
+        client.enqueue(object : Callback<ConfirmVerificationRespond> {
+            override fun onResponse(
+                call: Call<ConfirmVerificationRespond>,
+                response: Response<ConfirmVerificationRespond>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onConfirmVerificationRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ConfirmVerificationRespond>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onConfirmPasswordFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+        })
+    }
+
+
+    fun resetPassword(
+        request: ResetPasswordRequest,
+        callback: RemoteDataSource.GetSetUserPasswordRequestResponseCallback
+    ) {
+        val client = ApiConfig.getApiService().resetPassword(
+            request.reset_key,
+            request.new_password
+        )
+        client.enqueue(object : Callback<SetPasswordResponse> {
+            override fun onResponse(
+                call: Call<SetPasswordResponse>,
+                response: Response<SetPasswordResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onGetSetPasswordRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<SetPasswordResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onResetPasswordFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+        })
+    }
 }

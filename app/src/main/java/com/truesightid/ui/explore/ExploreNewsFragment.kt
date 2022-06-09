@@ -147,8 +147,6 @@ class ExploreNewsFragment : Fragment() {
             initSearch()
 
         }
-
-
     }
 
     private fun initSearch() {

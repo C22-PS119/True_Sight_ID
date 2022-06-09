@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.utils.extension.Converters
 
 @Database(
     entities = [ClaimEntity::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class TrueSightDatabase : RoomDatabase() {
     abstract fun truesightDao(): TrueSightDao
 

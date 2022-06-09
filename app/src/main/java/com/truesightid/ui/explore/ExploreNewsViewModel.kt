@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.truesightid.data.TrueSightRepository
 import com.truesightid.data.source.local.entity.ClaimEntity
-import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
-import com.truesightid.data.source.remote.request.ClaimRequest
+import com.truesightid.data.source.remote.request.*
 import com.truesightid.utils.Resource
 
 class ExploreNewsViewModel(private val mTrueSightRepository: TrueSightRepository) : ViewModel() {

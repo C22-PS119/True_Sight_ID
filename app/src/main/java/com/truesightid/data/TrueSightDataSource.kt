@@ -38,4 +38,10 @@ interface TrueSightDataSource {
     fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>>
 
     fun setPassword(setPasswordRequest: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>>
+
+    fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest) :LiveData<ApiResponse<EmailVerificationRespond>>
+
+    fun confirmEmailVerification(confirmEmailVerificationRequest: ConfirmEmailVerificationRequest) :LiveData<ApiResponse<ConfirmVerificationRespond>>
+
+    fun resetPassword(resetPasswordRequest: ResetPasswordRequest) :LiveData<ApiResponse<SetPasswordResponse>>
 }

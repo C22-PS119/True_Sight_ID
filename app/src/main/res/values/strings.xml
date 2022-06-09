@@ -97,6 +97,8 @@
     <string name="dark_mode_button">Dark Mode Button</string>
     <string name="icon_logout">Icon Logout</string>
     <string name="logout_button">Logout Button</string>
+    <string name="your_post">Your post</string>
+    <string name="_1_3">1/3</string>
     <string name="you_can_filter_what_you_want_to_search_here">You can filter what you want to search here</string>
     <string name="view_more">View more</string>
     <string name="view_less">View less</string>
@@ -107,4 +109,6 @@
     <string name="share_this_claim_to_other_users">Share this claim to other users</string>
     <string name="save_this_claim_to_your_bookmark">Save this claim to your Bookmark</string>
     <string name="image_preview">Image Preview</string>
+    <string name="periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com">periksafakta.afp.com\nwww.cekfakta.com\ncnnindonesia.com\nyoutube.com\nfacebook.com</string>
+    <string name="references">References</string>
 </resources>

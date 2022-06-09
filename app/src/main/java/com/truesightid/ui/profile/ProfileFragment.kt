@@ -89,7 +89,7 @@ class ProfileFragment : Fragment() {
                             Glide.get(binding.root.context).clearDiskCache()
                         }.invokeOnCompletion {
                             GlobalScope.launch(Dispatchers.Main) {
-                                Glide.with(requireContext())
+                                Glide.with(binding.root.context)
                                     .load(userData.avatar.toString())
                                     .centerInside()
                                     .timeout(3000)
@@ -116,7 +116,7 @@ class ProfileFragment : Fragment() {
                     }
                 }
                 StatusResponse.EMPTY -> toastWarning("Empty: ${response.body}")
-                StatusResponse.ERROR -> toastError("Error: ${response.body}")
+                StatusResponse.ERROR -> toastError("Error: ${response.message}")
             }
         }
     }

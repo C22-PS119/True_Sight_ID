@@ -129,4 +129,24 @@ interface ApiService {
         @Field("current_password") current_password: String,
         @Field("new_password") new_password: String
     ): Call<SetPasswordResponse>
+
+    @FormUrlEncoded
+    @POST("/api/auth/reset/")
+    fun sendEmailVerification(
+        @Field("email") email: String
+    ): Call<EmailVerificationRespond>
+
+    @FormUrlEncoded
+    @POST("/api/auth/confirm/")
+    fun confirmVerificationCode(
+        @Field("user_id") user_id: Int,
+        @Field("verification_code") verification_code: String
+    ): Call<ConfirmVerificationRespond>
+
+    @FormUrlEncoded
+    @POST("/api/set/password/")
+    fun resetPassword(
+        @Field("reset_key") reset_key: String,
+        @Field("new_password") new_password: String
+    ): Call<SetPasswordResponse>
 }

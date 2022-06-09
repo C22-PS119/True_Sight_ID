@@ -6,6 +6,7 @@ import com.truesightid.api.ApiHelper
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
+import com.truesightid.utils.StringSeparatorUtils
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
     companion object {
@@ -126,20 +127,23 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     fun setPasswordRequest(request: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> {
         val resultPost = MutableLiveData<ApiResponse<SetPasswordResponse>>()
-        apiHelper.getSetPasswordResponse(request, object : GetSetUserPasswordRequestResponseCallback {
-            override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
-                if (setPasswordResponse.status == "success")
-                    resultPost.value = ApiResponse.success(setPasswordResponse)
-                else
-                    resultPost.value = ApiResponse.error(
-                        setPasswordResponse.message ?: "Failed to GET message",
-                        SetPasswordResponse()
-                    )
-            }
+        apiHelper.getSetPasswordResponse(
+            request,
+            object : GetSetUserPasswordRequestResponseCallback {
+                override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
+                    if (setPasswordResponse.status == "success")
+                        resultPost.value = ApiResponse.success(setPasswordResponse)
+                    else
+                        resultPost.value = ApiResponse.error(
+                            setPasswordResponse.message ?: "Failed to GET message",
+                            SetPasswordResponse()
+                        )
+                }
 
-        })
+            })
         return resultPost
     }
+
     fun getMyClaimRequest(request: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
         val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
         apiHelper.getMyClaims(request, object : MyClaimRequestCallback {
@@ -154,11 +158,12 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.title as String,
                                 item.authorUsername as String,
                                 item.description as String,
-                                item.attachment?.get(0) as String,
+                                item.attachment as List<String>,
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,
-                                it.toFloat()
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(item.url)
                             )
                         }
                         claimList.add(claim as ClaimEntity)
@@ -184,11 +189,12 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.title as String,
                                 item.authorUsername as String,
                                 item.description as String,
-                                item.attachment as String,
+                                item.attachment as List<String>,
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,
-                                it.toFloat()
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(item.url)
                             )
                         }
                         claimList.add(claim as ClaimEntity)
@@ -216,8 +222,63 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         apiHelper.addRemoveBookmarkByClaimId(false, request)
     }
 
+    fun sendEmailVerification(request: SendEmailVerificationRequest) : LiveData<ApiResponse<EmailVerificationRespond>>{
+        val resultPost = MutableLiveData<ApiResponse<EmailVerificationRespond>>()
+        apiHelper.sendEmailVerification(request, object : EmailVerificationRequestResponseCallback {
+            override fun onEmailVerificationRequestResponse(sendEmailVerificationResponse: EmailVerificationRespond) {
+                if (sendEmailVerificationResponse.status == "success")
+                    resultPost.value = ApiResponse.success(sendEmailVerificationResponse)
+                else
+                    resultPost.value = ApiResponse.error(
+                        sendEmailVerificationResponse.message ?: "Failed to GET message",
+                        EmailVerificationRespond()
+                    )
+            }
+
+        })
+        return resultPost
+    }
+
+    fun confirmEmailVerification(request: ConfirmEmailVerificationRequest) : LiveData<ApiResponse<ConfirmVerificationRespond>>{
+        val resultPost = MutableLiveData<ApiResponse<ConfirmVerificationRespond>>()
+        apiHelper.confirmEmailVerification(request, object : ConfirmVerificationRequestResponseCallback {
+            override fun onConfirmVerificationRequestResponse(confirmEmailVerificationResponse: ConfirmVerificationRespond) {
+                if (confirmEmailVerificationResponse.status == "success")
+                    resultPost.value = ApiResponse.success(confirmEmailVerificationResponse)
+                else
+                    resultPost.value = ApiResponse.error(
+                        confirmEmailVerificationResponse.message ?: "Failed to GET message",
+                        ConfirmVerificationRespond()
+                    )
+            }
+
+        })
+        return resultPost
+    }
+
+    fun resetPasswordRequest(request: ResetPasswordRequest) : LiveData<ApiResponse<SetPasswordResponse>>{
+        val resultPost = MutableLiveData<ApiResponse<SetPasswordResponse>>()
+        apiHelper.resetPassword(request, object : GetSetUserPasswordRequestResponseCallback {
+            override fun onGetSetPasswordRequestResponse(userSetPasswordResponse: SetPasswordResponse) {
+                if (userSetPasswordResponse.status == "success")
+                    resultPost.value = ApiResponse.success(userSetPasswordResponse)
+                else
+                    resultPost.value = ApiResponse.error(
+                        userSetPasswordResponse.message ?: "Failed to GET message",
+                        SetPasswordResponse()
+                    )
+            }
+
+        })
+        return resultPost
+    }
+
     interface ClaimsRequestCallback {
         fun onClaimsRequestResponse(claimsResponse: ClaimsResponse)
+    }
+
+    interface EmailVerificationRequestResponseCallback {
+        fun onEmailVerificationRequestResponse(emailVerificationRespond: EmailVerificationRespond)
     }
 
     interface LoginRequestCallback {
@@ -242,6 +303,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface GetSetUserPasswordRequestResponseCallback {
         fun onGetSetPasswordRequestResponse(userSetPasswordResponse: SetPasswordResponse)
+    }
+
+    interface ConfirmVerificationRequestResponseCallback {
+        fun onConfirmVerificationRequestResponse(confirmEmailVerificationResponse: ConfirmVerificationRespond)
     }
 
     interface MyClaimRequestCallback {

@@ -21,7 +21,6 @@ import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.AddClaimAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.TextValidation
 import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
 import kotlinx.coroutines.*
@@ -109,7 +108,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
                             dismisLoading()
                         }
                         StatusResponse.ERROR -> {
-                            toastError("Error: ${response.body}")
+                            toastError("Error: ${response.body.message}")
                             dismisLoading()
                         }
                     }
@@ -119,10 +118,10 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun validateInput(title:String, description:String) : String? {
-        if (TextValidation.getTotalWords(description) < 10)
+        if (getTotalWords(description) < 10)
             return "Description must be at least 10 words"
-        if (TextValidation.getTotalWords(title) < 5)
-            return "Title must be at least 5 words"
+        if (getTotalWords(title) < 3)
+            return "Title must be at least 3 words"
         if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords))
             return "Your description contains dirty words, please fix it!"
         if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
