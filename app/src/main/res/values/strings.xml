@@ -2,7 +2,7 @@
     <string name="app_name">True Sight ID</string>
     <string name="title_explore_news">Explore News</string>
     <string name="title_news_predict">News Predict</string>
-    <string name="title_profile" translatable="false">Profile</string>
+    <string name="title_profile">Profile</string>
     <string name="fact_status">Fact</string>
     <string name="fake_status">Fake</string>
     <string name="news_prediction">News Prediction</string>
@@ -111,4 +111,5 @@
     <string name="image_preview">Image Preview</string>
     <string name="periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com" translatable="false">periksafakta.afp.com\nwww.cekfakta.com\ncnnindonesia.com\nyoutube.com\nfacebook.com</string>
     <string name="references">References</string>
+    <string name="bookmark_button" translatable="false">bookmark button</string>
 </resources>

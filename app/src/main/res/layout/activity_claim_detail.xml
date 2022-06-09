@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detailclaim.DetailClaimActivity">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:context=".ui.prediction.NewsPredictFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="460dp"
+            android:layout_height="wrap_content"
             android:background="@color/green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
+                android:contentDescription="@string/back_button"
                 android:id="@+id/ib_back_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="27dp"
                 android:background="@color/transparent"
-                android:contentDescription="@string/go_back_to_the_previous_page"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,13 +44,13 @@
                 app:layout_constraintEnd_toStartOf="@+id/imageButton" />
 
             <ImageButton
+                android:contentDescription="@string/bookmark_button"
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="27dp"
                 android:background="@color/transparent"
-                android:contentDescription="@string/save_this_claim_to_your_bookmark"
                 android:src="@drawable/ic_add_bookmark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -122,6 +121,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_detail"
                 tools:text="12 Mei 2022" />
 
+            <!--        <ImageView-->
+            <!--            android:id="@+id/iv_image_detail"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="213dp"-->
+            <!--            android:layout_marginTop="16dp"-->
+            <!--            android:scaleType="centerCrop"-->
+            <!--            android:src="@drawable/preview_detail_claim"-->
+            <!--            app:layout_constraintEnd_toEndOf="@+id/tv_title_detail"-->
+            <!--            app:layout_constraintHorizontal_bias="1.0"-->
+            <!--            app:layout_constraintStart_toStartOf="@+id/tv_claimer_detail"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+            <!--        <androidx.recyclerview.widget.RecyclerView-->
+            <!--            android:id="@+id/rv_images"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="213dp"-->
+            <!--            android:layout_marginStart="24dp"-->
+            <!--            android:layout_marginTop="8dp"-->
+            <!--            android:layout_marginEnd="24dp"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            app:layout_constraintBottom_toTopOf="@+id/tv_source_detail"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@+id/tv_claimer_detail"-->
+            <!--            tools:listitem="@layout/item_row_images" />-->
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_images"
                 android:layout_width="match_parent"
@@ -149,23 +173,21 @@
                 app:layout_constraintStart_toStartOf="@+id/vp_images"
                 app:layout_constraintTop_toBottomOf="@id/vp_images" />
 
-
             <TextView
                 android:id="@+id/tv_source_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:ellipsize="end"
+                android:layout_marginBottom="16dp"
+                android:autoLink="web"
                 android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text=""
-                android:textColor="@color/gray"
+                tools:text="@string/periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com"
+                android:textColor="@color/blue"
                 android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/vp_images"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_source"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_source"
-                tools:text="Source: periksafakta.afp.com" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title_source" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,7 +208,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            tools:text="Sejumlah unggahan Facebook membagikan tangkapan layar sebuah tajuk berita yang diklaim mengutip Wakil Presiden Ma'ruf Amin yang menjanjikan ibu-ibu kartu bansos jika Presiden Joko Widodo terpilih untuk ketiga kalinya. Tetapi kenyataannya, gambar itu unggahan Facebook membagikan tangkapan layar untuk ketiga kalinya" />
+            tools:text="Sejumlah unggahan Facebook membagikan tangkapan layar sebuah tajuk berita yang diklaim mengutip Wakil Presiden Ma'ruf Amin yang menjanjikan ibu-ibu kartu bansos jika Presiden Joko Widodo terpilih untuk ketiga kalinya. Tetapi kenyataannya, gambar itu unggahan Facebook membagikan tangkapan layar untuk ketiga kalinya"
+            tools:targetApi="o" />
 
         <TextView
             android:id="@+id/tv_view_more"

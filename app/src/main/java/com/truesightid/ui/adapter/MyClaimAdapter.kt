@@ -45,6 +45,7 @@ class MyClaimAdapter(
             binding.tvClaimer.text = claimer
             Glide.with(itemView.context)
                 .load(items.image[0])
+                .timeout(3000)
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.logo_true_sight)

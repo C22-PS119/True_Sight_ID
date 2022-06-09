@@ -81,5 +81,7 @@
     <string name="image_preview">Pratinjau Gambar</string>
     <string name="references">Referensi</string>
     <string name="your_post">Postingan Anda</string>
-    <string name="title_profile" translatable="false">Profil Saya</string>
+    <string name="title_profile" translatable="false">Profil</string>
+    <string name="title_news_predict">Prediksi Berita</string>
+    <string name="title_explore_news">Eksplor Berita</string>
 </resources>
