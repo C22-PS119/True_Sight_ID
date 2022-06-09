@@ -92,11 +92,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:fontFamily="@font/poppins_medium"
+            android:text="@string/point"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/tv_claimer_detail"
-            app:layout_constraintTop_toTopOf="@+id/tv_claimer_detail"
-            android:text="@string/point" />
+            app:layout_constraintTop_toTopOf="@+id/tv_claimer_detail" />
 
         <TextView
             android:id="@+id/tv_date_detail"
@@ -112,17 +112,44 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title_detail"
             tools:text="12 Mei 2022" />
 
-        <ImageView
-            android:id="@+id/iv_image_detail"
-            android:layout_width="0dp"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_image_detail"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="213dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            android:src="@drawable/preview_detail_claim"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_title_detail"-->
+        <!--            app:layout_constraintHorizontal_bias="1.0"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tv_claimer_detail"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_images"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="213dp"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="24dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/tv_source_detail"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_claimer_detail"-->
+<!--            tools:listitem="@layout/item_row_images" />-->
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_images"
+            android:layout_width="match_parent"
             android:layout_height="213dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/preview_detail_claim"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title_detail"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_claimer_detail"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/tv_source_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_claimer_detail"
+            tools:listitem="@layout/item_row_images" />
 
         <TextView
             android:id="@+id/tv_source_detail"
@@ -136,9 +163,10 @@
             android:text=""
             android:textColor="@color/gray"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_image_detail"
-            app:layout_constraintStart_toStartOf="@+id/iv_image_detail"
-            app:layout_constraintTop_toBottomOf="@+id/iv_image_detail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vp_images"
+            app:layout_constraintEnd_toEndOf="@+id/vp_images"
+            app:layout_constraintStart_toStartOf="@+id/vp_images"
             tools:text="Source: periksafakta.afp.com" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

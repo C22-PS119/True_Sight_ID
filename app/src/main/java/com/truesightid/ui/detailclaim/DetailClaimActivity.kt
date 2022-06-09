@@ -3,16 +3,16 @@ package com.truesightid.ui.detailclaim
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.databinding.ActivityClaimDetailBinding
+import com.truesightid.ui.adapter.DetailImagesAdapter
 import com.truesightid.utils.DateUtils
 
 
 class DetailClaimActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClaimDetailBinding
+    private lateinit var imagesAdapter: DetailImagesAdapter
 
     companion object {
         const val EXTRA_CLAIM = "extra_claim"
@@ -23,6 +23,7 @@ class DetailClaimActivity : AppCompatActivity() {
         binding = ActivityClaimDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        imagesAdapter = DetailImagesAdapter(this)
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
             finish()
@@ -37,6 +38,10 @@ class DetailClaimActivity : AppCompatActivity() {
                 setupView(items)
             }
         }
+
+        // Set adapter
+        binding.vpImages.adapter = imagesAdapter
+
     }
 
     private fun setupView(items: ClaimEntity) {
@@ -44,13 +49,8 @@ class DetailClaimActivity : AppCompatActivity() {
             tvTitleDetail.text = items.title
             tvDescription.text = items.description
 
-            Glide.with(applicationContext)
-                .load(items.image)
-                .apply(
-                    RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                )
-                .into(ivImageDetail)
+            imagesAdapter.setImages(items.image)
+
 
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
             tvDateDetail.text = DateUtils.getDateTime(items.date.toLong())

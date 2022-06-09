@@ -31,6 +31,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
             }
         }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -50,11 +51,13 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
 
                 binding.tvClaimer.text = claimer
                 Glide.with(itemView.context)
-                    .load(items.image)
+                    .load(items.image[0])
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
                     )
+                    .centerInside()
+                    .timeout(3000)
                     .into(binding.ivClaimer)
                 binding.tvTitleClaim.text = items.title
                 binding.tvDate.text = DateUtils.getDateTime(items.date.toLong())
@@ -175,9 +178,9 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     binding.ibBookmark.background =
                         itemView.context.getDrawable(R.drawable.ic_bookmark_cardview)
 
-                if(items.claimer == user.username){
+                if (items.claimer == user.username) {
                     binding.labelMyClaim.visibility = View.VISIBLE
-                }else{
+                } else {
                     binding.labelMyClaim.visibility = View.INVISIBLE
                 }
 

@@ -126,20 +126,23 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     fun setPasswordRequest(request: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> {
         val resultPost = MutableLiveData<ApiResponse<SetPasswordResponse>>()
-        apiHelper.getSetPasswordResponse(request, object : GetSetUserPasswordRequestResponseCallback {
-            override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
-                if (setPasswordResponse.status == "success")
-                    resultPost.value = ApiResponse.success(setPasswordResponse)
-                else
-                    resultPost.value = ApiResponse.error(
-                        setPasswordResponse.message ?: "Failed to GET message",
-                        SetPasswordResponse()
-                    )
-            }
+        apiHelper.getSetPasswordResponse(
+            request,
+            object : GetSetUserPasswordRequestResponseCallback {
+                override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
+                    if (setPasswordResponse.status == "success")
+                        resultPost.value = ApiResponse.success(setPasswordResponse)
+                    else
+                        resultPost.value = ApiResponse.error(
+                            setPasswordResponse.message ?: "Failed to GET message",
+                            SetPasswordResponse()
+                        )
+                }
 
-        })
+            })
         return resultPost
     }
+
     fun getMyClaimRequest(request: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
         val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
         apiHelper.getMyClaims(request, object : MyClaimRequestCallback {
@@ -154,7 +157,7 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.title as String,
                                 item.authorUsername as String,
                                 item.description as String,
-                                item.attachment?.get(0) as String,
+                                item.attachment as List<String>,
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,
@@ -184,7 +187,7 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 item.title as String,
                                 item.authorUsername as String,
                                 item.description as String,
-                                item.attachment as String,
+                                item.attachment as List<String>,
                                 item.fake as Int,
                                 item.upvote as Int,
                                 item.downvote as Int,

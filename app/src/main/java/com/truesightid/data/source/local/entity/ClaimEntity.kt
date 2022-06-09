@@ -25,7 +25,7 @@ data class ClaimEntity(
     var description: String,
 
     @ColumnInfo(name = "image")
-    var image: String,
+    var image: List<String>,
 
     @ColumnInfo(name = "fake")
     var fake: Int,

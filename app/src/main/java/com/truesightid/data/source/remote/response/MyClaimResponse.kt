@@ -50,7 +50,7 @@ data class MyClaim(
     val downvote: Int? = null,
 
     @field:SerializedName("attachment")
-    val attachment: List<String?>? = null,
+    val attachment: List<String>? = null,
 
     @field:SerializedName("num_click")
     val numClick: Int? = null,
