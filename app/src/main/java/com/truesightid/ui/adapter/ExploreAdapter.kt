@@ -55,7 +55,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     .load(items.image[0])
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                            .error(R.drawable.ic_error)
+                            .error(R.drawable.logo_true_sight)
                     )
                     .centerInside()
                     .timeout(3000)

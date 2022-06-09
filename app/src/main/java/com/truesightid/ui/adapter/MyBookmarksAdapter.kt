@@ -42,10 +42,10 @@ class MyBookmarksAdapter(
             val claimer = "Claim by ${items.claimer}:"
             binding.tvClaimer.text = claimer
             Glide.with(itemView.context)
-                .load(items.image)
+                .load(items.image[0])
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
+                        .error(R.drawable.logo_true_sight)
                 )
                 .into(binding.ivClaimer)
             binding.tvTitleClaim.text = items.title

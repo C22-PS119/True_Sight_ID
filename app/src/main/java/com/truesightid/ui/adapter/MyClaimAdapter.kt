@@ -15,6 +15,7 @@ import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
+import com.truesightid.utils.extension.getTotalWithUnit
 
 class MyClaimAdapter(
     private val callback: ItemClaimClickListener,
@@ -43,12 +44,13 @@ class MyClaimAdapter(
             val claimer = "Claim by ${items.claimer}:"
             binding.tvClaimer.text = claimer
             Glide.with(itemView.context)
-                .load(items.image)
+                .load(items.image[0])
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
+                        .error(R.drawable.logo_true_sight)
                 )
                 .into(binding.ivClaimer)
+
             binding.tvTitleClaim.text = items.title
             binding.tvDate.text = DateUtils.getDateTime(items.date.toLong())
             binding.tvClaim.text = items.fake.toString()
@@ -60,6 +62,7 @@ class MyClaimAdapter(
                 binding.tvClaim.text = itemView.context.getString(R.string.fact_status)
                 binding.tvClaim.background = itemView.context.getDrawable(R.drawable.fact_claim)
             }
+
 
             val user = pref.getUser()
             val votes = user?.votes as HashMap<Int, Int>
@@ -79,7 +82,7 @@ class MyClaimAdapter(
                             itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
                     }
                 }
-            }else{
+            } else {
                 binding.tvVoteCount.tag = 0
                 binding.ibUpvote.background =
                     itemView.context.getDrawable(R.drawable.ic_upvote)
@@ -95,8 +98,8 @@ class MyClaimAdapter(
                         binding.ibDownvote.background =
                             itemView.context.getDrawable(R.drawable.ic_downvote)
                         items.upvote++
-                        UserAction.applyUserVotes(items.id, 1)
                         binding.tvVoteCount.tag = 1
+                        UserAction.applyUserVotes(items.id, 1)
                         callback.onClaimUpvote(items.id)
                     }
                     1 -> {
@@ -118,7 +121,7 @@ class MyClaimAdapter(
                         callback.onClaimUpvote(items.id)
                     }
                 }
-                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                 return@setOnClickListener
             }
 
@@ -149,16 +152,15 @@ class MyClaimAdapter(
                             itemView.context.getDrawable(R.drawable.ic_upvote)
                         binding.ibDownvote.background =
                             itemView.context.getDrawable(R.drawable.ic_downvote_pressed)
-                        binding.tvVoteCount.tag = -1
                         UserAction.applyUserVotes(items.id, -1)
+                        binding.tvVoteCount.tag = -1
                     }
                 }
-                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                 return@setOnClickListener
             }
 
-            binding.ibBookmark.visibility = View.GONE
-
+            binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(
@@ -173,6 +175,8 @@ class MyClaimAdapter(
                 intent.putExtra(DetailClaimActivity.EXTRA_CLAIM, items)
                 itemView.context.startActivity(intent)
             }
+
+            binding.ibBookmark.visibility = View.GONE
         }
     }
 

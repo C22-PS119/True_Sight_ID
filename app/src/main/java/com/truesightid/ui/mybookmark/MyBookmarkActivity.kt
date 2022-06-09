@@ -18,24 +18,24 @@ import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.data.source.remote.request.MyDataRequest
-import com.truesightid.databinding.ActivityMyclaimBinding
+import com.truesightid.databinding.ActivityMyBookmarkBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.MyBookmarksAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.UserAction
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
-import com.truesightid.utils.UserAction
 import java.lang.Thread.sleep
 
 class MyBookmarkActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMyclaimBinding
+    private lateinit var binding: ActivityMyBookmarkBinding
     private lateinit var myBookmarksAdapter: MyBookmarksAdapter
     private lateinit var alertDialog: AlertDialog
     private lateinit var viewModel: MyBookmarkViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMyclaimBinding.inflate(layoutInflater)
+        binding = ActivityMyBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val factory = ViewModelFactory.getInstance(this)
