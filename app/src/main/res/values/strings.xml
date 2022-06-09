@@ -98,4 +98,5 @@
     <string name="icon_logout">Icon Logout</string>
     <string name="logout_button">Logout Button</string>
     <string name="your_post">Your post</string>
+    <string name="_1_3">1/3</string>
 </resources>
