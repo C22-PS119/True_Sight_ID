@@ -16,6 +16,7 @@ import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
+import com.truesightid.utils.extension.getTotalWithUnit
 
 class ExploreAdapter(private val callback: ItemClaimClickListener, private val pref: Prefs) :
     PagedListAdapter<ClaimEntity, ExploreAdapter.ExploreViewHolder>(DIFF_CALLBACK) {
@@ -125,7 +126,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                             callback.onClaimUpvote(items.id)
                         }
                     }
-                    binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                    binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                     return@setOnClickListener
                 }
 
@@ -160,11 +161,11 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                             binding.tvVoteCount.tag = -1
                         }
                     }
-                    binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                    binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                     return@setOnClickListener
                 }
 
-                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
 
                 val bookmark = user.bookmark
                 if (bookmark.contains(items.id))

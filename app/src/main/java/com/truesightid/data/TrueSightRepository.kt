@@ -47,6 +47,14 @@ class TrueSightRepository(
     override fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
         remoteDataSource.removeBookmarkById(addRemoveBookmarkRequest)
 
+    override fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest):LiveData<ApiResponse<EmailVerificationRespond>>  =
+        remoteDataSource.sendEmailVerification(sendEmailVerificationRequest)
+
+    override fun confirmEmailVerification(confirmEmailVerificationRequest: ConfirmEmailVerificationRequest) :LiveData<ApiResponse<ConfirmVerificationRespond>>  =
+        remoteDataSource.confirmEmailVerification(confirmEmailVerificationRequest)
+
+    override fun resetPassword(resetPasswordRequest: ResetPasswordRequest) :LiveData<ApiResponse<SetPasswordResponse>>  =
+        remoteDataSource.resetPasswordRequest(resetPasswordRequest)
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)

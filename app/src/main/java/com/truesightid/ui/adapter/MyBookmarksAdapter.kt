@@ -14,6 +14,7 @@ import com.truesightid.ui.detailclaim.DetailClaimActivity
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
+import com.truesightid.utils.extension.getTotalWithUnit
 
 class MyBookmarksAdapter(
     private val callback: ItemClaimClickListener,
@@ -116,7 +117,7 @@ class MyBookmarksAdapter(
                         callback.onClaimUpvote(items.id)
                     }
                 }
-                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                 return@setOnClickListener
             }
 
@@ -151,7 +152,7 @@ class MyBookmarksAdapter(
                         UserAction.applyUserVotes(items.id, -1)
                     }
                 }
-                binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+                binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
                 return@setOnClickListener
             }
 
@@ -161,7 +162,7 @@ class MyBookmarksAdapter(
                 callback.onRemoveClaimtoBookmark(items.id)
             }
 
-            binding.tvVoteCount.text = (items.upvote - items.downvote).toString()
+            binding.tvVoteCount.text = getTotalWithUnit(items.upvote - items.downvote)
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(

@@ -157,7 +157,7 @@ class EditProfileActivity : AppCompatActivity() {
                         dismisLoading()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.body}")
+                        toastError("Error: ${response.message}")
                         dismisLoading()
                     }
                 }
@@ -186,7 +186,7 @@ class EditProfileActivity : AppCompatActivity() {
                         dismisLoading()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.body}")
+                        toastError("Error: ${response.message}")
                         dismisLoading()
                     }
                 }
