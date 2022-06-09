@@ -53,6 +53,7 @@ class DetailImagesAdapter(val context: Context, val callback: DetailImagesCallba
         // image resource for image view.
         Glide.with(itemView.context)
             .load(items)
+            .timeout(3000)
             .apply(
                 RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.logo_true_sight)
             )
