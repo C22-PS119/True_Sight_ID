@@ -18,6 +18,13 @@ class LocalDataSource(
 
     fun getClaims(keyword: String): DataSource.Factory<Int, ClaimEntity> = trueSightDao.getClaims(PagedQueryUtils.getKeywordQuery(keyword, CLAIMS_ENTITIES))
 
+    fun getClaimsWithFilter(keyword: String,
+                            sortBy: Int,
+                            type: Int,
+                            optDate: Int,
+                            dateFrom: Long?,
+                            dateTo: Long?): DataSource.Factory<Int, ClaimEntity> = trueSightDao.getClaims(PagedQueryUtils.getKeywordWithFilterQuery(keyword, sortBy, type, optDate, dateFrom, dateTo, CLAIMS_ENTITIES))
+
     fun insertClaims(claims: List<ClaimEntity>) = trueSightDao.insertAllClaims(claims)
     fun deleteLocalClaims() = trueSightDao.deleteAllLocalClaims()
 }

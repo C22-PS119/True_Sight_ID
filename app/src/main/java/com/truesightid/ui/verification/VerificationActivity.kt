@@ -1,6 +1,9 @@
 package com.truesightid.ui.verification
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -24,6 +27,7 @@ import kotlinx.coroutines.launch
 class VerificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerificationBinding
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,15 +86,15 @@ class VerificationActivity : AppCompatActivity() {
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
                         toastInfo(resources.getString(R.string.verification_has_been_sent))
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -114,11 +118,11 @@ class VerificationActivity : AppCompatActivity() {
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -141,5 +145,15 @@ class VerificationActivity : AppCompatActivity() {
             binding.tvResend.setText(text)
             binding.tvResend.isEnabled = true
         }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

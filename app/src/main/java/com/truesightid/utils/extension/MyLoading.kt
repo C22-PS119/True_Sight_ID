@@ -14,18 +14,5 @@ class MyLoading {
             }
             return alertDialog!!
         }
-
-        private var views = ArrayList<View>()
-        fun addView(view: View){
-            views.add(view)
-        }
-        fun clearAllView(activity: Activity){
-            for(view in views){
-                try {
-                    activity.windowManager.removeView(view)
-                }catch (ex: Exception){}
-                views.remove(view)
-            }
-        }
     }
 }

@@ -2,8 +2,10 @@ package com.truesightid.ui.add_claim
 
 import DirtyFilter
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -33,6 +35,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityAddClaimBinding
     private lateinit var addPhotoAdapter: AddClaimAdapter
+    private lateinit var alertDialog: AlertDialog
     private var listFile = ArrayList<MultipartBody.Part>()
 
     private var fake: Boolean = false
@@ -86,7 +89,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         }.invokeOnCompletion {
             if (error != null){
                 showErrorDialog(error.toString())
-                dismisLoading()
+                alertDialog.dismiss()
             }else{
                 val postClaim = PostClaimRequest(
                     apiKey = Prefs.getUser()?.apiKey as String,
@@ -101,15 +104,15 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
                     when (response.status) {
                         StatusResponse.SUCCESS -> {
                             showSuccessAddClaim { pushActivity(MainActivity::class.java) }
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                         StatusResponse.EMPTY -> {
                             toastWarning("Empty: ${response.body}")
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                         StatusResponse.ERROR -> {
                             toastError("Error: ${response.body.message}")
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                     }
                 }
@@ -189,5 +192,15 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
                 onConfirmClickListener()
             }
             .show()
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

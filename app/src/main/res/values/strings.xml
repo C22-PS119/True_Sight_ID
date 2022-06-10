@@ -111,7 +111,37 @@
     <string name="image_preview">Image Preview</string>
     <string name="periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com" translatable="false">periksafakta.afp.com\nwww.cekfakta.com\ncnnindonesia.com\nyoutube.com\nfacebook.com</string>
     <string name="references">References</string>
-    <string name="bookmark_button" translatable="false">bookmark button</string>
+    <string name="bookmark_button">bookmark button</string>
+    <string name="apply_string">Apply</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="search_filter_title">Search Filter</string>
+    <string name="specific_date">Specific Date</string>
+    <string name="anytime">Anytime</string>
+    <string name="to">to</string>
+    <string name="now">Now</string>
+    <string name="upload_date">Upload Date</string>
+    <string name="type">Type</string>
+    <string name="sort_by">Sort By</string>
+    <string-array name="filter_sort_by">
+        <item>None</item>
+        <item>Most Votes</item>
+        <item>Least Votes</item>
+        <item>Newest</item>
+        <item>Oldest</item>
+    </string-array>
+    <string-array name="filter_type">
+        <item>Any</item>
+        <item>Fake</item>
+        <item>Fact</item>
+    </string-array>
+    <string-array name="filter_date">
+        <item>Anytime</item>
+        <item>Last hour</item>
+        <item>Today</item>
+        <item>This week</item>
+        <item>This month</item>
+        <item>This year</item>
+    </string-array>
     <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
     <string name="send_to">Send to</string>
     <string name="description_must_be">Description must be at least 10 words</string>

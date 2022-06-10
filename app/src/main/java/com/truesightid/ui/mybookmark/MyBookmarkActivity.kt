@@ -135,7 +135,7 @@ class MyBookmarkActivity : AppCompatActivity() {
                         claim_id
                     )
                 )
-                sleep(300) // Must be delayed because MySQL is up to 200 ms per query
+                sleep(200) // Must be delayed because MySQL is up to 200 ms per query
                 viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
                     .observe(this, claimObserver)
                 it.dismiss()

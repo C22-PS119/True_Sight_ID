@@ -1,6 +1,9 @@
 package com.truesightid.ui.resetpassword
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,7 @@ import com.truesightid.utils.extension.*
 class ResetPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResetPasswordBinding
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,18 +64,18 @@ class ResetPasswordActivity : AppCompatActivity() {
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
                         toastInfo(resources.getString(R.string.password_changed))
-                        dismisLoading()
+                        alertDialog.dismiss()
                         showSuccessDialog {
                             pushActivity(LoginActivity::class.java)
                         }
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -89,5 +93,15 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

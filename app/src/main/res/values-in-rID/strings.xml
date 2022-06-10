@@ -83,6 +83,37 @@
     <string name="your_post">Postingan Anda</string>
     <string name="title_news_predict">Prediksi Berita</string>
     <string name="title_explore_news">Eksplor Berita</string>
+    <string name="bookmark_button">Tombol bookmark</string>
+    <string name="apply_string">Terapkan</string>
+    <string name="cancel_string">Batal</string>
+    <string name="search_filter_title">Filter Cari</string>
+    <string name="specific_date">Date tertentu</string>
+    <string name="anytime">Kapan saja</string>
+    <string name="to">ke</string>
+    <string name="now">Sekarang</string>
+    <string name="upload_date">Tanggal unggah</string>
+    <string name="type">Tipe</string>
+    <string name="sort_by">Urut Berdasarkan</string>
+    <string-array name="filter_sort_by">
+        <item>Tidak ada</item>
+        <item>Most Votes</item>
+        <item>Least Votes</item>
+        <item>Newest</item>
+        <item>Oldest</item>
+    </string-array>
+    <string-array name="filter_type">
+        <item>Apa saja</item>
+        <item>Hoax</item>
+        <item>Fakta</item>
+    </string-array>
+    <string-array name="filter_date">
+        <item>Kapan saja</item>
+        <item>Sejam lalu</item>
+        <item>Hari ini</item>
+        <item>Minggu ini</item>
+        <item>Bulan ini</item>
+        <item>Tahun ini</item>
+    </string-array>
     <string name="content">KONTEN</string>
     <string name="preferences">PREFERENSI</string>
     <string name="title_profile">Profil</string>

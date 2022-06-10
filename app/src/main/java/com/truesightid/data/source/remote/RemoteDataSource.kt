@@ -6,6 +6,7 @@ import com.truesightid.api.ApiHelper
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
+import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.StringSeparatorUtils
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {

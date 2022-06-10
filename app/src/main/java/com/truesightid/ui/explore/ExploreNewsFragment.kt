@@ -2,14 +2,17 @@ package com.truesightid.ui.explore
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,13 +28,14 @@ import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ExploreAdapter
 import com.truesightid.ui.add_claim.AddClaimActivity
+import com.truesightid.utils.*
 import com.truesightid.utils.InputPreprocessUtils.searchQueryFilter
-import com.truesightid.utils.Prefs
-import com.truesightid.utils.Resource
-import com.truesightid.utils.Status
-import com.truesightid.utils.UserAction
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
+import java.sql.Timestamp
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class ExploreNewsFragment : Fragment() {
 
@@ -45,6 +49,7 @@ class ExploreNewsFragment : Fragment() {
     private lateinit var exploreAdapter: ExploreAdapter
     private lateinit var requestAllClaims: ClaimRequest
     private lateinit var alertDialog: AlertDialog
+    private lateinit var filterDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,10 +61,23 @@ class ExploreNewsFragment : Fragment() {
         return binding.root
     }
 
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            binding.ibFilter.setOnClickListener {
+                val request = ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(binding.searchBar.query.toString()))
+                showLoading()
+                showFilter{ sortBy, type, dateOpt, dateStart, dateEnd ->
+                    viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd))
+                        .observe(viewLifecycleOwner, claimObserver)
+                    toastInfo("Result of ${request.keyword}")
+                }
+                alertDialog.dismiss()
+            }
+
             if (Prefs.isLogin) {
                 requestAllClaims = ClaimRequest(Prefs.getUser()?.apiKey as String, "")
                 val factory = ViewModelFactory.getInstance(
@@ -215,6 +233,67 @@ class ExploreNewsFragment : Fragment() {
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
     }
+
+    private fun showFilter(onApply: (sortBy: Int, type: Int, dateOpt: Int, dateStart: Long?, dateEnd: Long?) -> Unit) {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_filter, null)
+        val rbDate = layout.findViewById<RadioGroup>(R.id.rg_date)
+        val rbAnytime = layout.findViewById<RadioButton>(R.id.rb_anytime)
+        val rbSpecific = layout.findViewById<RadioButton>(R.id.rb_specific_date)
+        val datefrom = layout.findViewById<EditText>(R.id.date_from)
+        val dateto = layout.findViewById<EditText>(R.id.date_to)
+        val ddSortBy = layout.findViewById<Spinner>(R.id.dd_sort_by)
+        val ddType = layout.findViewById<Spinner>(R.id.dd_type)
+        var dateStart :Long? = null
+        var dateEnd: Long? = null
+        datefrom.isEnabled = false
+        dateto.isEnabled = false
+
+        layout.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
+            filterDialog.dismiss()
+        }
+        layout.findViewById<Button>(R.id.btn_apply).setOnClickListener {
+            onApply(ddSortBy.selectedItemPosition,ddType.selectedItemPosition,if (rbAnytime.isChecked) 0 else 1,dateStart,dateEnd)
+            filterDialog.dismiss()
+        }
+        rbAnytime.setOnClickListener {
+            if (rbAnytime.isChecked) {
+                datefrom.isEnabled = false
+                dateto.isEnabled = false
+            }
+        }
+        rbSpecific.setOnClickListener {
+            if (rbSpecific.isChecked) {
+                datefrom.isEnabled = true
+                dateto.isEnabled = true
+            }
+        }
+        datefrom.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(this.context as Context)
+            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                val dateFrom = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+                val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                dateStart = Timestamp.from(dateFrom.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                datefrom.setText(dateFrom.format(formatters))
+            }
+            datePickerDialog.show()
+        }
+        dateto.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(this.context as Context)
+            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+                val dateTo = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+                val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                dateEnd = Timestamp.from(dateTo.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                dateto.setText(dateTo.format(formatters))
+            }
+            datePickerDialog.show()
+        }
+        filterDialog = AlertDialog.Builder(requireContext()).create()
+        filterDialog.setView(layout)
+        filterDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        filterDialog.show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
