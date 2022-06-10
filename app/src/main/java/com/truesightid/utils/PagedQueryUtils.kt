@@ -60,7 +60,7 @@ object PagedQueryUtils {
         if ((type == 0) and (sortBy == 0) and (optDate == 0))
             simpleQuery.append("ORDER BY CAST(date/259200 as INT) DESC, (upvote-downvote) DESC")
 
-        Log.d("LOG","QUERY: " + simpleQuery.toString())
+//        Log.d("LOG","QUERY: " + simpleQuery.toString())
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
 }

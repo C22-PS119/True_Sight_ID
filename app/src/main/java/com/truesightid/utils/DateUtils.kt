@@ -31,10 +31,9 @@ object DateUtils {
 
 
     fun getDateAsTimeAgo(seconds: Long, context: Context): String {
-        val timeNow = Timestamp.from(LocalDate.now().atTime(LocalTime.now(Clock.systemUTC())).toInstant(
-            ZoneOffset.UTC)).time / 1000L
-        Log.d("LOG TIME", seconds.toString())
-        Log.d("LOG TIME NOW", timeNow.toString())
+        val timeNow = Timestamp.from(LocalDate.now().atTime(LocalTime.now()).atZone(ZoneId.systemDefault()).toInstant()).time / 1000L
+//        Log.d("LOG TIME", seconds.toString())
+//        Log.d("LOG TIME NOW", timeNow.toString())
         if (timeNow - seconds > timeToSeconds(0, 23, 59, 59)){
             return getDateTime(seconds).toString()
         }else if (timeNow - seconds > timeToSeconds(0, 0, 59, 59)){
