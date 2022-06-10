@@ -6,7 +6,7 @@
     <string name="fact_status">Fact</string>
     <string name="fake_status">Fake</string>
     <string name="news_prediction">News Prediction</string>
-    <string name="hint_search_bar">Search news claims here...</string>
+    <string name="hint_search_bar">Search news claims here…</string>
     <string name="add_your_claim">Add Your Claim</string>
     <string name="adj_title">Title</string>
     <string name="adj_author">Author</string>
@@ -15,8 +15,8 @@
     <string name="my_profile">My Profile</string>
     <string name="bookmark" translatable="false">Bookmark</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="content" translatable="false">CONTENT</string>
-    <string name="preferences" translatable="false">PREFERENCES</string>
+    <string name="content">CONTENT</string>
+    <string name="preferences">PREFERENCES</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="log_out">Log-out</string>
@@ -103,7 +103,7 @@
     <string name="view_more">View more</string>
     <string name="view_less">View less</string>
     <string name="comment">Comment</string>
-    <string name="add_a_comment">Add a comment...</string>
+    <string name="add_a_comment">Add a comment…</string>
     <string name="read_more">… Read more</string>
     <string name="go_back_to_the_previous_page">Go back to the previous page</string>
     <string name="share_this_claim_to_other_users">Share this claim to other users</string>
@@ -112,4 +112,16 @@
     <string name="periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com" translatable="false">periksafakta.afp.com\nwww.cekfakta.com\ncnnindonesia.com\nyoutube.com\nfacebook.com</string>
     <string name="references">References</string>
     <string name="bookmark_button" translatable="false">bookmark button</string>
+    <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
+    <string name="send_to">Send to</string>
+    <string name="description_must_be">Description must be at least 10 words</string>
+    <string name="title_must_be">Title must be at least 3 words</string>
+    <string name="description_dirty_words">Your description contains dirty words, please fix it!</string>
+    <string name="title_dirty_words">Your title contains dirty words, please fix it!</string>
+    <string name="add_claim_successful">Add Claim Successful</string>
+    <string name="add_claim_successful_content">Claim is added successfully, press Ok to back to main menu</string>
+    <string name="edit_profile_success">Edit Profile Success</string>
+    <string name="edit_profile_success_content">Your profile has been updated, go back to profile page to see the changes</string>
+    <string name="please_fill_all_blank">Please fill all blanks</string>
+    <string name="password_not_match">Error: Password not match</string>
 </resources>

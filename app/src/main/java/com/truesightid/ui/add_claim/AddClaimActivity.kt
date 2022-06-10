@@ -119,13 +119,13 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     fun validateInput(title:String, description:String) : String? {
         if (getTotalWords(description) < 10)
-            return "Description must be at least 10 words"
+            return resources.getString(R.string.description_must_be)
         if (getTotalWords(title) < 3)
-            return "Title must be at least 3 words"
+            return resources.getString(R.string.title_must_be)
         if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords))
-            return "Your description contains dirty words, please fix it!"
+            return resources.getString(R.string.description_dirty_words)
         if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
-            return "Your title contains dirty words, please fix it!"
+            return resources.getString(R.string.title_dirty_words)
         return null
     }
 
@@ -181,8 +181,8 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showSuccessAddClaim(onConfirmClickListener: () -> Unit) {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Add Claim Successful")
-            .setContentText("Claim is added successfully, press Ok to back to main menu")
+            .setTitleText(resources.getString(R.string.add_claim_successful))
+            .setContentText(resources.getString(R.string.add_claim_successful_content))
             .setConfirmText(getString(R.string.dialog_ok))
             .setConfirmClickListener {
                 it.dismiss()

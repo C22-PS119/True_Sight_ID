@@ -4,7 +4,7 @@
     <string name="fact_status">Fakta</string>
     <string name="fake_status">Hoax</string>
     <string name="news_prediction">Prediksi Berita</string>
-    <string name="hint_search_bar">Cari klaim berita disini...</string>
+    <string name="hint_search_bar">Cari klaim berita disini…</string>
     <string name="add_your_claim">Tambah Klaim Anda</string>
     <string name="adj_title">Judul</string>
     <string name="adj_author">Penulis</string>
@@ -27,10 +27,10 @@
     <string name="change_your_photo">Ubah foto profil Anda</string>
     <string name="login">Masuk</string>
     <string name="password">Kata sandi</string>
-    <string name="forgot_password">Lupa sandi</string>
+    <string name="forgot_password">Lupa sandi?</string>
     <string name="or">Atau</string>
     <string name="login_with_google">Masuk dengan Google</string>
-    <string name="not_a_member">Belum daftar</string>
+    <string name="not_a_member">Belum daftar?</string>
     <string name="register">Daftar</string>
     <string name="sign_up">Daftar</string>
     <string name="username">Nama Pengguna</string>
@@ -60,7 +60,7 @@
     <string name="no_search_result">Tidak ada hasil untuk kata kunci seperti itu, mungkin coba kata kunci lain</string>
     <string name="no_claims_found">Tidak ada klaim yang ditemukan</string>
     <string name="you_have_no_bookmarks">Anda tidak memiliki bookmark</string>
-    <string name="you_can_add_one_in_explore_page">Anda dapat menambahkan satu di halaman jelajahi</string>
+    <string name="you_can_add_one_in_explore_page">Anda dapat menambahkan Bookmark di halaman Eksplor Berita</string>
     <string name="verification_info">Kami telah mengirimkan kode ke email Anda:</string>
     <string name="verify_account">verifikasi akun</string>
     <string name="did_not_receive_code">Tidak menerima kode?</string>
@@ -73,7 +73,7 @@
     <string name="view_more">Lihat lebih banyak</string>
     <string name="view_less">Lihat lebih sedikit</string>
     <string name="comment">Komentar</string>
-    <string name="add_a_comment">Tambahkan komentar...</string>
+    <string name="add_a_comment">Tambahkan komentar…</string>
     <string name="read_more">… Baca lebih banyak</string>
     <string name="go_back_to_the_previous_page">Kembali ke halaman sebelumnya</string>
     <string name="share_this_claim_to_other_users">Bagikan klaim ini ke pengguna lain</string>
@@ -81,7 +81,21 @@
     <string name="image_preview">Pratinjau Gambar</string>
     <string name="references">Referensi</string>
     <string name="your_post">Postingan Anda</string>
-    <string name="title_profile" translatable="false">Profil</string>
     <string name="title_news_predict">Prediksi Berita</string>
     <string name="title_explore_news">Eksplor Berita</string>
+    <string name="content">KONTEN</string>
+    <string name="preferences">PREFERENSI</string>
+    <string name="title_profile">Profil</string>
+    <string name="share_messages">Mari bergabung dengan kami untuk membahas klaim dari %1$s! tentang %2$s! di aplikasi True Sight ID.</string>
+    <string name="send_to">Kirim ke</string>
+    <string name="description_must_be">Deskripsi minimal harus 10 kata</string>
+    <string name="title_must_be">Judul minimal 3 kata</string>
+    <string name="description_dirty_words">Deskripsi Anda mengandung kata-kata kotor, tolong perbaiki!</string>
+    <string name="title_dirty_words">Judul Anda mengandung kata-kata kotor, tolong perbaiki!</string>
+    <string name="add_claim_successful">Tambah Klaim Berhasil</string>
+    <string name="add_claim_successful_content">Klaim berhasil ditambahkan, tekan Ok untuk kembali ke menu utama</string>
+    <string name="edit_profile_success">Edit Profil Sukses</string>
+    <string name="edit_profile_success_content">Profil Anda telah diperbarui, kembali ke halaman profil untuk melihat perubahannya</string>
+    <string name="please_fill_all_blank">Silahkan isi semua yang kosong</string>
+    <string name="password_not_match">Error: Kata sandi tidak cocok</string>
 </resources>
