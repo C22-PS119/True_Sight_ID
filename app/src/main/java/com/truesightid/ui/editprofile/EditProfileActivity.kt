@@ -123,9 +123,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
         val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.titleText = "Edit Profile Success"
-        dialog.contentText =
-            "Your profile has been updated, go back to profile page to see the changes"
+        dialog.titleText = resources.getString(R.string.edit_profile_success)
+        dialog.contentText = resources.getString(R.string.edit_profile_success_content)
         dialog.confirmText = getString(R.string.dialog_ok)
         dialog.setConfirmClickListener {
             it.dismiss()
@@ -210,7 +209,7 @@ class EditProfileActivity : AppCompatActivity() {
         )
 
         if (binding.tvNewPassword.text.toString().isNullOrEmpty() or binding.tvReTypePassword.toString().isNullOrEmpty() or binding.tvCurrentPassword.toString().isNullOrEmpty()){
-            toastError("Please fill all blanks")
+            toastError(resources.getString(R.string.please_fill_all_blank))
             dismisLoading()
         }else if (binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString()){
             viewModel.setPassword(userPassword).observe(this) { response ->
@@ -232,7 +231,7 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
         }else{
-            toastError("Error: Password not match")
+            toastError(resources.getString(R.string.password_not_match))
             dismisLoading()
         }
     }

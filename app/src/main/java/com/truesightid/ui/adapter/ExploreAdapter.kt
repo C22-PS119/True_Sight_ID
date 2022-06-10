@@ -203,10 +203,10 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "Let's join us to discuss the claims from ${items.claimer} regarding ${items.title} in the True Sight ID application."
+                        itemView.context.resources.getString(R.string.share_messages, items.claimer, items.title)
                     )
                     intent.type = "text/plain"
-                    itemView.context.startActivity(Intent.createChooser(intent, "Send to"))
+                    itemView.context.startActivity(Intent.createChooser(intent, itemView.context.resources.getString(R.string.send_to)))
                 }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailClaimActivity::class.java)
