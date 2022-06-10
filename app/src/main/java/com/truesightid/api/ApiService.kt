@@ -36,7 +36,7 @@ interface ApiService {
     fun getAllClaims(
         @Header("x-api-key") apiKey: String,
         @Field("keyword") keyword: String
-    ): Call<ClaimsResponse>
+    ): Call<GetClaimsResponse>
 
     @FormUrlEncoded
     @POST("api/votes/up/")
@@ -48,13 +48,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/votes/down/")
     fun downVoteByClaimID(
-        @Header("x-api-key") apiKey: String,
-        @Field("id") id: Int
-    ): Call<VoteResponse>
-
-    @FormUrlEncoded
-    @POST("api/bookmarks/add/")
-    fun addBookmarkByClaimID(
         @Header("x-api-key") apiKey: String,
         @Field("id") id: Int
     ): Call<VoteResponse>
@@ -113,14 +106,14 @@ interface ApiService {
     fun addBookmarkByClaimId(
         @Header("x-api-key") apiKey: String,
         @Field("id") id: Int
-    ): Call<AddRemoveBookmarkResponse>
+    ): Call<AddRemoveResponse>
 
     @FormUrlEncoded
     @POST("/api/bookmarks/remove/")
     fun removeBookmarkByClaimId(
         @Header("x-api-key") apiKey: String,
         @Field("id") id: Int
-    ): Call<AddRemoveBookmarkResponse>
+    ): Call<AddRemoveResponse>
 
     @FormUrlEncoded
     @POST("/api/set/password/")
@@ -149,4 +142,33 @@ interface ApiService {
         @Field("reset_key") reset_key: String,
         @Field("new_password") new_password: String
     ): Call<SetPasswordResponse>
+
+    @FormUrlEncoded
+    @POST("/api/create/comments/")
+    fun addComment(
+        @Header("x-api-key") apiKey: String,
+        @Field("claim_id") id: Int,
+        @Field("text") comment: String
+    ): Call<AddRemoveResponse>
+
+    @FormUrlEncoded
+    @POST("/api/get/comments/")
+    fun getComments(
+        @Header("x-api-key") apiKey: String,
+        @Field("claim_id") id: Int
+    ): Call<GetCommentsResponse>
+
+    @FormUrlEncoded
+    @POST("/api/get/comments/")
+    fun deleteComment(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<AddRemoveResponse>
+
+    @FormUrlEncoded
+    @POST("/api/get/comments/")
+    fun deleteClaim(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<AddRemoveResponse>
 }

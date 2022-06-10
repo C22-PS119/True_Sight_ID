@@ -2,7 +2,7 @@ package com.truesightid.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ClaimsResponse(
+data class GetClaimsResponse(
 
 	@field:SerializedName("total")
 	val total: Int? = null,

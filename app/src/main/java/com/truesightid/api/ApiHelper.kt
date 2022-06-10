@@ -67,10 +67,10 @@ class ApiHelper(val context: Context) {
 
     fun getClaimsRequest(request: ClaimRequest, callback: RemoteDataSource.ClaimsRequestCallback) {
         val client = ApiConfig.getApiService().getAllClaims(request.apiKey, request.keyword)
-        client.enqueue(object : Callback<ClaimsResponse> {
+        client.enqueue(object : Callback<GetClaimsResponse> {
             override fun onResponse(
-                call: Call<ClaimsResponse>,
-                response: Response<ClaimsResponse>
+                call: Call<GetClaimsResponse>,
+                response: Response<GetClaimsResponse>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -80,7 +80,7 @@ class ApiHelper(val context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<ClaimsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<GetClaimsResponse>, t: Throwable) {
                 Toast.makeText(
                     context,
                     "onClaimRequestFailed: ${t.message}",
@@ -301,6 +301,7 @@ class ApiHelper(val context: Context) {
             }
         })
     }
+
     fun getMyClaims(request: MyDataRequest, callback: RemoteDataSource.MyClaimRequestCallback) {
         val client = ApiConfig.getApiService().getMyClaims(request.apiKey)
         client.enqueue(object : Callback<MyClaimResponse> {
@@ -363,10 +364,10 @@ class ApiHelper(val context: Context) {
         } else {
             ApiConfig.getApiService().removeBookmarkByClaimId(request.apiKey, request.id)
         }
-        client.enqueue(object : Callback<AddRemoveBookmarkResponse> {
+        client.enqueue(object : Callback<AddRemoveResponse> {
             override fun onResponse(
-                call: Call<AddRemoveBookmarkResponse>,
-                response: Response<AddRemoveBookmarkResponse>
+                call: Call<AddRemoveResponse>,
+                response: Response<AddRemoveResponse>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -376,7 +377,7 @@ class ApiHelper(val context: Context) {
                 }
             }
 
-            override fun onFailure(call: Call<AddRemoveBookmarkResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AddRemoveResponse>, t: Throwable) {
                 Toast.makeText(
                     context,
                     "onBookmarkFailed: ${t.message}",
@@ -479,6 +480,60 @@ class ApiHelper(val context: Context) {
                 Toast.makeText(
                     context,
                     "onResetPasswordFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+        })
+    }
+
+    fun addComment(request: AddCommentRequest) {
+        val client =
+            ApiConfig.getApiService().addComment(request.apiKey, request.id, request.comment)
+        client.enqueue(object : Callback<AddRemoveResponse> {
+            override fun onResponse(
+                call: Call<AddRemoveResponse>,
+                response: Response<AddRemoveResponse>
+            ) {
+//                if (response.isSuccessful) {
+//                    val responseBody = response.body()
+//                    if (responseBody != null) {
+//                        Toast.makeText(context, "${responseBody.status}", Toast.LENGTH_LONG).show()
+//                    }
+//                }
+            }
+
+            override fun onFailure(call: Call<AddRemoveResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onAddCommentFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+
+        })
+    }
+
+    fun getComments(request: GetCommentsRequest, callback: RemoteDataSource.GetCommentsCallback) {
+        val client = ApiConfig.getApiService().getComments(request.apiKey, request.id)
+        client.enqueue(object : Callback<GetCommentsResponse> {
+            override fun onResponse(
+                call: Call<GetCommentsResponse>,
+                response: Response<GetCommentsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onGetCommentsRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetCommentsResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onGetCommentsFailed: ${t.message}",
                     Toast.LENGTH_SHORT
                 )
                     .show()
