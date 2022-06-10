@@ -84,7 +84,7 @@ class ExploreNewsFragment : Fragment() {
                             )
                         )
                         UserAction.applyUserBookmarks(claim_id, true)
-                        toastInfo("Added to Bookmark")
+                        toastInfo(resources.getString(R.string.added_to_bookmark))
                     }
 
                     override fun onBookmarkRemoved(claim_id: Int) {
@@ -95,7 +95,7 @@ class ExploreNewsFragment : Fragment() {
                             )
                         )
                         UserAction.applyUserBookmarks(claim_id, false)
-                        toastInfo("Removed from Bookmark")
+                        toastInfo(resources.getString(R.string.removed_from_bookmark))
                     }
 
                 }, Prefs)
@@ -108,7 +108,7 @@ class ExploreNewsFragment : Fragment() {
 
                 binding.refreshLayout.setOnRefreshListener {
                     viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                    toastSuccess("Page Refreshed")
+                    toastSuccess(resources.getString(R.string.page_refreshed))
                     binding.refreshLayout.isRefreshing = false
                 }
 
@@ -157,7 +157,7 @@ class ExploreNewsFragment : Fragment() {
                     val request =
                         ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
                     viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
-                    toastInfo("Result of ${request.keyword}")
+                    toastInfo(resources.getString(R.string.result_of, request.keyword))
                 }
                 return false
             }
@@ -187,7 +187,7 @@ class ExploreNewsFragment : Fragment() {
                 }
                 Status.ERROR -> {
                     alertDialog.dismiss()
-                    Toast.makeText(context, "Error: Somethings went wrong", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, resources.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT)
                         .show()
                 }
             }
