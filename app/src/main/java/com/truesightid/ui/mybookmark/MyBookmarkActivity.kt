@@ -24,6 +24,7 @@ import com.truesightid.ui.adapter.MyBookmarksAdapter
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
+import com.truesightid.utils.extension.showSuccessDialog
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
 import java.lang.Thread.sleep
@@ -104,6 +105,8 @@ class MyBookmarkActivity : AppCompatActivity() {
                 StatusResponse.EMPTY -> {
                     toastInfo(resources.getString(R.string.something_went_wrong))
                     alertDialog.dismiss()
+
+                    showSuccessDialog("qwe", "qwe")
                 }
             }
         }

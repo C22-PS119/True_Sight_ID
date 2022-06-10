@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.data.source.local.room.LocalDataSource
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.RemoteDataSource
@@ -49,6 +50,9 @@ class TrueSightRepository(
     override fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
         remoteDataSource.removeBookmarkById(addRemoveBookmarkRequest)
 
+    override fun addCommentById(addCommentRequest: AddCommentRequest) =
+        remoteDataSource.addCommentById(addCommentRequest)
+
     override fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> =
         remoteDataSource.sendEmailVerification(sendEmailVerificationRequest)
 
@@ -57,6 +61,9 @@ class TrueSightRepository(
 
     override fun resetPassword(resetPasswordRequest: ResetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> =
         remoteDataSource.resetPasswordRequest(resetPasswordRequest)
+
+    override fun getCommentsByClaimId(getCommentsRequest: GetCommentsRequest): LiveData<ApiResponse<List<CommentEntity>>> =
+        remoteDataSource.getCommentsRequest(getCommentsRequest)
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)
@@ -76,8 +83,6 @@ class TrueSightRepository(
     override fun setPassword(setPasswordRequest: SetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> =
         remoteDataSource.setPasswordRequest(setPasswordRequest)
 
-    override fun deleteLocalClaims() = localDataSource.deleteLocalClaims()
-
     override fun registrationRequest(registrationRequest: RegistrationRequest): LiveData<ApiResponse<RegistrationResponse>> =
         remoteDataSource.registrationRequest(registrationRequest)
 
@@ -87,22 +92,33 @@ class TrueSightRepository(
     override fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
         remoteDataSource.getMyBookmarkRequest(myDataRequest)
 
-    override fun getAllClaims(request: ClaimRequest, filter: FilterSearch?): LiveData<Resource<PagedList<ClaimEntity>>> {
-        return object : NetworkBoundResource<PagedList<ClaimEntity>, ClaimsResponse>(appExecutor) {
+    override fun getAllClaims(
+        request: ClaimRequest,
+        filter: FilterSearch?
+    ): LiveData<Resource<PagedList<ClaimEntity>>> {
+        return object :
+            NetworkBoundResource<PagedList<ClaimEntity>, GetClaimsResponse>(appExecutor) {
             override fun loadFromDB(): LiveData<PagedList<ClaimEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(1)
                     .setPageSize(1)
                     .build()
-                if (filter == null){
+                if (filter == null) {
                     return LivePagedListBuilder(
                         localDataSource.getClaims(request.keyword),
                         config
                     ).build()
-                }else{
+                } else {
                     return LivePagedListBuilder(
-                        localDataSource.getClaimsWithFilter(request.keyword, filter.sortBy, filter.type, filter.optDate, filter.dateFrom, filter.dateTo),
+                        localDataSource.getClaimsWithFilter(
+                            request.keyword,
+                            filter.sortBy,
+                            filter.type,
+                            filter.optDate,
+                            filter.dateFrom,
+                            filter.dateTo
+                        ),
                         config
                     ).build()
                 }
@@ -113,10 +129,10 @@ class TrueSightRepository(
                 data == null || data.isEmpty()
 
 
-            override fun createCall(): LiveData<ApiResponse<ClaimsResponse>> =
+            override fun createCall(): LiveData<ApiResponse<GetClaimsResponse>> =
                 remoteDataSource.getAllClaims(request)
 
-            override fun saveCallResult(data: ClaimsResponse) {
+            override fun saveCallResult(data: GetClaimsResponse) {
                 val body = data.data
                 val claimList = ArrayList<ClaimEntity>()
                 if (body != null) {

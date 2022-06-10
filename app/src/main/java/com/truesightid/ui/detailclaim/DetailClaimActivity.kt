@@ -1,35 +1,54 @@
 package com.truesightid.ui.detailclaim
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnLayoutChangeListener
 import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.CommentEntity
+import com.truesightid.data.source.remote.ApiResponse
+import com.truesightid.data.source.remote.StatusResponse
+import com.truesightid.data.source.remote.request.AddCommentRequest
 import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
+import com.truesightid.data.source.remote.request.GetCommentsRequest
 import com.truesightid.databinding.ActivityClaimDetailBinding
 import com.truesightid.ui.ViewModelFactory
+import com.truesightid.ui.adapter.CommentsAdapter
 import com.truesightid.ui.adapter.DetailImagesAdapter
-import com.truesightid.ui.myclaim.MyClaimViewModel
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
+import com.truesightid.utils.extension.getTotalWords
+import java.lang.Thread.sleep
 
 
 class DetailClaimActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClaimDetailBinding
     private lateinit var imagesAdapter: DetailImagesAdapter
+    private lateinit var commentsAdapter: CommentsAdapter
+    private lateinit var viewModel: DetailClaimViewModel
+    private lateinit var alertDialog: AlertDialog
+    private lateinit var itemExtras: ClaimEntity
+    private var isAddComment = false
 
     companion object {
         const val EXTRA_CLAIM = "extra_claim"
@@ -40,6 +59,9 @@ class DetailClaimActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClaimDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[DetailClaimViewModel::class.java]
 
         imagesAdapter =
             DetailImagesAdapter(this, object : DetailImagesAdapter.DetailImagesCallback {
@@ -52,6 +74,8 @@ class DetailClaimActivity : AppCompatActivity() {
                 }
 
             })
+
+        commentsAdapter = CommentsAdapter()
 
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
@@ -81,8 +105,21 @@ class DetailClaimActivity : AppCompatActivity() {
             if (event.action == MotionEvent.ACTION_UP) {
                 if (event.rawX >= binding.etComment.right - binding.etComment.compoundDrawables[drawableEnd].bounds.width()
                 ) {
-                    Toast.makeText(this@DetailClaimActivity, "OnDeveloped", Toast.LENGTH_SHORT)
-                        .show()
+                    val request = AddCommentRequest(
+                        Prefs.getUser()?.apiKey as String,
+                        itemExtras.id,
+                        binding.etComment.text.toString()
+                    )
+                    viewModel.addCommentByClaimId(request)
+//                    Toast.makeText(this, request.toString(), Toast.LENGTH_LONG).show()
+                    sleep(200)
+                    // Update view by calling this
+                    viewModel.getCommentsByClaimId(
+                        GetCommentsRequest(Prefs.getUser()?.apiKey as String, itemExtras.id)
+                    ).observe(this, commentsObserver)
+
+                    removeFocusAfterComment()
+                    isAddComment = true
                     return@OnTouchListener true
                 }
             }
@@ -102,7 +139,67 @@ class DetailClaimActivity : AppCompatActivity() {
         // Set adapter
         binding.vpImages.adapter = imagesAdapter
 
+        with(binding.rvComment) {
+            val linearLayoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
+            adapter = commentsAdapter
+            setHasFixedSize(true)
+        }
 
+        viewModel.getCommentsByClaimId(
+            GetCommentsRequest(
+                Prefs.getUser()?.apiKey as String,
+                itemExtras.id
+            )
+        ).observe(this, commentsObserver)
+    }
+
+    private fun removeFocusAfterComment() {
+        hideKeyboard(this)
+        binding.etComment.text.clear()
+        binding.etComment.clearFocus()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private val commentsObserver = Observer<ApiResponse<List<CommentEntity>>> { comments ->
+        showLoading()
+        if (comments != null) {
+            when (comments.status) {
+                StatusResponse.EMPTY -> alertDialog.dismiss()
+                StatusResponse.SUCCESS -> {
+                    val data = comments.body
+                    alertDialog.dismiss()
+                    if (isAddComment) {
+                        commentsAdapter.setComments(data)
+                        commentsAdapter.notifyItemInserted(data.size)
+                        binding.rvComment.scrollToPosition(commentsAdapter.itemCount)
+                        isAddComment = false
+
+                    } else {
+                        commentsAdapter.setComments(data)
+                        commentsAdapter.notifyDataSetChanged()
+                    }
+
+
+                }
+                StatusResponse.ERROR -> {
+                    Toast.makeText(this, "Error: Somethings went wrong", Toast.LENGTH_SHORT)
+                        .show()
+                    alertDialog.dismiss()
+                }
+            }
+        }
+    }
+
+    private fun showCommentAvatar() {
+        Glide.with(this)
+            .load(Prefs.getUser()?.avatar as String)
+            .timeout(3000)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.logo_true_sight)
+            )
+            .into(binding.ivAvatarComment)
     }
 
     private fun showSoftKeyboard(etComment: EditText) {
@@ -128,12 +225,17 @@ class DetailClaimActivity : AppCompatActivity() {
     }
 
     private fun setupView(items: ClaimEntity) {
-        val factory = ViewModelFactory.getInstance(this)
-        val viewModel = ViewModelProvider(this, factory)[DetailClaimViewModel::class.java]
+        itemExtras = items
+        showCommentAvatar()
 
         with(binding) {
             tvTitleDetail.text = items.title
             tvDescription.text = items.description
+
+            if (getTotalWords(items.description) < 40) {
+                binding.tvViewMore.visibility = View.INVISIBLE
+                binding.tvViewLess.visibility = View.INVISIBLE
+            }
 
             binding.tvDescription.maxLines = 10
             binding.tvDescription.post(Runnable {
@@ -208,6 +310,27 @@ class DetailClaimActivity : AppCompatActivity() {
                 startActivity(Intent.createChooser(intent, resources.getString(R.string.send_to)))
             }
         }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }

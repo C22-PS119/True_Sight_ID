@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.truesightid.api.ApiHelper
 import com.truesightid.data.source.local.entity.ClaimEntity
+import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
-import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.StringSeparatorUtils
 
 class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
@@ -54,11 +54,11 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultRegister
     }
 
-    fun getAllClaims(request: ClaimRequest): LiveData<ApiResponse<ClaimsResponse>> {
-        val resultClaims = MutableLiveData<ApiResponse<ClaimsResponse>>()
+    fun getAllClaims(request: ClaimRequest): LiveData<ApiResponse<GetClaimsResponse>> {
+        val resultClaims = MutableLiveData<ApiResponse<GetClaimsResponse>>()
         apiHelper.getClaimsRequest(request, object : ClaimsRequestCallback {
-            override fun onClaimsRequestResponse(claimsResponse: ClaimsResponse) {
-                resultClaims.value = ApiResponse.success(claimsResponse)
+            override fun onClaimsRequestResponse(getClaimsResponse: GetClaimsResponse) {
+                resultClaims.value = ApiResponse.success(getClaimsResponse)
             }
         })
         return resultClaims
@@ -131,12 +131,12 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         apiHelper.getSetPasswordResponse(
             request,
             object : GetSetUserPasswordRequestResponseCallback {
-                override fun onGetSetPasswordRequestResponse(setPasswordResponse: SetPasswordResponse) {
-                    if (setPasswordResponse.status == "success")
-                        resultPost.value = ApiResponse.success(setPasswordResponse)
+                override fun onGetSetPasswordRequestResponse(userSetPasswordResponse: SetPasswordResponse) {
+                    if (userSetPasswordResponse.status == "success")
+                        resultPost.value = ApiResponse.success(userSetPasswordResponse)
                     else
                         resultPost.value = ApiResponse.error(
-                            setPasswordResponse.message ?: "Failed to GET message",
+                            userSetPasswordResponse.message ?: "Failed to GET message",
                             SetPasswordResponse()
                         )
                 }
@@ -207,31 +207,15 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultClaims
     }
 
-    fun upVoteRequestById(api_key: String, id: Int) {
-        apiHelper.voteByClaimIdRequest(true, api_key, id)
-    }
-
-    fun downVoteRequestById(api_key: String, id: Int) {
-        apiHelper.voteByClaimIdRequest(false, api_key, id)
-    }
-
-    fun addBookmarkById(request: AddRemoveBookmarkRequest) {
-        apiHelper.addRemoveBookmarkByClaimId(true, request)
-    }
-
-    fun removeBookmarkById(request: AddRemoveBookmarkRequest) {
-        apiHelper.addRemoveBookmarkByClaimId(false, request)
-    }
-
-    fun sendEmailVerification(request: SendEmailVerificationRequest) : LiveData<ApiResponse<EmailVerificationRespond>>{
+    fun sendEmailVerification(request: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> {
         val resultPost = MutableLiveData<ApiResponse<EmailVerificationRespond>>()
         apiHelper.sendEmailVerification(request, object : EmailVerificationRequestResponseCallback {
-            override fun onEmailVerificationRequestResponse(sendEmailVerificationResponse: EmailVerificationRespond) {
-                if (sendEmailVerificationResponse.status == "success")
-                    resultPost.value = ApiResponse.success(sendEmailVerificationResponse)
+            override fun onEmailVerificationRequestResponse(emailVerificationRespond: EmailVerificationRespond) {
+                if (emailVerificationRespond.status == "success")
+                    resultPost.value = ApiResponse.success(emailVerificationRespond)
                 else
                     resultPost.value = ApiResponse.error(
-                        sendEmailVerificationResponse.message ?: "Failed to GET message",
+                        emailVerificationRespond.message ?: "Failed to GET message",
                         EmailVerificationRespond()
                     )
             }
@@ -240,24 +224,26 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultPost
     }
 
-    fun confirmEmailVerification(request: ConfirmEmailVerificationRequest) : LiveData<ApiResponse<ConfirmVerificationRespond>>{
+    fun confirmEmailVerification(request: ConfirmEmailVerificationRequest): LiveData<ApiResponse<ConfirmVerificationRespond>> {
         val resultPost = MutableLiveData<ApiResponse<ConfirmVerificationRespond>>()
-        apiHelper.confirmEmailVerification(request, object : ConfirmVerificationRequestResponseCallback {
-            override fun onConfirmVerificationRequestResponse(confirmEmailVerificationResponse: ConfirmVerificationRespond) {
-                if (confirmEmailVerificationResponse.status == "success")
-                    resultPost.value = ApiResponse.success(confirmEmailVerificationResponse)
-                else
-                    resultPost.value = ApiResponse.error(
-                        confirmEmailVerificationResponse.message ?: "Failed to GET message",
-                        ConfirmVerificationRespond()
-                    )
-            }
+        apiHelper.confirmEmailVerification(
+            request,
+            object : ConfirmVerificationRequestResponseCallback {
+                override fun onConfirmVerificationRequestResponse(confirmEmailVerificationResponse: ConfirmVerificationRespond) {
+                    if (confirmEmailVerificationResponse.status == "success")
+                        resultPost.value = ApiResponse.success(confirmEmailVerificationResponse)
+                    else
+                        resultPost.value = ApiResponse.error(
+                            confirmEmailVerificationResponse.message ?: "Failed to GET message",
+                            ConfirmVerificationRespond()
+                        )
+                }
 
-        })
+            })
         return resultPost
     }
 
-    fun resetPasswordRequest(request: ResetPasswordRequest) : LiveData<ApiResponse<SetPasswordResponse>>{
+    fun resetPasswordRequest(request: ResetPasswordRequest): LiveData<ApiResponse<SetPasswordResponse>> {
         val resultPost = MutableLiveData<ApiResponse<SetPasswordResponse>>()
         apiHelper.resetPassword(request, object : GetSetUserPasswordRequestResponseCallback {
             override fun onGetSetPasswordRequestResponse(userSetPasswordResponse: SetPasswordResponse) {
@@ -274,8 +260,56 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultPost
     }
 
+    fun getCommentsRequest(request: GetCommentsRequest): LiveData<ApiResponse<List<CommentEntity>>> {
+        val resultComments = MutableLiveData<ApiResponse<List<CommentEntity>>>()
+        apiHelper.getComments(request, object : GetCommentsCallback {
+            override fun onGetCommentsRequestResponse(getCommentsResponse: GetCommentsResponse) {
+                val commentList = ArrayList<CommentEntity>()
+                val data = getCommentsResponse.data
+                if (data != null) {
+                    for (response in data) {
+                        commentList.add(
+                            CommentEntity(
+                                response?.id as Int,
+                                response.authorId as Int,
+                                response.username as String,
+                                response.commentText as String,
+                                response.dateCreated as Double,
+                                response.claimId as Int,
+                                response.profileAvatar as String
+                            )
+                        )
+                    }
+                }
+                resultComments.value = ApiResponse.success(commentList)
+            }
+        })
+        return resultComments
+    }
+
+    fun upVoteRequestById(api_key: String, id: Int) {
+        apiHelper.voteByClaimIdRequest(true, api_key, id)
+    }
+
+    fun downVoteRequestById(api_key: String, id: Int) {
+        apiHelper.voteByClaimIdRequest(false, api_key, id)
+    }
+
+    fun addBookmarkById(request: AddRemoveBookmarkRequest) {
+        apiHelper.addRemoveBookmarkByClaimId(true, request)
+    }
+
+    fun removeBookmarkById(request: AddRemoveBookmarkRequest) {
+        apiHelper.addRemoveBookmarkByClaimId(false, request)
+    }
+
+    fun addCommentById(request: AddCommentRequest) {
+        apiHelper.addComment(request)
+    }
+
+
     interface ClaimsRequestCallback {
-        fun onClaimsRequestResponse(claimsResponse: ClaimsResponse)
+        fun onClaimsRequestResponse(getClaimsResponse: GetClaimsResponse)
     }
 
     interface EmailVerificationRequestResponseCallback {
@@ -316,5 +350,9 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface MyBookmarksCallback {
         fun onMyBookmarksRequestResponse(myBookmarkResponse: MyBookmarkResponse)
+    }
+
+    interface GetCommentsCallback {
+        fun onGetCommentsRequestResponse(getCommentsResponse: GetCommentsResponse)
     }
 }

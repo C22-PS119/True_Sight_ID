@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +17,9 @@ import com.truesightid.databinding.ActivityVerificationBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
 import com.truesightid.ui.resetpassword.ResetPasswordActivity
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

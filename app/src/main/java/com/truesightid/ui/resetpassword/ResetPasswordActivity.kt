@@ -5,19 +5,19 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.ResetPasswordRequest
-import com.truesightid.data.source.remote.request.SetPasswordRequest
 import com.truesightid.databinding.ActivityResetPasswordBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.login.LoginActivity
-import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.pushActivity
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 
 class ResetPasswordActivity : AppCompatActivity() {
 
