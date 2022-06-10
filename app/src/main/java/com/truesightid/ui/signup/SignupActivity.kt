@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.truesightid.R
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.RegistrationRequest
@@ -62,7 +63,7 @@ class SignupActivity : AppCompatActivity() {
                     StatusResponse.SUCCESS -> {
                         dismisLoading()
                         showSuccessDialog(
-                            "Hi ${request.username} your registration is successful, it's time to login"
+                            resources.getString(R.string.registration_is_successful, request.username)
                         ) { pushActivity(LoginActivity::class.java) }
                     }
                     else -> {}

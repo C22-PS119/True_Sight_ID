@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.EditProfileWithAvatarRequest
 import com.truesightid.data.source.remote.request.SendEmailVerificationRequest
@@ -44,7 +45,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
                         dismisLoading()
-                        toastInfo("Verification code has been sent to your email, please check your inbox")
+                        toastInfo(resources.getString(R.string.verification_has_been_sent))
                         val intent = Intent(this@ForgotPasswordActivity, VerificationActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         intent.putExtra("user_id", response.body.data)

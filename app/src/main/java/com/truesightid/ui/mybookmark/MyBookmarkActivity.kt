@@ -73,7 +73,7 @@ class MyBookmarkActivity : AppCompatActivity() {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.getMyBookmarks(MyDataRequest(Prefs.getUser()?.apiKey as String))
                 .observe(this, claimObserver)
-            toastSuccess("Page Refreshed")
+            toastSuccess(resources.getString(R.string.page_refreshed))
             binding.refreshLayout.isRefreshing = false
         }
 
@@ -88,7 +88,7 @@ class MyBookmarkActivity : AppCompatActivity() {
         if (claims != null) {
             when (claims.status) {
                 StatusResponse.ERROR -> {
-                    toastInfo("ERROR: Something went wrong")
+                    toastInfo(resources.getString(R.string.something_went_wrong))
                     alertDialog.dismiss()
                 }
                 StatusResponse.SUCCESS -> {
@@ -102,7 +102,7 @@ class MyBookmarkActivity : AppCompatActivity() {
                     myBookmarksAdapter.notifyDataSetChanged()
                 }
                 StatusResponse.EMPTY -> {
-                    toastInfo("EMPTY: Something went wrong")
+                    toastInfo(resources.getString(R.string.something_went_wrong))
                     alertDialog.dismiss()
                 }
             }
@@ -124,9 +124,9 @@ class MyBookmarkActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun removeBookmarkPrompt(claim_id: Int) {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-            .setTitleText("Are you sure to delete this bookmark?")
-            .setContentText("click delete to continue")
-            .setConfirmText("Delete")
+            .setTitleText(resources.getString(R.string.are_you_sure_to_delete_this_bookmark))
+            .setContentText(resources.getString(R.string.click_delete_to_continue))
+            .setConfirmText(resources.getString(R.string.delete))
             .setConfirmClickListener {
                 UserAction.applyUserBookmarks(claim_id, false)
                 viewModel.removeBookmarkById(
@@ -140,7 +140,7 @@ class MyBookmarkActivity : AppCompatActivity() {
                     .observe(this, claimObserver)
                 it.dismiss()
             }
-            .setCancelText("Cancel")
+            .setCancelText(resources.getString(R.string.cancel))
             .setCancelClickListener {
                 it.dismiss()
             }

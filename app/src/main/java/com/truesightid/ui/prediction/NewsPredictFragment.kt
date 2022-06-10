@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.truesightid.R
 import com.truesightid.data.source.remote.response.NewsPredictionResponse
 import com.truesightid.databinding.FragmentPredictionBinding
 import com.truesightid.ui.ViewModelFactory
@@ -71,7 +72,7 @@ class NewsPredictFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showPrediction(prediction: NewsPredictionResponse) {
-        binding.tvResultPrediction.text = "Prediction Result: ${prediction.prediction}"
+        binding.tvResultPrediction.text = resources.getString(R.string.prediction_result_with_value, prediction.prediction)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -88,10 +89,10 @@ class NewsPredictFragment : Fragment() {
         }
         if (!isResponse) {
             AlertDialog.Builder(requireContext())
-                .setTitle("Failed to get Data")
-                .setMessage("Something is wrong, Please check your internet connection")
+                .setTitle(resources.getString(R.string.failed_to_get_data))
+                .setMessage(resources.getString(R.string.something_is_wrong_check_internet))
                 .setPositiveButton(
-                    "Ok",
+                    resources.getString(R.string.dialog_ok),
                     DialogInterface.OnClickListener(function = possitiveButtonClick)
                 )
                 .show()

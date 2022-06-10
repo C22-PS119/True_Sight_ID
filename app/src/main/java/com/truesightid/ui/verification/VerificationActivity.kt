@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.ConfirmEmailVerificationRequest
 import com.truesightid.data.source.remote.request.SendEmailVerificationRequest
@@ -39,7 +40,7 @@ class VerificationActivity : AppCompatActivity() {
             userId = extras.getInt("user_id")
             email = extras.getString("email")
             if ((userId == -1) or (email == null))
-                toastError("Something wrong while getting user info!")
+                toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
         binding.tvEmail.setText(email ?: "*****@***")
@@ -80,7 +81,7 @@ class VerificationActivity : AppCompatActivity() {
             viewModel.sendEmailVerification(userProfile).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Verification code has been sent to your email, please check your inbox")
+                        toastInfo(resources.getString(R.string.verification_has_been_sent))
                         dismisLoading()
                     }
                     StatusResponse.EMPTY -> {

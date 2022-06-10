@@ -32,7 +32,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         if(extras != null){
             reset_key = extras.getString("reset_key")
             if (reset_key == null)
-                toastError("Something wrong while getting user info!")
+                toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
         binding.ibBackLogin.setOnClickListener {
@@ -44,10 +44,10 @@ class ResetPasswordActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
 
             if (binding.tvNewPassword.text.isNullOrBlank() or binding.tvReTypePassword.text.isNullOrBlank()) {
-                toastError("Please fill all empty fields!")
+                toastError(resources.getString(R.string.please_fill_all_blank))
                 return@setOnClickListener
             }else if (binding.tvNewPassword.text.toString() != binding.tvReTypePassword.text.toString()) {
-                toastError("Password not match!")
+                toastError(resources.getString(R.string.password_not_match))
                 return@setOnClickListener
             }
 
@@ -59,7 +59,7 @@ class ResetPasswordActivity : AppCompatActivity() {
             viewModel.resetPassword(userPassword).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Password changed!")
+                        toastInfo(resources.getString(R.string.password_changed))
                         dismisLoading()
                         showSuccessDialog {
                             pushActivity(LoginActivity::class.java)
@@ -80,9 +80,8 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
         val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.titleText = "Change Password Success"
-        dialog.contentText =
-            "Your password has been updated, go back to login page to login with new password"
+        dialog.titleText = resources.getString(R.string.change_password_success)
+        dialog.contentText = resources.getString(R.string.password_has_been_updated)
         dialog.confirmText = getString(R.string.dialog_ok)
         dialog.setConfirmClickListener {
             it.dismiss()
