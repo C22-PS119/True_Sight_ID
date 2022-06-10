@@ -64,7 +64,7 @@ class MyClaimActivity : AppCompatActivity() {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.getMyClaims(MyDataRequest(Prefs.getUser()?.apiKey as String))
                 .observe(this, claimObserver)
-            toastSuccess("Page Refreshed")
+            toastSuccess(resources.getString(R.string.page_refreshed))
             binding.refreshLayout.isRefreshing = false
         }
 
@@ -79,7 +79,7 @@ class MyClaimActivity : AppCompatActivity() {
         if (claims != null) {
             when (claims.status) {
                 StatusResponse.ERROR -> {
-                    toastInfo("ERROR: Something went wrong")
+                    toastInfo(resources.getString(R.string.something_went_wrong))
                     alertDialog.dismiss()
                 }
                 StatusResponse.SUCCESS -> {
@@ -93,7 +93,7 @@ class MyClaimActivity : AppCompatActivity() {
                     myClaimAdapter.notifyDataSetChanged()
                 }
                 StatusResponse.EMPTY -> {
-                    toastInfo("EMPTY: Something went wrong")
+                    toastInfo(resources.getString(R.string.something_went_wrong))
                     alertDialog.dismiss()
                 }
             }

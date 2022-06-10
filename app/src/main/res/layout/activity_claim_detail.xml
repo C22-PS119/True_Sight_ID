@@ -40,12 +40,12 @@
                 android:background="@color/transparent"
                 android:contentDescription="@string/share_this_claim_to_other_users"
                 android:src="@drawable/ic_share_detail_claim"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton" />
+                app:layout_constraintBottom_toBottomOf="@+id/ib_bookmark"
+                app:layout_constraintEnd_toStartOf="@+id/ib_bookmark" />
 
             <ImageButton
                 android:contentDescription="@string/bookmark_button"
-                android:id="@+id/imageButton"
+                android:id="@+id/ib_bookmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -65,8 +65,8 @@
                 android:text="@string/fact"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="@+id/imageButton"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+                app:layout_constraintEnd_toEndOf="@+id/ib_bookmark"
+                app:layout_constraintTop_toBottomOf="@+id/ib_bookmark" />
 
             <TextView
                 android:id="@+id/tv_title_detail"

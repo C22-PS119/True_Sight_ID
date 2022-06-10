@@ -1,11 +1,15 @@
 package com.truesightid.ui.login
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
+import com.truesightid.R
 import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.LoginRequest
@@ -23,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +61,11 @@ class LoginActivity : AppCompatActivity() {
             binding.edtEmail.editText?.text.toString(),
             binding.edtPassword.editText?.text.toString()
         )
-
+        showLoading()
         viewModel.login(request).observe(this) { user ->
             when (user.status) {
                 StatusResponse.SUCCESS -> {
+                    alertDialog.dismiss()
                     Prefs.isLogin = true
                     val response = user.body
                     val responseData =
@@ -83,14 +89,23 @@ class LoginActivity : AppCompatActivity() {
                     pushActivity(MainActivity::class.java)
                 }
                 StatusResponse.ERROR -> {
-                    dismisLoading()
+                    alertDialog.dismiss()
                     toastError(user.message ?: "Error")
                 }
                 StatusResponse.EMPTY -> {
-                    dismisLoading()
+                    alertDialog.dismiss()
                     toastInfo("Empty Response")
                 }
             }
         }
+    }
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

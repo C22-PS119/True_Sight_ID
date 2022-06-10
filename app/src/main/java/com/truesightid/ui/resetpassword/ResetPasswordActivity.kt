@@ -1,24 +1,28 @@
 package com.truesightid.ui.resetpassword
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.ResetPasswordRequest
-import com.truesightid.data.source.remote.request.SetPasswordRequest
 import com.truesightid.databinding.ActivityResetPasswordBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.login.LoginActivity
-import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.pushActivity
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 
 class ResetPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResetPasswordBinding
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +36,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         if(extras != null){
             reset_key = extras.getString("reset_key")
             if (reset_key == null)
-                toastError("Something wrong while getting user info!")
+                toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
         binding.ibBackLogin.setOnClickListener {
@@ -44,10 +48,10 @@ class ResetPasswordActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
 
             if (binding.tvNewPassword.text.isNullOrBlank() or binding.tvReTypePassword.text.isNullOrBlank()) {
-                toastError("Please fill all empty fields!")
+                toastError(resources.getString(R.string.please_fill_all_blank))
                 return@setOnClickListener
             }else if (binding.tvNewPassword.text.toString() != binding.tvReTypePassword.text.toString()) {
-                toastError("Password not match!")
+                toastError(resources.getString(R.string.password_not_match))
                 return@setOnClickListener
             }
 
@@ -59,19 +63,19 @@ class ResetPasswordActivity : AppCompatActivity() {
             viewModel.resetPassword(userPassword).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Password changed!")
-                        dismisLoading()
+                        toastInfo(resources.getString(R.string.password_changed))
+                        alertDialog.dismiss()
                         showSuccessDialog {
                             pushActivity(LoginActivity::class.java)
                         }
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -80,9 +84,8 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
         val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.titleText = "Change Password Success"
-        dialog.contentText =
-            "Your password has been updated, go back to login page to login with new password"
+        dialog.titleText = resources.getString(R.string.change_password_success)
+        dialog.contentText = resources.getString(R.string.password_has_been_updated)
         dialog.confirmText = getString(R.string.dialog_ok)
         dialog.setConfirmClickListener {
             it.dismiss()
@@ -90,5 +93,15 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

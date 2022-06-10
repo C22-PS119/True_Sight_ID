@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -128,7 +127,6 @@ fun Fragment.showInfoDialog(
 ) {
     requireActivity().showInfoDialog(message, pesan, onConfirm)
 }
-
 
 fun Activity.showLoading() {
     val inflater = layoutInflater

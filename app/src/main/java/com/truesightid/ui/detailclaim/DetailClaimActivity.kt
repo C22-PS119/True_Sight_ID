@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -27,6 +28,7 @@ import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.AddCommentRequest
+import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.data.source.remote.request.GetCommentsRequest
 import com.truesightid.databinding.ActivityClaimDetailBinding
 import com.truesightid.ui.ViewModelFactory
@@ -34,6 +36,7 @@ import com.truesightid.ui.adapter.CommentsAdapter
 import com.truesightid.ui.adapter.DetailImagesAdapter
 import com.truesightid.utils.DateUtils
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.UserAction
 import com.truesightid.utils.extension.getTotalWords
 import java.lang.Thread.sleep
 
@@ -73,6 +76,7 @@ class DetailClaimActivity : AppCompatActivity() {
             })
 
         commentsAdapter = CommentsAdapter()
+
         // Setup back button
         binding.ibBackDetail.setOnClickListener {
             finish()
@@ -131,6 +135,7 @@ class DetailClaimActivity : AppCompatActivity() {
                 setupView(items)
             }
         }
+
         // Set adapter
         binding.vpImages.adapter = imagesAdapter
 
@@ -208,18 +213,21 @@ class DetailClaimActivity : AppCompatActivity() {
     private fun showAllText() {
         binding.tvViewMore.visibility = View.INVISIBLE
         binding.tvViewLess.visibility = View.VISIBLE
-        binding.tvDescription.maxLines = 1000
+        binding.tvDescription.maxLines = 10000
+        binding.tvDescription.ellipsize = null
     }
 
     private fun hideText() {
         binding.tvViewMore.visibility = View.VISIBLE
         binding.tvViewLess.visibility = View.INVISIBLE
         binding.tvDescription.maxLines = 6
+        binding.tvDescription.ellipsize = TextUtils.TruncateAt.END
     }
 
     private fun setupView(items: ClaimEntity) {
         itemExtras = items
         showCommentAvatar()
+
         with(binding) {
             tvTitleDetail.text = items.title
             tvDescription.text = items.description
@@ -228,6 +236,16 @@ class DetailClaimActivity : AppCompatActivity() {
                 binding.tvViewMore.visibility = View.INVISIBLE
                 binding.tvViewLess.visibility = View.INVISIBLE
             }
+
+            binding.tvDescription.maxLines = 10
+            binding.tvDescription.post(Runnable {
+                if (binding.tvDescription.lineCount > 6){
+                    hideText()
+                }else{
+                    binding.tvViewMore.visibility = View.GONE
+                    binding.tvViewLess.visibility = View.GONE
+                }
+            })
 
             imagesAdapter.setImages(items.image)
 
@@ -259,14 +277,37 @@ class DetailClaimActivity : AppCompatActivity() {
                     AppCompatResources.getDrawable(applicationContext, R.drawable.fact_claim)
             }
 
+            binding.ibBookmark.setOnClickListener {
+                val user = Prefs.getUser()
+                val bookmark = user?.bookmark
+                if (bookmark?.contains(items.id) == true) {
+                    binding.ibBookmark.setImageResource(R.drawable.ic_add_bookmark)
+                    viewModel.removeBookmarkById(AddRemoveBookmarkRequest(user?.apiKey.toString(), items.id))
+                    UserAction.applyUserBookmarks(items.id, false)
+                } else {
+                    binding.ibBookmark.setImageResource(R.drawable.ic_remove_bookmark)
+                    viewModel.addBookmarkById(AddRemoveBookmarkRequest(user?.apiKey.toString(), items.id))
+                    UserAction.applyUserBookmarks(items.id, true)
+                }
+            }
+
+            val user = Prefs.getUser()
+            val bookmark = user?.bookmark
+            if (bookmark?.contains(items.id) == true) {
+                binding.ibBookmark.setImageResource(R.drawable.ic_remove_bookmark)
+            } else {
+                binding.ibBookmark.setImageResource(R.drawable.ic_add_bookmark)
+            }
+
+
             binding.ibShare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.putExtra(
                     Intent.EXTRA_TEXT,
-                    "Let's join us to discuss the claims from ${items.claimer} regarding ${items.title} in the True Sight ID application."
+                    resources.getString(R.string.share_messages, items.claimer, items.title)
                 )
                 intent.type = "text/plain"
-                startActivity(Intent.createChooser(intent, "Send to"))
+                startActivity(Intent.createChooser(intent, resources.getString(R.string.send_to)))
             }
         }
     }

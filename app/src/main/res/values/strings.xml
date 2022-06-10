@@ -6,7 +6,7 @@
     <string name="fact_status">Fact</string>
     <string name="fake_status">Fake</string>
     <string name="news_prediction">News Prediction</string>
-    <string name="hint_search_bar">Search news claims here...</string>
+    <string name="hint_search_bar">Search news claims here…</string>
     <string name="add_your_claim">Add Your Claim</string>
     <string name="adj_title">Title</string>
     <string name="adj_author">Author</string>
@@ -15,8 +15,8 @@
     <string name="my_profile">My Profile</string>
     <string name="bookmark" translatable="false">Bookmark</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="content" translatable="false">CONTENT</string>
-    <string name="preferences" translatable="false">PREFERENCES</string>
+    <string name="content">CONTENT</string>
+    <string name="preferences">PREFERENCES</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="log_out">Log-out</string>
@@ -43,10 +43,10 @@
     <string name="sign_up">Sign Up</string>
     <string name="username">Username</string>
     <string name="joined_us_before">Joined us before?</string>
-    <string name="forgot_npassword" translatable="false">Forgot\nPassword?</string>
+    <string name="forgot_npassword">Forgot\nPassword?</string>
     <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Don’t worry! It Happens. Please enter the address associated with your account</string>
     <string name="submit">Submit</string>
-    <string name="reset_password" translatable="false">Reset\nPassword</string>
+    <string name="reset_password">Reset\nPassword</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="new_password">New Password</string>
     <string name="add_claim">Add Claim</string>
@@ -83,7 +83,7 @@
     <string name="no_claims_found">No claims found</string>
     <string name="you_have_no_bookmarks">You have no bookmarks!</string>
     <string name="you_can_add_one_in_explore_page">you can add one in explore page</string>
-    <string name="email_verification" translatable="false">Email\nVerification</string>
+    <string name="email_verification">Email\nVerification</string>
     <string name="verification_info">We have sent code to your email:</string>
     <string name="verify_account">Verify Account</string>
     <string name="did_not_receive_code">Didn’t receive code?</string>
@@ -103,7 +103,7 @@
     <string name="view_more">View more</string>
     <string name="view_less">View less</string>
     <string name="comment">Comment</string>
-    <string name="add_a_comment">Add a comment...</string>
+    <string name="add_a_comment">Add a comment…</string>
     <string name="read_more">… Read more</string>
     <string name="go_back_to_the_previous_page">Go back to the previous page</string>
     <string name="share_this_claim_to_other_users">Share this claim to other users</string>
@@ -111,5 +111,64 @@
     <string name="image_preview">Image Preview</string>
     <string name="periksafakta_afp_com_nwww_cekfakta_com_ncnnindonesia_com" translatable="false">periksafakta.afp.com\nwww.cekfakta.com\ncnnindonesia.com\nyoutube.com\nfacebook.com</string>
     <string name="references">References</string>
-    <string name="bookmark_button" translatable="false">bookmark button</string>
+    <string name="bookmark_button">bookmark button</string>
+    <string name="apply_string">Apply</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="search_filter_title">Search Filter</string>
+    <string name="specific_date">Specific Date</string>
+    <string name="anytime">Anytime</string>
+    <string name="to">to</string>
+    <string name="now">Now</string>
+    <string name="upload_date">Upload Date</string>
+    <string name="type">Type</string>
+    <string name="sort_by">Sort By</string>
+    <string-array name="filter_sort_by">
+        <item>None</item>
+        <item>Most Votes</item>
+        <item>Least Votes</item>
+        <item>Newest</item>
+        <item>Oldest</item>
+    </string-array>
+    <string-array name="filter_type">
+        <item>Any</item>
+        <item>Fake</item>
+        <item>Fact</item>
+    </string-array>
+    <string-array name="filter_date">
+        <item>Anytime</item>
+        <item>Last hour</item>
+        <item>Today</item>
+        <item>This week</item>
+        <item>This month</item>
+        <item>This year</item>
+    </string-array>
+    <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
+    <string name="send_to">Send to</string>
+    <string name="description_must_be">Description must be at least 10 words</string>
+    <string name="title_must_be">Title must be at least 3 words</string>
+    <string name="description_dirty_words">Your description contains dirty words, please fix it!</string>
+    <string name="title_dirty_words">Your title contains dirty words, please fix it!</string>
+    <string name="add_claim_successful">Add Claim Successful</string>
+    <string name="add_claim_successful_content">Claim is added successfully, press OK to back to main menu</string>
+    <string name="edit_profile_success">Edit Profile Success</string>
+    <string name="edit_profile_success_content">Your profile has been updated, go back to profile page to see the changes</string>
+    <string name="please_fill_all_blank">Please fill all blanks</string>
+    <string name="password_not_match">Error: Password not match</string>
+    <string name="added_to_bookmark">Added to Bookmark</string>
+    <string name="removed_from_bookmark">Removed from Bookmark</string>
+    <string name="page_refreshed">Page Refreshed</string>
+    <string name="result_of">Result of %1$s</string>
+    <string name="something_went_wrong">Error: Something went wrong</string>
+    <string name="verification_has_been_sent">Verification code has been sent to your email, please check your inbox</string>
+    <string name="are_you_sure_to_delete_this_bookmark">Are you sure to delete this bookmark?</string>
+    <string name="click_delete_to_continue">click delete to continue</string>
+    <string name="delete">Delete</string>
+    <string name="prediction_result_with_value">Prediction Result: %1$s</string>
+    <string name="failed_to_get_data">Failed to get Data</string>
+    <string name="something_is_wrong_check_internet">Something is wrong, Please check your internet connection</string>
+    <string name="something_wrong_while_getting_user_info">Something wrong while getting user info!</string>
+    <string name="password_changed">Password changed!</string>
+    <string name="change_password_success">Change Password Success</string>
+    <string name="password_has_been_updated">Your password has been updated, go back to login page to login with new password</string>
+    <string name="registration_is_successful">Hi %1$s your registration is successful, it\'s time to login</string>
 </resources>

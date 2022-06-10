@@ -2,8 +2,10 @@ package com.truesightid.ui.add_claim
 
 import DirtyFilter
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -23,7 +25,10 @@ import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.*
 import com.truesightid.utils.uriToFile
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -33,6 +38,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityAddClaimBinding
     private lateinit var addPhotoAdapter: AddClaimAdapter
+    private lateinit var alertDialog: AlertDialog
     private var listFile = ArrayList<MultipartBody.Part>()
 
     private var fake: Boolean = false
@@ -86,7 +92,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         }.invokeOnCompletion {
             if (error != null){
                 showErrorDialog(error.toString())
-                dismisLoading()
+                alertDialog.dismiss()
             }else{
                 val postClaim = PostClaimRequest(
                     apiKey = Prefs.getUser()?.apiKey as String,
@@ -101,15 +107,15 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
                     when (response.status) {
                         StatusResponse.SUCCESS -> {
                             showSuccessAddClaim { pushActivity(MainActivity::class.java) }
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                         StatusResponse.EMPTY -> {
                             toastWarning("Empty: ${response.body}")
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                         StatusResponse.ERROR -> {
                             toastError("Error: ${response.body.message}")
-                            dismisLoading()
+                            alertDialog.dismiss()
                         }
                     }
                 }
@@ -119,13 +125,13 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     fun validateInput(title:String, description:String) : String? {
         if (getTotalWords(description) < 10)
-            return "Description must be at least 10 words"
+            return resources.getString(R.string.description_must_be)
         if (getTotalWords(title) < 3)
-            return "Title must be at least 3 words"
+            return resources.getString(R.string.title_must_be)
         if (DirtyFilter.isContainDirtyWord(description, DirtyFilter.DirtyWords))
-            return "Your description contains dirty words, please fix it!"
+            return resources.getString(R.string.description_dirty_words)
         if(DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
-            return "Your title contains dirty words, please fix it!"
+            return resources.getString(R.string.title_dirty_words)
         return null
     }
 
@@ -181,13 +187,23 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showSuccessAddClaim(onConfirmClickListener: () -> Unit) {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Add Claim Successful")
-            .setContentText("Claim is added successfully, press Ok to back to main menu")
+            .setTitleText(resources.getString(R.string.add_claim_successful))
+            .setContentText(resources.getString(R.string.add_claim_successful_content))
             .setConfirmText(getString(R.string.dialog_ok))
             .setConfirmClickListener {
                 it.dismiss()
                 onConfirmClickListener()
             }
             .show()
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

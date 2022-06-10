@@ -7,10 +7,11 @@ import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
+import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.Resource
 
 interface TrueSightDataSource {
-    fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>>
+    fun getAllClaims(request: ClaimRequest, filter: FilterSearch?): LiveData<Resource<PagedList<ClaimEntity>>>
 
     fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>>
 

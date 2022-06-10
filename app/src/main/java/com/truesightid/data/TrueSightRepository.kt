@@ -12,6 +12,7 @@ import com.truesightid.data.source.remote.RemoteDataSource
 import com.truesightid.data.source.remote.request.*
 import com.truesightid.data.source.remote.response.*
 import com.truesightid.utils.AppExecutors
+import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.Resource
 import com.truesightid.utils.StringSeparatorUtils
 
@@ -49,6 +50,9 @@ class TrueSightRepository(
     override fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
         remoteDataSource.removeBookmarkById(addRemoveBookmarkRequest)
 
+    override fun addCommentById(addCommentRequest: AddCommentRequest) =
+        remoteDataSource.addCommentById(addCommentRequest)
+
     override fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> =
         remoteDataSource.sendEmailVerification(sendEmailVerificationRequest)
 
@@ -60,9 +64,6 @@ class TrueSightRepository(
 
     override fun getCommentsByClaimId(getCommentsRequest: GetCommentsRequest): LiveData<ApiResponse<List<CommentEntity>>> =
         remoteDataSource.getCommentsRequest(getCommentsRequest)
-
-    override fun addCommentById(addCommentRequest: AddCommentRequest) =
-        remoteDataSource.addCommentById(addCommentRequest)
 
     override fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>> =
         remoteDataSource.loginRequest(loginRequest)
@@ -91,7 +92,10 @@ class TrueSightRepository(
     override fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
         remoteDataSource.getMyBookmarkRequest(myDataRequest)
 
-    override fun getAllClaims(request: ClaimRequest): LiveData<Resource<PagedList<ClaimEntity>>> {
+    override fun getAllClaims(
+        request: ClaimRequest,
+        filter: FilterSearch?
+    ): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object :
             NetworkBoundResource<PagedList<ClaimEntity>, GetClaimsResponse>(appExecutor) {
             override fun loadFromDB(): LiveData<PagedList<ClaimEntity>> {
@@ -100,10 +104,24 @@ class TrueSightRepository(
                     .setInitialLoadSizeHint(1)
                     .setPageSize(1)
                     .build()
-                return LivePagedListBuilder(
-                    localDataSource.getClaims(request.keyword),
-                    config
-                ).build()
+                if (filter == null) {
+                    return LivePagedListBuilder(
+                        localDataSource.getClaims(request.keyword),
+                        config
+                    ).build()
+                } else {
+                    return LivePagedListBuilder(
+                        localDataSource.getClaimsWithFilter(
+                            request.keyword,
+                            filter.sortBy,
+                            filter.type,
+                            filter.optDate,
+                            filter.dateFrom,
+                            filter.dateTo
+                        ),
+                        config
+                    ).build()
+                }
             }
 
 

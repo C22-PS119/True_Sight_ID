@@ -1,12 +1,15 @@
 package com.truesightid.ui.verification
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.truesightid.R
 import com.truesightid.data.source.remote.StatusResponse
 import com.truesightid.data.source.remote.request.ConfirmEmailVerificationRequest
 import com.truesightid.data.source.remote.request.SendEmailVerificationRequest
@@ -14,7 +17,9 @@ import com.truesightid.databinding.ActivityVerificationBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.forgotpassword.ForgotPasswordActivity
 import com.truesightid.ui.resetpassword.ResetPasswordActivity
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -23,6 +28,7 @@ import kotlinx.coroutines.launch
 class VerificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerificationBinding
+    private lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +45,7 @@ class VerificationActivity : AppCompatActivity() {
             userId = extras.getInt("user_id")
             email = extras.getString("email")
             if ((userId == -1) or (email == null))
-                toastError("Something wrong while getting user info!")
+                toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
         binding.tvEmail.setText(email ?: "*****@***")
@@ -80,16 +86,16 @@ class VerificationActivity : AppCompatActivity() {
             viewModel.sendEmailVerification(userProfile).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        toastInfo("Verification code has been sent to your email, please check your inbox")
-                        dismisLoading()
+                        toastInfo(resources.getString(R.string.verification_has_been_sent))
+                        alertDialog.dismiss()
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -113,11 +119,11 @@ class VerificationActivity : AppCompatActivity() {
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -140,5 +146,15 @@ class VerificationActivity : AppCompatActivity() {
             binding.tvResend.setText(text)
             binding.tvResend.isEnabled = true
         }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }

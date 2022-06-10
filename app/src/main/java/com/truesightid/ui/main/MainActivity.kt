@@ -60,9 +60,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initTabs() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(ExploreNewsFragment(), "Explore News")
-        adapter.addFragment(NewsPredictFragment(), "News Predict")
-        adapter.addFragment(ProfileFragment(), "Profile")
+        adapter.addFragment(ExploreNewsFragment(), resources.getString(R.string.title_explore_news))
+        adapter.addFragment(NewsPredictFragment(), resources.getString(R.string.title_news_predict))
+        adapter.addFragment(ProfileFragment(), resources.getString(R.string.title_profile))
 
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)

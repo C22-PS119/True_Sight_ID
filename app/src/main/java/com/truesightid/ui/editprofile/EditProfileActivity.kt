@@ -1,6 +1,9 @@
 package com.truesightid.ui.editprofile
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -19,7 +22,9 @@ import com.truesightid.databinding.ActivityEditProfileBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.main.MainActivity
 import com.truesightid.utils.Prefs
-import com.truesightid.utils.extension.*
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.toastInfo
+import com.truesightid.utils.extension.toastWarning
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -29,6 +34,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditProfileBinding
+    private lateinit var alertDialog: AlertDialog
     private var avatar: MultipartBody.Part? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,11 +69,11 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.btnChoose.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            val chooser = Intent.createChooser(intent, "Choose a Picture")
-            launcherIntentGallery.launch(chooser)
+            chooseAvatar()
+        }
+
+        binding.ivProfile.setOnClickListener {
+            chooseAvatar()
         }
 
         binding.tvChangePassword.setOnClickListener {
@@ -77,6 +83,14 @@ class EditProfileActivity : AppCompatActivity() {
         binding.tvCancelChanges.setOnClickListener {
             cancelChangesPressed()
         }
+    }
+
+    fun chooseAvatar(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
     }
 
     fun changePasswordPressed() {
@@ -115,9 +129,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun showSuccessDialog(onConfirmClickListener: () -> Unit) {
         val dialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        dialog.titleText = "Edit Profile Success"
-        dialog.contentText =
-            "Your profile has been updated, go back to profile page to see the changes"
+        dialog.titleText = resources.getString(R.string.edit_profile_success)
+        dialog.contentText = resources.getString(R.string.edit_profile_success_content)
         dialog.confirmText = getString(R.string.dialog_ok)
         dialog.setConfirmClickListener {
             it.dismiss()
@@ -146,7 +159,7 @@ class EditProfileActivity : AppCompatActivity() {
                             changePassword(viewModel)
                         }else{
                             toastInfo("Success: ${response.body}")
-                            dismisLoading()
+                            alertDialog.dismiss()
                             showSuccessDialog() {
                                 backToMainActivity()
                             }
@@ -154,11 +167,11 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -175,7 +188,7 @@ class EditProfileActivity : AppCompatActivity() {
                         if (binding.tvCurrentPassword.isEnabled){
                             changePassword(viewModel)
                         }else{
-                            dismisLoading()
+                            alertDialog.dismiss()
                             showSuccessDialog() {
                                 backToMainActivity()
                             }
@@ -183,11 +196,11 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
@@ -202,30 +215,30 @@ class EditProfileActivity : AppCompatActivity() {
         )
 
         if (binding.tvNewPassword.text.toString().isNullOrEmpty() or binding.tvReTypePassword.toString().isNullOrEmpty() or binding.tvCurrentPassword.toString().isNullOrEmpty()){
-            toastError("Please fill all blanks")
-            dismisLoading()
+            toastError(resources.getString(R.string.please_fill_all_blank))
+            alertDialog.dismiss()
         }else if (binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString()){
             viewModel.setPassword(userPassword).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
-                        dismisLoading()
+                        alertDialog.dismiss()
                         showSuccessDialog() {
                             backToMainActivity()
                         }
                     }
                     StatusResponse.EMPTY -> {
                         toastWarning("Empty: ${response.body}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
                         toastError("Error: ${response.message}")
-                        dismisLoading()
+                        alertDialog.dismiss()
                     }
                 }
             }
         }else{
-            toastError("Error: Password not match")
-            dismisLoading()
+            toastError(resources.getString(R.string.password_not_match))
+            alertDialog.dismiss()
         }
     }
 
@@ -256,5 +269,15 @@ class EditProfileActivity : AppCompatActivity() {
             )
             avatar = filePart
         }
+    }
+
+    private fun showLoading() {
+        val inflater = layoutInflater
+        val layout = inflater.inflate(R.layout.view_loading, null)
+        alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(layout)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
     }
 }
