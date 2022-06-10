@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.databinding.ItemCommentsBinding
+import com.truesightid.utils.DateUtils.getDateAsTimeAgo
 import com.truesightid.utils.DateUtils.getDateTime
 
 class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
@@ -29,7 +30,7 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>(
         with(holder) {
             binding.tvUsername.text = items.username
             binding.tvComment.text = items.comment
-            binding.tvTimeComment.text = getDateTime(items.dateCreated.toLong())
+            binding.tvTimeComment.text = getDateAsTimeAgo(items.dateCreated.toLong(), this.binding.root.context)
 
             Glide.with(itemView.context)
                 .load(items.avatar)

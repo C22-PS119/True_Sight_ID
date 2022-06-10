@@ -122,6 +122,9 @@
     <string name="upload_date">Upload Date</string>
     <string name="type">Type</string>
     <string name="sort_by">Sort By</string>
+    <string name="hour_ago">hours ago</string>
+    <string name="minute_ago">minutes ago</string>
+    <string name="second_ago">seconds ago</string>
     <string-array name="filter_sort_by">
         <item>None</item>
         <item>Most Votes</item>

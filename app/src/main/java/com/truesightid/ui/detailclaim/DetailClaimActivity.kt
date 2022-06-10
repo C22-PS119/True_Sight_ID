@@ -264,6 +264,12 @@ class DetailClaimActivity : AppCompatActivity() {
 
             tvSourceDetail.text = url
 
+            if (url.isBlank()){
+                tvTitleSource.visibility = View.GONE
+            }else{
+                tvTitleSource.visibility = View.VISIBLE
+            }
+
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
             tvDateDetail.text = DateUtils.getDateTime(items.date.toLong())
 
