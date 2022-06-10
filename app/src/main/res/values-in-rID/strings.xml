@@ -118,4 +118,7 @@
     <string name="forgot_npassword">Lupa\nKata Sandi?</string>
     <string name="reset_password">Atur Ulang\nKata Sandi</string>
     <string name="email_verification">Verifikasi\nEmail</string>
+    <string name="english">Inggris</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="indonesia">Indonesia</string>
 </resources>

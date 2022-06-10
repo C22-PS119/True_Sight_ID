@@ -16,6 +16,7 @@ import com.truesightid.data.source.remote.request.GetProfileRequest
 import com.truesightid.databinding.FragmentProfileBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.editprofile.EditProfileActivity
+import com.truesightid.ui.language.LanguageActivity
 import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.mybookmark.MyBookmarkActivity
 import com.truesightid.ui.myclaim.MyClaimActivity
@@ -69,6 +70,11 @@ class ProfileFragment : Fragment() {
 
         binding.rlBookmark.setOnClickListener {
             val i = Intent(context, MyBookmarkActivity::class.java)
+            startActivity(i)
+        }
+
+        binding.rlLanguage.setOnClickListener {
+            val i = Intent(context, LanguageActivity::class.java)
             startActivity(i)
         }
 
