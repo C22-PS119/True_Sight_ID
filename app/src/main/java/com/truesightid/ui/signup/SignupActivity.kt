@@ -19,6 +19,7 @@ import com.truesightid.ui.login.LoginActivity
 import com.truesightid.utils.extension.pushActivity
 import com.truesightid.utils.extension.showSuccessDialog
 import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.translateServerRespond
 
 class SignupActivity : AppCompatActivity() {
 
@@ -41,14 +42,18 @@ class SignupActivity : AppCompatActivity() {
 
         binding.btnSignup.setOnClickListener {
 
-            request = RegistrationRequest(
-                binding.edtUsername.editText?.text.toString(),
-                binding.edtUsername.editText?.text.toString(),
-                binding.edtEmail.editText?.text.toString(),
-                binding.edtPassword.editText?.text.toString()
+            if (binding.edtPassword.editText?.text.toString() == binding.edtPasswordConfirmation.editText?.text.toString()){
+                request = RegistrationRequest(
+                    binding.edtUsername.editText?.text.toString(),
+                    binding.edtUsername.editText?.text.toString(),
+                    binding.edtEmail.editText?.text.toString(),
+                    binding.edtPassword.editText?.text.toString()
 
-            )
-            viewModel.signUpRequest(request).observe(this, signupObserver)
+                )
+                viewModel.signUpRequest(request).observe(this, signupObserver)
+            }else{
+                toastError(getString(R.string.password_not_match))
+            }
         }
 
         binding.login.setOnClickListener {
@@ -64,7 +69,7 @@ class SignupActivity : AppCompatActivity() {
                 when (register.status) {
                     StatusResponse.ERROR -> {
                         alertDialog.dismiss()
-                        toastError(register.message.toString())
+                        toastError(translateServerRespond(register.message.toString(), baseContext))
                     }
                     StatusResponse.SUCCESS -> {
                         alertDialog.dismiss()

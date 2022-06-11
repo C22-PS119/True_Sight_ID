@@ -25,6 +25,7 @@ import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.translateServerRespond
 import com.truesightid.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -170,7 +171,7 @@ class EditProfileActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }
@@ -199,7 +200,7 @@ class EditProfileActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }
@@ -214,31 +215,35 @@ class EditProfileActivity : AppCompatActivity() {
             current_password = binding.tvCurrentPassword.text.toString()
         )
 
-        if (binding.tvNewPassword.text.toString().isEmpty() or binding.tvReTypePassword.toString().isEmpty() or binding.tvCurrentPassword.toString().isEmpty()){
-            toastError(resources.getString(R.string.please_fill_all_blank))
-            alertDialog.dismiss()
-        }else if (binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString()){
-            viewModel.setPassword(userPassword).observe(this) { response ->
-                when (response.status) {
-                    StatusResponse.SUCCESS -> {
-                        alertDialog.dismiss()
-                        showSuccessDialog {
-                            backToMainActivity()
+        when {
+            binding.tvNewPassword.text.toString().isEmpty() or binding.tvReTypePassword.toString().isEmpty() or binding.tvCurrentPassword.toString().isEmpty() -> {
+                toastError(resources.getString(R.string.please_fill_all_blank))
+                alertDialog.dismiss()
+            }
+            binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString() -> {
+                viewModel.setPassword(userPassword).observe(this) { response ->
+                    when (response.status) {
+                        StatusResponse.SUCCESS -> {
+                            alertDialog.dismiss()
+                            showSuccessDialog {
+                                backToMainActivity()
+                            }
                         }
-                    }
-                    StatusResponse.EMPTY -> {
-                        toastWarning("Empty: ${response.body}")
-                        alertDialog.dismiss()
-                    }
-                    StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
-                        alertDialog.dismiss()
+                        StatusResponse.EMPTY -> {
+                            toastWarning("Empty: ${response.body}")
+                            alertDialog.dismiss()
+                        }
+                        StatusResponse.ERROR -> {
+                            toastError(translateServerRespond(response.message.toString(), baseContext))
+                            alertDialog.dismiss()
+                        }
                     }
                 }
             }
-        }else{
-            toastError(resources.getString(R.string.password_not_match))
-            alertDialog.dismiss()
+            else -> {
+                toastError(resources.getString(R.string.password_not_match))
+                alertDialog.dismiss()
+            }
         }
     }
 

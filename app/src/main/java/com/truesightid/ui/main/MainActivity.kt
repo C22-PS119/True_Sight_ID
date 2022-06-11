@@ -3,6 +3,7 @@ package com.truesightid.ui.main
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.chibatching.kotpref.Kotpref
@@ -18,7 +19,6 @@ import com.truesightid.ui.profile.ProfileFragment
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.pushActivity
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
@@ -33,6 +33,15 @@ class MainActivity : AppCompatActivity() {
         setupLogin()
         viewPager = findViewById(R.id.viewPager)
         tabs = findViewById(R.id.tabs)
+
+        when (Prefs.isDarkMode("pref_is_dark_mode")) {
+            true -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            false -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         val extras = intent.extras
         if(extras != null){

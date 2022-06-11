@@ -48,7 +48,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
 
         if (items != null) {
             with(holder) {
-                val claimer = "Claim by ${items.claimer}:"
+                val claimer =  itemView.context.getString(R.string.claimed_by, items.claimer)
 
                 binding.tvClaimer.text = claimer
                 Glide.with(itemView.context)

@@ -22,6 +22,7 @@ import com.truesightid.ui.signup.SignupActivity
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.StringSeparatorUtils
 import com.truesightid.utils.extension.*
+import com.truesightid.utils.translateServerRespond
 
 class LoginActivity : AppCompatActivity() {
 
@@ -90,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 StatusResponse.ERROR -> {
                     alertDialog.dismiss()
-                    toastError(user.message ?: "Error")
+                    toastError(translateServerRespond(user.message.toString(), baseContext))
                 }
                 StatusResponse.EMPTY -> {
                     alertDialog.dismiss()

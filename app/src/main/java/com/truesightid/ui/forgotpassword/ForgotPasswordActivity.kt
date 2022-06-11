@@ -17,6 +17,7 @@ import com.truesightid.ui.verification.VerificationActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.translateServerRespond
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -49,7 +50,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         toastInfo(resources.getString(R.string.verification_has_been_sent))
                         val intent = Intent(this@ForgotPasswordActivity, VerificationActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        intent.putExtra("user_id", response.body.data)
+                        try {
+                            intent.putExtra("user_id", (response.body.data as Double).toInt())
+                        }catch (ex: Exception){
+                            intent.putExtra("user_id", response.body.data as Int)
+                        }
                         intent.putExtra("email", binding.tvEmail.text.toString())
                         startActivity(intent)
                     }
@@ -58,7 +63,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }

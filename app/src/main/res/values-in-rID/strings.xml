@@ -33,7 +33,7 @@
     <string name="not_a_member">Belum daftar?</string>
     <string name="register">Daftar</string>
     <string name="sign_up">Daftar</string>
-    <string name="username">Nama Pengguna</string>
+    <string name="username">Username</string>
     <string name="joined_us_before">Sudah pernah daftar?</string>
     <string name="don_t_worry_it_happens_please_enter_the_address_associated_with_your_account">Jangan khawatir! Itu terjadi. Silakan masukkan alamat yang terkait dengan akun Anda</string>
     <string name="submit">Serahkan</string>
@@ -87,7 +87,7 @@
     <string name="apply_string">Terapkan</string>
     <string name="cancel_string">Batal</string>
     <string name="search_filter_title">Filter Cari</string>
-    <string name="specific_date">Date tertentu</string>
+    <string name="specific_date">Tanggal tertentu</string>
     <string name="anytime">Kapan saja</string>
     <string name="to">ke</string>
     <string name="now">Sekarang</string>
@@ -99,24 +99,38 @@
     <string name="second_ago">detik lalu</string>
     <string-array name="filter_sort_by">
         <item>Tidak ada</item>
-        <item>Most Votes</item>
-        <item>Least Votes</item>
-        <item>Newest</item>
-        <item>Oldest</item>
+        <item>Vote Terbanyak</item>
+        <item>Vote terdikit</item>
+        <item>Terbaru</item>
+        <item>Terlama</item>
     </string-array>
     <string-array name="filter_type">
         <item>Apa saja</item>
         <item>Hoax</item>
         <item>Fakta</item>
     </string-array>
-    <string-array name="filter_date">
-        <item>Kapan saja</item>
-        <item>Sejam lalu</item>
-        <item>Hari ini</item>
-        <item>Minggu ini</item>
-        <item>Bulan ini</item>
-        <item>Tahun ini</item>
+    <string-array name="error_message">
+        <item>Email sudah terdaftar</item>
+        <item>Username sudah terdaftar</item>
+        <item>Email tidak valid</item>
+        <item>Username tidak valid</item>
+        <item>Password terlalu pendek</item>
+        <item>User ditambahkan</item>
+        <item>Tidak ada hasil</item>
+        <item>Email atau password salah</item>
+        <item>Telah di pin</item>
+        <item>Pin ditambahkan</item>
+        <item>Claim tidak di pin</item>
+        <item>Pin dihapus</item>
+        <item>Klaim sudah di vote ke atas</item>
+        <item>Vote ditambahkan</item>
+        <item>Klaim sudah di vote ke bawah</item>
+        <item>User tidak ditemukan</item>
+        <item>Kode verifikasi salah</item>
+        <item>Password baru terlalu pendek</item>
+        <item>Password saat ini salah</item>
     </string-array>
+    <string name="LOADING">Tunggu...</string>
     <string name="content">KONTEN</string>
     <string name="preferences">PREFERENSI</string>
     <string name="title_profile">Profil</string>

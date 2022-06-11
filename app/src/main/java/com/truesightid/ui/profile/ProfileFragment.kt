@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -76,6 +78,19 @@ class ProfileFragment : Fragment() {
         binding.rlLanguage.setOnClickListener {
             val i = Intent(context, LanguageActivity::class.java)
             startActivity(i)
+        }
+
+        binding.switchDarkMode.isChecked = Prefs.isDarkMode("pref_is_dark_mode")
+
+        binding.switchDarkMode.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (isChecked) {
+                Prefs.setDarkMode("pref_is_dark_mode", true)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+            } else {
+                Prefs.setDarkMode("pref_is_dark_mode", false)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
 
         val getUserProfile = GetProfileRequest(

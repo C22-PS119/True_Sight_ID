@@ -8,7 +8,7 @@ data class EmailVerificationRespond (
         val total: Int? = null,
 
         @field:SerializedName("data")
-        val data: Int? = null,
+        val data: Any? = null,
 
         @field:SerializedName("dataname")
         val dataname: String? = null,

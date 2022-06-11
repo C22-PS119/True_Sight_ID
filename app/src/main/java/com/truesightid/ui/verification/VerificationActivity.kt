@@ -19,6 +19,7 @@ import com.truesightid.ui.resetpassword.ResetPasswordActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.translateServerRespond
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -55,28 +56,28 @@ class VerificationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.edtOne.setOnKeyListener { v, keyCode, event ->
+        binding.edtOne.setOnKeyListener { _, keyCode, event ->
             if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
                 binding.edtOne.setText(event.number.toString())
                 binding.edtTwo.requestFocus()
             }
             false
         }
-        binding.edtTwo.setOnKeyListener { v, keyCode, event ->
+        binding.edtTwo.setOnKeyListener { _, keyCode, event ->
             if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
                 binding.edtTwo.setText(event.number.toString())
                 binding.edtThree.requestFocus()
             }
             false
         }
-        binding.edtThree.setOnKeyListener { v, keyCode, event ->
+        binding.edtThree.setOnKeyListener { _, keyCode, event ->
             if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
                 binding.edtThree.setText(event.number.toString())
                 binding.edtFour.requestFocus()
             }
             false
         }
-        binding.edtFour.setOnKeyListener { v, keyCode, event ->
+        binding.edtFour.setOnKeyListener { _, keyCode, event ->
             if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
                 binding.edtFour.setText(event.number.toString())
             }
@@ -100,7 +101,7 @@ class VerificationActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }
@@ -128,7 +129,7 @@ class VerificationActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }
