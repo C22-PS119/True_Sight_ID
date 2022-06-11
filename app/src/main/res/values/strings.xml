@@ -137,13 +137,26 @@
         <item>Fake</item>
         <item>Fact</item>
     </string-array>
-    <string-array name="filter_date">
-        <item>Anytime</item>
-        <item>Last hour</item>
-        <item>Today</item>
-        <item>This week</item>
-        <item>This month</item>
-        <item>This year</item>
+    <string-array name="error_message">
+        <item>Email already exists</item>
+        <item>Username already exists</item>
+        <item>Invalid email format</item>
+        <item>Invalid username format</item>
+        <item>Password too short</item>
+        <item>User added</item>
+        <item>No result</item>
+        <item>Wrong email or password</item>
+        <item>Already bookmarks</item>
+        <item>Bookmark added</item>
+        <item>Claim is not bookmarked</item>
+        <item>Bookmark removed</item>
+        <item>Claim already vote up</item>
+        <item>Votes added</item>
+        <item>Claim already vote down</item>
+        <item>User not found</item>
+        <item>Wrong verification code</item>
+        <item>New password too short</item>
+        <item>Wrong current password</item>
     </string-array>
     <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
     <string name="send_to">Send to</string>

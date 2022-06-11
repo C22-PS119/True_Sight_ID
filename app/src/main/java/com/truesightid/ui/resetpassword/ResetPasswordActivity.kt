@@ -18,6 +18,7 @@ import com.truesightid.utils.extension.pushActivity
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastWarning
+import com.truesightid.utils.translateServerRespond
 
 class ResetPasswordActivity : AppCompatActivity() {
 
@@ -74,7 +75,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                         alertDialog.dismiss()
                     }
                     StatusResponse.ERROR -> {
-                        toastError("Error: ${response.message}")
+                        toastError(translateServerRespond(response.message.toString(), baseContext))
                         alertDialog.dismiss()
                     }
                 }

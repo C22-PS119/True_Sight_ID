@@ -276,7 +276,7 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
                                 response.commentText as String,
                                 response.dateCreated as Double,
                                 response.claimId as Int,
-                                response.profileAvatar as String
+                                response.profileAvatar.toString()
                             )
                         )
                     }
