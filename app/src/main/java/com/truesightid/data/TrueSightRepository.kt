@@ -98,6 +98,10 @@ class TrueSightRepository(
     override fun getMyBookmarks(myDataRequest: MyDataRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
         remoteDataSource.getMyBookmarkRequest(myDataRequest)
 
+    override fun deleteLocalClaimByID(id: Int) {
+        localDataSource.deleteClaimByID(id)
+    }
+
     override fun getAllClaims(
         request: GetClaimsRequest,
         filter: FilterSearch?
@@ -143,7 +147,7 @@ class TrueSightRepository(
                 val claimList = ArrayList<ClaimEntity>()
                 if (body != null) {
                     for (response in body) {
-                        val claim = response?.dateCreated?.let {
+                        val claim = response.dateCreated?.let {
                             ClaimEntity(
                                 response.id as Int,
                                 response.title as String,

@@ -129,6 +129,8 @@
         <item>Kode verifikasi salah</item>
         <item>Password baru terlalu pendek</item>
         <item>Password saat ini salah</item>
+        <item>Registasi berhasil, tolong verifikasi email</item>
+        <item>Tolong verifikasi email terlebih dahulu!</item>
     </string-array>
     <string name="LOADING">Tunggu...</string>
     <string name="content">KONTEN</string>
@@ -155,6 +157,8 @@
     <string name="are_you_sure_to_delete_this_bookmark">Apakah Anda yakin akan menghapus bookmark ini?</string>
     <string name="click_delete_to_continue">klik hapus untuk melanjutkan</string>
     <string name="delete">Hapus</string>
+    <string name="deleted">Dihapus</string>
+    <string name="delete_failed">Hapus gagal</string>
     <string name="prediction_result_with_value">Hasil Prediksi: %1$s</string>
     <string name="failed_to_get_data">Gagal mendapatkan Data</string>
     <string name="something_is_wrong_check_internet">Ada yang salah, Silakan periksa koneksi internet Anda</string>
@@ -162,7 +166,7 @@
     <string name="password_changed">Kata sandi diubah!</string>
     <string name="change_password_success">Ubah Kata Sandi Berhasil</string>
     <string name="password_has_been_updated">Kata sandi Anda telah diperbarui, kembali ke halaman login untuk login dengan kata sandi baru</string>
-    <string name="registration_is_successful">Selamat %1$s pendaftaran Anda telah berhasil, silahkan masuk</string>
+    <string name="registration_is_successful">Selamat %1$s pendaftaran Anda telah berhasil, tolong verifikasi email terlebih dahulu</string>
     <string name="forgot_npassword">Lupa\nKata Sandi?</string>
     <string name="reset_password">Atur Ulang\nKata Sandi</string>
     <string name="email_verification">Verifikasi\nEmail</string>

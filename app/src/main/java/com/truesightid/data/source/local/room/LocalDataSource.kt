@@ -27,4 +27,5 @@ class LocalDataSource(
 
     fun insertClaims(claims: List<ClaimEntity>) = trueSightDao.insertAllClaims(claims)
     fun deleteLocalClaims() = trueSightDao.deleteAllLocalClaims()
+    fun deleteClaimByID(id: Int) = trueSightDao.deleteClaimById(id)
 }

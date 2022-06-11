@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +23,7 @@ import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.ApiResponse
 import com.truesightid.data.source.remote.StatusResponse
+import com.truesightid.data.source.remote.request.GetClaimsRequest
 import com.truesightid.data.source.remote.request.MyDataRequest
 import com.truesightid.databinding.ActivityMyclaimBinding
 import com.truesightid.ui.ViewModelFactory
@@ -33,6 +33,9 @@ import com.truesightid.utils.Prefs
 import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 
@@ -60,13 +63,20 @@ class MyClaimActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val id = viewHolder.absoluteAdapterPosition
-                viewModel.deleteClaimById(Prefs.getUser()?.apiKey.toString(), myClaimAdapter.getClaimAt(id)?.id ?: -1) { success ->
+                val claimId = myClaimAdapter.getClaimAt(id)?.id ?: -1
+                viewModel.deleteClaimById(Prefs.getUser()?.apiKey.toString(), claimId) { success ->
                     if (success) {
                         viewModel.getMyClaims(MyDataRequest(Prefs.getUser()?.apiKey as String))
                             .observe(this@MyClaimActivity, claimObserver)
-                        toastInfo("Deleted")
+                        GlobalScope.launch(Dispatchers.IO) {
+                            viewModel.deleteLocalClaim(claimId)
+                        }
+                        toastInfo(getString(R.string.deleted))
                     }
-                    else toastError("Failed to remove claim")
+                    else {
+                        myClaimAdapter.notifyDataSetChanged() // Cancel changes
+                        toastError(getString(R.string.delete_failed))
+                    }
                 }
             }
 
