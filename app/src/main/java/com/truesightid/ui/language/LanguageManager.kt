@@ -19,7 +19,7 @@ class LanguageManager(private val ct: Context) {
     }
 
     fun getLang(): String? {
-        return sharedPreferences.getString("lang", "en")
+        return sharedPreferences.getString("lang", "id")
     }
 
     fun setLang(code: String) {
