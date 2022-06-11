@@ -188,7 +188,7 @@ class ExploreAdapter(private val callback: ItemClaimClickListener, private val p
                 binding.ibBookmark.setOnClickListener {
                     val user = pref.getUser()
                     val bookmark = user?.bookmark
-                    if (bookmark?.contains(items.id) ?: false) {
+                    if (bookmark?.contains(items.id) == true) {
                         binding.ibBookmark.background =
                             itemView.context.getDrawable(R.drawable.ic_bookmark_cardview)
                         callback.onBookmarkRemoved(items.id)

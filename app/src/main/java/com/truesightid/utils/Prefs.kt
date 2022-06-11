@@ -1,6 +1,5 @@
 package com.truesightid.utils
 
-import androidx.lifecycle.ViewModelProvider
 import com.chibatching.kotpref.KotprefModel
 import com.truesightid.data.source.local.entity.UserEntity
 import com.truesightid.utils.extension.toJson

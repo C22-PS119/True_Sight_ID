@@ -31,11 +31,11 @@ class ResetPasswordActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         val viewModel = ViewModelProvider(this, factory)[ResetPasswordViewModel::class.java]
 
-        var reset_key: String? = null
+        var resetKey: String? = null
         val extras = intent.extras
         if(extras != null){
-            reset_key = extras.getString("reset_key")
-            if (reset_key == null)
+            resetKey = extras.getString("reset_key")
+            if (resetKey == null)
                 toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
@@ -57,7 +57,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
             val userPassword = ResetPasswordRequest(
                 new_password = binding.tvNewPassword.text.toString(),
-                reset_key = reset_key.toString()
+                reset_key = resetKey.toString()
             )
             showLoading()
             viewModel.resetPassword(userPassword).observe(this) { response ->

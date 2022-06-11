@@ -85,7 +85,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    fun chooseAvatar(){
+    private fun chooseAvatar(){
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -93,7 +93,7 @@ class EditProfileActivity : AppCompatActivity() {
         launcherIntentGallery.launch(chooser)
     }
 
-    fun changePasswordPressed() {
+    private fun changePasswordPressed() {
         with(binding) {
             tvChangePassword.visibility = View.INVISIBLE
             tvCancelChanges.visibility = View.VISIBLE
@@ -111,7 +111,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    fun cancelChangesPressed() {
+    private fun cancelChangesPressed() {
         with(binding) {
             tvChangePassword.visibility = View.VISIBLE
             tvCancelChanges.visibility = View.INVISIBLE
@@ -160,7 +160,7 @@ class EditProfileActivity : AppCompatActivity() {
                         }else{
                             toastInfo("Success: ${response.body}")
                             alertDialog.dismiss()
-                            showSuccessDialog() {
+                            showSuccessDialog {
                                 backToMainActivity()
                             }
                         }
@@ -189,7 +189,7 @@ class EditProfileActivity : AppCompatActivity() {
                             changePassword(viewModel)
                         }else{
                             alertDialog.dismiss()
-                            showSuccessDialog() {
+                            showSuccessDialog {
                                 backToMainActivity()
                             }
                         }
@@ -214,7 +214,7 @@ class EditProfileActivity : AppCompatActivity() {
             current_password = binding.tvCurrentPassword.text.toString()
         )
 
-        if (binding.tvNewPassword.text.toString().isNullOrEmpty() or binding.tvReTypePassword.toString().isNullOrEmpty() or binding.tvCurrentPassword.toString().isNullOrEmpty()){
+        if (binding.tvNewPassword.text.toString().isEmpty() or binding.tvReTypePassword.toString().isEmpty() or binding.tvCurrentPassword.toString().isEmpty()){
             toastError(resources.getString(R.string.please_fill_all_blank))
             alertDialog.dismiss()
         }else if (binding.tvNewPassword.text.toString() == binding.tvReTypePassword.text.toString()){
@@ -222,7 +222,7 @@ class EditProfileActivity : AppCompatActivity() {
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
                         alertDialog.dismiss()
-                        showSuccessDialog() {
+                        showSuccessDialog {
                             backToMainActivity()
                         }
                     }
@@ -264,7 +264,7 @@ class EditProfileActivity : AppCompatActivity() {
                 .into(binding.ivProfile)
             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "avatar",
-                file.getName(),
+                file.name,
                 file.asRequestBody("image/*".toMediaTypeOrNull())
             )
             avatar = filePart

@@ -32,10 +32,10 @@ class DetailImagesAdapter(val context: Context, val callback: DetailImagesCallba
 
     @SuppressLint("SetTextI18n")
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val items = images.get(position)
+        val items = images[position]
         // on below line we are initializing
         // our layout inflater.
-        val mLayoutInflater =
+        val mLayoutInflater: LayoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         // on below line we are inflating our custom

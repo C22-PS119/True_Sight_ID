@@ -69,7 +69,7 @@ class ExploreNewsFragment : Fragment() {
             binding.ibFilter.setOnClickListener {
                 val request = ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(binding.searchBar.query.toString()))
                 showLoading()
-                showFilter{ sortBy, type, dateOpt, dateStart, dateEnd ->
+                showFilter { sortBy, type, dateOpt, dateStart, dateEnd ->
                     viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd))
                         .observe(viewLifecycleOwner, claimObserver)
                     toastInfo("Result of ${request.keyword}")
@@ -236,7 +236,6 @@ class ExploreNewsFragment : Fragment() {
     private fun showFilter(onApply: (sortBy: Int, type: Int, dateOpt: Int, dateStart: Long?, dateEnd: Long?) -> Unit) {
         val inflater = layoutInflater
         val layout = inflater.inflate(R.layout.view_filter, null)
-        val rbDate = layout.findViewById<RadioGroup>(R.id.rg_date)
         val rbAnytime = layout.findViewById<RadioButton>(R.id.rb_anytime)
         val rbSpecific = layout.findViewById<RadioButton>(R.id.rb_specific_date)
         val datefrom = layout.findViewById<EditText>(R.id.date_from)
@@ -247,6 +246,7 @@ class ExploreNewsFragment : Fragment() {
         var dateEnd: Long? = null
         datefrom.isEnabled = false
         dateto.isEnabled = false
+
 
         layout.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
             filterDialog.dismiss()
@@ -269,20 +269,20 @@ class ExploreNewsFragment : Fragment() {
         }
         datefrom.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this.context as Context)
-            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+            datePickerDialog.setOnDateSetListener { datePicker, _, _, _ ->
                 val dateFrom = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
                 val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                dateStart = Timestamp.from(dateFrom.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                dateStart = Timestamp.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).time
                 datefrom.setText(dateFrom.format(formatters))
             }
             datePickerDialog.show()
         }
         dateto.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this.context as Context)
-            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+            datePickerDialog.setOnDateSetListener { datePicker, _, _, _ ->
                 val dateTo = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
                 val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                dateEnd = Timestamp.from(dateTo.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                dateEnd = Timestamp.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).time
                 dateto.setText(dateTo.format(formatters))
             }
             datePickerDialog.show()

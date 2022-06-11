@@ -94,6 +94,9 @@
     <string name="upload_date">Tanggal unggah</string>
     <string name="type">Tipe</string>
     <string name="sort_by">Urut Berdasarkan</string>
+    <string name="hour_ago">jam lalu</string>
+    <string name="minute_ago">menit lalu</string>
+    <string name="second_ago">detik lalu</string>
     <string-array name="filter_sort_by">
         <item>Tidak ada</item>
         <item>Most Votes</item>
@@ -149,4 +152,7 @@
     <string name="forgot_npassword">Lupa\nKata Sandi?</string>
     <string name="reset_password">Atur Ulang\nKata Sandi</string>
     <string name="email_verification">Verifikasi\nEmail</string>
+    <string name="english">Inggris</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="indonesia">Indonesia</string>
 </resources>

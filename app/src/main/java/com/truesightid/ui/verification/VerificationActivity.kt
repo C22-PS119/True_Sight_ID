@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.truesightid.R
@@ -48,7 +47,7 @@ class VerificationActivity : AppCompatActivity() {
                 toastError(resources.getString(R.string.something_wrong_while_getting_user_info))
         }
 
-        binding.tvEmail.setText(email ?: "*****@***")
+        binding.tvEmail.text = email ?: "*****@***"
 
         binding.ibBackLogin.setOnClickListener {
             val intent = Intent(this@VerificationActivity, ForgotPasswordActivity::class.java)
@@ -56,29 +55,36 @@ class VerificationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.edtOne.setOnKeyListener (View.OnKeyListener { v, keyCode, event -> if((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)){
-            binding.edtOne.setText(event.number.toString())
-            binding.edtTwo.requestFocus()
+        binding.edtOne.setOnKeyListener { v, keyCode, event ->
+            if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
+                binding.edtOne.setText(event.number.toString())
+                binding.edtTwo.requestFocus()
+            }
+            false
         }
+        binding.edtTwo.setOnKeyListener { v, keyCode, event ->
+            if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
+                binding.edtTwo.setText(event.number.toString())
+                binding.edtThree.requestFocus()
+            }
             false
-        })
-        binding.edtTwo.setOnKeyListener (View.OnKeyListener { v, keyCode, event -> if((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)){
-            binding.edtTwo.setText(event.number.toString())
-            binding.edtThree.requestFocus()}
+        }
+        binding.edtThree.setOnKeyListener { v, keyCode, event ->
+            if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
+                binding.edtThree.setText(event.number.toString())
+                binding.edtFour.requestFocus()
+            }
             false
-        })
-        binding.edtThree.setOnKeyListener (View.OnKeyListener { v, keyCode, event -> if((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)){
-            binding.edtThree.setText(event.number.toString())
-            binding.edtFour.requestFocus()}
+        }
+        binding.edtFour.setOnKeyListener { v, keyCode, event ->
+            if ((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)) {
+                binding.edtFour.setText(event.number.toString())
+            }
             false
-        })
-        binding.edtFour.setOnKeyListener (View.OnKeyListener { v, keyCode, event -> if((keyCode in 7..16) and (event.action == KeyEvent.ACTION_UP)){
-                binding.edtFour.setText(event.number.toString())}
-            false
-        })
+        }
 
         binding.tvResend.setOnClickListener {
-            resendClick()
+            sendCountdown()
             val userProfile = SendEmailVerificationRequest(
                 email = binding.tvEmail.text.toString(),
             )
@@ -103,12 +109,12 @@ class VerificationActivity : AppCompatActivity() {
         }
 
         binding.btnVerify.setOnClickListener {
-
             val confirmRequest = ConfirmEmailVerificationRequest(
                 user_id = userId,
                 verification_code = binding.edtOne.text.toString() + binding.edtTwo.text.toString() + binding.edtThree.text.toString() + binding.edtFour.text.toString()
             )
 
+            showLoading()
             viewModel.confirmVerificationCode(confirmRequest).observe(this) { response ->
                 when (response.status) {
                     StatusResponse.SUCCESS -> {
@@ -128,22 +134,22 @@ class VerificationActivity : AppCompatActivity() {
                 }
             }
         }
-        resendClick()
+        sendCountdown()
     }
 
-    private fun resendClick() {
+    private fun sendCountdown() {
         binding.tvResend.isEnabled = false
         GlobalScope.launch(Dispatchers.Main) {
             var s = 30
             while (s > 0){
                 val text = "Resend (${s}s)"
-                binding.tvResend.setText(text)
+                binding.tvResend.text = text
                 delay(1000)
-                s--;
+                s--
             }
         }.invokeOnCompletion {
             val text = "Resend"
-            binding.tvResend.setText(text)
+            binding.tvResend.text = text
             binding.tvResend.isEnabled = true
         }
     }

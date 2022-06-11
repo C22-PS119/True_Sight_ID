@@ -11,6 +11,7 @@ import com.truesightid.R
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ViewPagerAdapter
 import com.truesightid.ui.explore.ExploreNewsFragment
+import com.truesightid.ui.language.LanguageManager
 import com.truesightid.ui.login.LoginActivity
 import com.truesightid.ui.prediction.NewsPredictFragment
 import com.truesightid.ui.profile.ProfileFragment
@@ -33,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.viewPager)
         tabs = findViewById(R.id.tabs)
 
-        initTabs()
-
         val extras = intent.extras
         if(extras != null){
             if(extras.getBoolean("shouldProfile")){
@@ -42,6 +41,11 @@ class MainActivity : AppCompatActivity() {
                 tabs.selectTab(tabs.getTabAt(2))
             }
         }
+
+        val languageManager = LanguageManager(this)
+        languageManager.getLang()?.let { languageManager.updateResource(it) }
+
+        initTabs()
     }
 
     private fun setupLogin() {

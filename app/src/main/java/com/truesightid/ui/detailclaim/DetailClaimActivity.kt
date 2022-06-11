@@ -17,6 +17,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -100,11 +101,21 @@ class DetailClaimActivity : AppCompatActivity() {
             showSoftKeyboard(binding.etComment)
         }
 
+        binding.etComment.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_send_disable, 0)
+
+        binding.etComment.doOnTextChanged { _, _, _, _ ->
+            if (binding.etComment.text.isBlank())
+                binding.etComment.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_send_disable, 0)
+            else
+                binding.etComment.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_send, 0)
+        }
+
         binding.etComment.setOnTouchListener(OnTouchListener { _, event ->
+            if (binding.etComment.text.isBlank())
+                return@OnTouchListener false
             val drawableEnd = 2
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= binding.etComment.right - binding.etComment.compoundDrawables[drawableEnd].bounds.width()
-                ) {
+                if (event.rawX >= binding.etComment.right - binding.etComment.compoundDrawables[drawableEnd].bounds.width()) {
                     val request = AddCommentRequest(
                         Prefs.getUser()?.apiKey as String,
                         itemExtras.id,
@@ -238,14 +249,14 @@ class DetailClaimActivity : AppCompatActivity() {
             }
 
             binding.tvDescription.maxLines = 10
-            binding.tvDescription.post(Runnable {
-                if (binding.tvDescription.lineCount > 6){
+            binding.tvDescription.post {
+                if (binding.tvDescription.lineCount > 6) {
                     hideText()
-                }else{
+                } else {
                     binding.tvViewMore.visibility = View.GONE
                     binding.tvViewLess.visibility = View.GONE
                 }
-            })
+            }
 
             imagesAdapter.setImages(items.image)
 
@@ -263,6 +274,12 @@ class DetailClaimActivity : AppCompatActivity() {
             }
 
             tvSourceDetail.text = url
+
+            if (url.isBlank()){
+                tvTitleSource.visibility = View.GONE
+            }else{
+                tvTitleSource.visibility = View.VISIBLE
+            }
 
             tvClaimerDetail.text = getString(R.string.claimed_by, items.claimer)
             tvDateDetail.text = DateUtils.getDateTime(items.date.toLong())
@@ -282,7 +299,7 @@ class DetailClaimActivity : AppCompatActivity() {
                 val bookmark = user?.bookmark
                 if (bookmark?.contains(items.id) == true) {
                     binding.ibBookmark.setImageResource(R.drawable.ic_add_bookmark)
-                    viewModel.removeBookmarkById(AddRemoveBookmarkRequest(user?.apiKey.toString(), items.id))
+                    viewModel.removeBookmarkById(AddRemoveBookmarkRequest(user.apiKey, items.id))
                     UserAction.applyUserBookmarks(items.id, false)
                 } else {
                     binding.ibBookmark.setImageResource(R.drawable.ic_remove_bookmark)

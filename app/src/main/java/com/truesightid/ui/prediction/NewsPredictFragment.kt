@@ -84,7 +84,7 @@ class NewsPredictFragment : Fragment() {
     }
 
     private fun showDialog(isResponse: Boolean) {
-        val possitiveButtonClick = { dialog: DialogInterface, _: Int ->
+        val positiveButtonClick = { dialog: DialogInterface, _: Int ->
             dialog.cancel()
         }
         if (!isResponse) {
@@ -93,7 +93,7 @@ class NewsPredictFragment : Fragment() {
                 .setMessage(resources.getString(R.string.something_is_wrong_check_internet))
                 .setPositiveButton(
                     resources.getString(R.string.dialog_ok),
-                    DialogInterface.OnClickListener(function = possitiveButtonClick)
+                    DialogInterface.OnClickListener(function = positiveButtonClick)
                 )
                 .show()
         }

@@ -123,7 +123,7 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun validateInput(title:String, description:String) : String? {
+    private fun validateInput(title:String, description:String) : String? {
         if (getTotalWords(description) < 10)
             return resources.getString(R.string.description_must_be)
         if (getTotalWords(title) < 3)

@@ -122,6 +122,9 @@
     <string name="upload_date">Upload Date</string>
     <string name="type">Type</string>
     <string name="sort_by">Sort By</string>
+    <string name="hour_ago">hours ago</string>
+    <string name="minute_ago">minutes ago</string>
+    <string name="second_ago">seconds ago</string>
     <string-array name="filter_sort_by">
         <item>None</item>
         <item>Most Votes</item>
@@ -171,4 +174,7 @@
     <string name="change_password_success">Change Password Success</string>
     <string name="password_has_been_updated">Your password has been updated, go back to login page to login with new password</string>
     <string name="registration_is_successful">Hi %1$s your registration is successful, it\'s time to login</string>
+    <string name="english">English</string>
+    <string name="change_language">Change Language</string>
+    <string name="indonesia">Indonesia</string>
 </resources>
