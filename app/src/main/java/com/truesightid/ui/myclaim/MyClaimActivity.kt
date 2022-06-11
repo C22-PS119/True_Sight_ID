@@ -109,7 +109,7 @@ class MyClaimActivity : AppCompatActivity() {
                     val alpha = ALPHA_FULL - abs(dX) / viewHolder.itemView.width
                         .toFloat()
                     viewHolder.itemView.alpha = alpha
-                    viewHolder.itemView.translationX = dXA
+                    viewHolder.itemView.translationX = dX
                 }else{
                 super.onChildDraw(
                     c,
