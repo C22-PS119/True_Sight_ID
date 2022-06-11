@@ -87,7 +87,7 @@
     <string name="apply_string">Terapkan</string>
     <string name="cancel_string">Batal</string>
     <string name="search_filter_title">Filter Cari</string>
-    <string name="specific_date">Date tertentu</string>
+    <string name="specific_date">Tanggal tertentu</string>
     <string name="anytime">Kapan saja</string>
     <string name="to">ke</string>
     <string name="now">Sekarang</string>
@@ -99,10 +99,10 @@
     <string name="second_ago">detik lalu</string>
     <string-array name="filter_sort_by">
         <item>Tidak ada</item>
-        <item>Most Votes</item>
-        <item>Least Votes</item>
-        <item>Newest</item>
-        <item>Oldest</item>
+        <item>Vote Terbanyak</item>
+        <item>Vote terdikit</item>
+        <item>Terbaru</item>
+        <item>Terlama</item>
     </string-array>
     <string-array name="filter_type">
         <item>Apa saja</item>
@@ -130,6 +130,7 @@
         <item>Password baru terlalu pendek</item>
         <item>Password saat ini salah</item>
     </string-array>
+    <string name="LOADING">Tunggu...</string>
     <string name="content">KONTEN</string>
     <string name="preferences">PREFERENSI</string>
     <string name="title_profile">Profil</string>

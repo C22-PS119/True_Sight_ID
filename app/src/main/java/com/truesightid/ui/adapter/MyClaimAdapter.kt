@@ -41,7 +41,7 @@ class MyClaimAdapter(
     override fun onBindViewHolder(holder: MyClaimViewHolder, position: Int) {
         val items = myClaimsList[position]
         with(holder) {
-            val claimer = "Claim by ${items.claimer}:"
+            val claimer = itemView.context.getString(R.string.claimed_by, items.claimer)
             binding.tvClaimer.text = claimer
             Glide.with(itemView.context)
                 .load(items.image[0])

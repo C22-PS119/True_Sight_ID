@@ -158,6 +158,7 @@
         <item>New password too short</item>
         <item>Wrong current password</item>
     </string-array>
+    <string name="LOADING">Loading...</string>
     <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
     <string name="send_to">Send to</string>
     <string name="description_must_be">Description must be at least 10 words</string>
