@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="materialButtonStyle">@style/AppButton</item>
         <item name="android:textColorHint">@color/gray_form</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
     </style>
     <style name="CustomTabStyleTextAppearance">
         <item name="android:textSize">12sp</item>
