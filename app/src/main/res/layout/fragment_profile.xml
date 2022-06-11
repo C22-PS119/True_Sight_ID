@@ -262,12 +262,17 @@
                 android:text="@string/dark_mode"
                 tools:ignore="RelativeOverlap" />
 
-            <ImageView
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_dark_mode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
+                android:checked="false"
+                app:track="@null"
+                android:paddingStart="0dp"
+                android:paddingEnd="-40dp"
+                android:thumb="@drawable/thumb"
                 android:layout_alignParentEnd="true"
-                android:contentDescription="@string/dark_mode_button"
-                android:src="@drawable/switch_off" />
+                android:contentDescription="@string/dark_mode_button" />
 
         </RelativeLayout>
 
