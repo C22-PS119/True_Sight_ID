@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="@string/search_filter_title"
-            android:textColor="@color/permanent_gray"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -44,7 +43,6 @@
                 android:layout_height="24dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:textColor="@color/permanent_gray"
                 android:text="@string/sort_by"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
@@ -55,7 +53,6 @@
                 android:layout_height="24dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:textColor="@color/permanent_gray"
                 android:text="@string/type"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
@@ -66,7 +63,6 @@
                 android:layout_height="24dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:textColor="@color/permanent_gray"
                 android:text="@string/upload_date"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
@@ -145,7 +141,6 @@
                 android:focusableInTouchMode="false"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
-                android:textColor="@color/permanent_gray"
                 android:hint="01/01/1970"
                 android:textColorHint="@color/default_filter_title"
                 app:layout_constraintTop_toBottomOf="@+id/rg_date"
@@ -157,7 +152,6 @@
                 android:id="@+id/to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/permanent_gray"
                 android:text="@string/to"
                 android:textColor="@color/default_filter_items"
                 app:layout_constraintLeft_toRightOf="@id/date_from"
@@ -178,7 +172,6 @@
                 android:textSize="14sp"
                 android:focusableInTouchMode="false"
                 android:layout_marginStart="4dp"
-                android:textColor="@color/permanent_gray"
                 android:hint="@string/now"
                 android:textColorHint="@color/default_filter_title"
                 app:layout_constraintTop_toTopOf="@+id/date_from"
