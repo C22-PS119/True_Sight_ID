@@ -171,4 +171,7 @@
     <string name="indonesia">Indonesia</string>
     <string name="fact_percentage">Persentase Fakta</string>
     <string name="fake_percentage">Persentase Palsu</string>
+    <string name="predict_desc_1">Berdasarkan prediksi model Machine Learning kami, kami mendapatkan nilai berikut:</string>
+    <string name="predict_desc_2">Kami mendapatkan nilai ini melalui analisis sentimen, dan tidak memberikan fakta literal, tetapi sebaliknya, Anda dapat menggunakan ini sebagai wawasan atau panduan dari sudut pandang yang berbeda.</string>
+    <string name="predict_desc_3">Apakah Anda puas dengan hasil ini? Berikut kami memiliki rekomendasi yang mungkin terkait dengan konten ini</string>
 </resources>

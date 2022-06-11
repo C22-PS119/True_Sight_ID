@@ -103,7 +103,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textCursorDrawable="@null"
-                    android:textColor="@color/black"
+                    android:textColor="@color/default_item_color"
                     android:text="" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +130,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textCursorDrawable="@null"
-                    android:textColor="@color/black"
+                    android:textColor="@color/default_item_color"
                     android:text="" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -157,7 +157,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textCursorDrawable="@null"
-                    android:textColor="@color/black"
+                    android:textColor="@color/default_item_color"
                     android:text="" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -184,7 +184,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textCursorDrawable="@null"
-                    android:textColor="@color/black"
+                    android:textColor="@color/default_item_color"
                     android:text="" />
 
             </com.google.android.material.textfield.TextInputLayout>
