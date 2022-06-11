@@ -41,22 +41,49 @@
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/layout/item_row_claims.xml" value="0.6659641728134879" />
         <entry key="..\:/Bangkit/Start/Capstone/TrueSightID/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1609375" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable-v24/ic_bookmark_cardview.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable-v24/ic_bookmark_cardview_dm.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/background_image_position.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_filter.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_search.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_select_fact.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_select_fake.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/bg_tabs.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/btn_rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/btn_rounded_search.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_add_bookmark.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_back.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_bookmark.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_bookmark_cardview.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_bookmark_cardview_dm.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_bookmark_cardview_pressed.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_broken_image_black.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_darkmode.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_downvote.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_downvote_pressed.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_language.xml" value="0.119" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_logo_true_sight_id.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_logout.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_my_claims.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_remove_bookmark.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_right_arrow_black.xml" value="0.119" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_search.xml" value="0.176" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_share_cardview.xml" value="0.176" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_share_detail_claim.xml" value="0.119" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/ic_upvote.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/rounded.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/drawable/thumb.xml" value="0.1" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_add_claim.xml" value="0.1" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_claim_detail.xml" value="0.175" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_edit_profile.xml" value="0.33" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_forgot_password.xml" value="0.17552083333333332" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_language.xml" value="0.37824474660074164" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/activity_verification.xml" value="0.175" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_explore.xml" value="0.16666666666666666" />
         <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_prediction.xml" value="0.33" />
-        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_profile.xml" value="0.29675425038639874" />
-        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/item_row_claims.xml" value="0.3810483870967742" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/item_row_claims.xml" value="0.25" />
+        <entry key="..\:/Bangkit/Start/Juni/GitHub/Capstone/app/src/main/res/layout/view_filter.xml" value="0.3855421686746988" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/drawable/dialog_bg.xml" value="0.1655" />
         <entry key="..\:/Users/ASUS/.gradle/caches/transforms-3/7da2145f5a6879cd5e265acbd066368c/transformed/MyHelper-1.1.30/res/layout/view_loading.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/Documents/true-sight-project/true-sight-app/app/src/main/res/drawable/bg_search.xml" value="0.1655" />
@@ -94,8 +121,6 @@
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/dialog_bg.xml" value="0.207" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_add_bookmark.xml" value="0.1925" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_remove_bookmark.xml" value="0.1925" />
-        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_send.xml" value="0.2755" />
-        <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/ic_send_disable.xml" value="0.2755" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/drawable/rounded_dialog.xml" value="0.207" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_add_claim.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/HP/OneDrive - rvinz/Dokumen/GitHub/android-true-sight/app/src/main/res/layout/activity_claim_detail.xml" value="0.27447916666666666" />

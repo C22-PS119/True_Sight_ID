@@ -9,13 +9,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.prediction.NewsPredictFragment">
+        tools:context=".ui.detailclaim.DetailClaimActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"
+            android:background="@color/default_detail_headline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -75,7 +75,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="@color/default_item_color"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_claim"
                 app:layout_constraintStart_toStartOf="@+id/ib_back_detail"
@@ -102,7 +102,7 @@
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/point"
-                android:textColor="@color/black"
+                android:textColor="@color/default_item_color"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_claimer_detail"
                 app:layout_constraintTop_toTopOf="@+id/tv_claimer_detail" />
@@ -202,7 +202,7 @@
             android:justificationMode="inter_word"
             android:maxLines="6"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/default_item_color"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
