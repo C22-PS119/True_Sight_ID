@@ -2,13 +2,13 @@ package com.truesightid.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GetClaimsResponse(
+data class ClaimsBySearchResponse(
 
 	@field:SerializedName("total")
 	val total: Int? = null,
 
 	@field:SerializedName("data")
-	val data: List<ClaimItem>? = null,
+	val data: List<SearchItem?>? = null,
 
 	@field:SerializedName("dataname")
 	val dataname: String? = null,
@@ -23,16 +23,25 @@ data class GetClaimsResponse(
 	val status: String? = null
 )
 
-data class ClaimItem(
+data class SearchItem(
+
+	@field:SerializedName("rate")
+	val rate: Double? = null,
+
+	@field:SerializedName("row")
+	val row: Row? = null
+)
+
+data class Row(
 
 	@field:SerializedName("date_created")
-	val dateCreated: String? = null,
+	val dateCreated: Double? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,
 
 	@field:SerializedName("comment_id")
-	val commentId: Any? = null,
+	val commentId: Int? = null,
 
 	@field:SerializedName("title")
 	val title: String? = null,
@@ -50,7 +59,7 @@ data class ClaimItem(
 	val downvote: Int? = null,
 
 	@field:SerializedName("attachment")
-	val attachment: List<String>? = null,
+	val attachment: List<String?>? = null,
 
 	@field:SerializedName("num_click")
 	val numClick: Int? = null,

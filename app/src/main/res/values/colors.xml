@@ -23,4 +23,9 @@
     <color name="red_fake">#E90000</color>
     <color name="gray_light">#718792</color>
     <color name="blue">#2E89FF</color>
+
+    <color name="progress_background_color_4">#1C3144</color>
+    <color name="bg_text_color_s3">#EF5778</color>
+    <color name="progress_color_s3">#EF5778</color>
+    <color name="text_color_s3">#1C3144</color>
 </resources>

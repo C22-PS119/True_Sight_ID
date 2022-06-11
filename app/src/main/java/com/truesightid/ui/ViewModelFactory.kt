@@ -47,7 +47,7 @@ class ViewModelFactory private constructor(
                 ExploreNewsViewModel(mTrueSightRepository) as T
             }
             modelClass.isAssignableFrom(NewsPredictViewModel::class.java) -> {
-                NewsPredictViewModel() as T
+                NewsPredictViewModel(mTrueSightRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(mTrueSightRepository) as T
@@ -81,6 +81,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(DetailClaimViewModel::class.java) -> {
                 DetailClaimViewModel(mTrueSightRepository) as T
+            }
+            modelClass.isAssignableFrom(NewsPredictViewModel::class.java) -> {
+                NewsPredictViewModel(mTrueSightRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

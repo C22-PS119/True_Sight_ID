@@ -11,7 +11,10 @@ import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.Resource
 
 interface TrueSightDataSource {
-    fun getAllClaims(request: ClaimRequest, filter: FilterSearch?): LiveData<Resource<PagedList<ClaimEntity>>>
+    fun getAllClaims(
+        request: GetClaimsRequest,
+        filter: FilterSearch?
+    ): LiveData<Resource<PagedList<ClaimEntity>>>
 
     fun loginRequest(loginRequest: LoginRequest): LiveData<ApiResponse<LoginResponse>>
 
@@ -48,4 +51,6 @@ interface TrueSightDataSource {
     fun removeBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest)
 
     fun addCommentById(addCommentRequest: AddCommentRequest)
+
+    fun getClaimsBySearch(claimsRequest: GetClaimsRequest): LiveData<ApiResponse<List<ClaimEntity>>>
 }

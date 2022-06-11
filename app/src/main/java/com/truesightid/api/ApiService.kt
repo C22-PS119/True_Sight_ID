@@ -171,4 +171,13 @@ interface ApiService {
         @Header("x-api-key") apiKey: String,
         @Field("id") id: Int
     ): Call<AddRemoveResponse>
+
+    @FormUrlEncoded
+    @POST("api/search/")
+    fun getClaimsBySearch(
+        @Header("x-api-key") apiKey: String,
+        @Field("keyword") keyword: String
+    ): Call<ClaimsBySearchResponse>
+
+
 }

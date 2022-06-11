@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="#263238"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/iv_true_sight_logo"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/logo_true_sight_transparant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_true_sight_logo">
+
+            <TextView
+                android:id="@+id/tv_title_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="start"
+                android:text="@string/predict_title_sample"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_author_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="start"
+                android:text="@string/predict_author_sample"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_header" />
+
+            <TextView
+                android:id="@+id/tv_content_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="start"
+                android:text="@string/predict_content_sample"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_author_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/parent_input"
+            app:layout_constraintStart_toStartOf="@+id/parent_input"
+            app:layout_constraintTop_toBottomOf="@id/parent_input">
+
+            <TextView
+                android:id="@+id/tv_description1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/predict_desc_1"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title_fact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/fact_percentage"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description1" />
+
+            <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                android:id="@+id/progress_bar_fact"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_fact"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_fact"
+                app:rpbBackgroundColor="@color/progress_background_color_4"
+                app:rpbBackgroundTextColor="@color/green"
+                app:rpbCornerRadius="4dp"
+                app:rpbProgress="50"
+                app:rpbProgressColor="@color/green_fact"
+                app:rpbProgressTextColor="@color/green"
+                app:rpbTextPadding="20dp"
+                app:rpbTextSize="@dimen/large_text_size" />
+
+            <TextView
+                android:id="@+id/tv_title_fake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/fake_percentage"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar_fact"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar_fact"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar_fact" />
+
+            <com.mackhartley.roundedprogressbar.RoundedProgressBar
+                android:id="@+id/progress_bar_fake"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_fake"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_fake"
+                app:rpbBackgroundColor="@color/progress_background_color_4"
+                app:rpbBackgroundTextColor="@color/green"
+                app:rpbCornerRadius="4dp"
+                app:rpbProgress="50"
+                app:rpbProgressColor="@color/red_fake"
+                app:rpbProgressTextColor="@color/green"
+                app:rpbTextPadding="20dp"
+                app:rpbTextSize="@dimen/large_text_size" />
+
+            <TextView
+                android:id="@+id/tv_description2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/predict_desc_2"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/progress_bar_fake"
+                app:layout_constraintStart_toStartOf="@+id/progress_bar_fake"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar_fake" />
+
+            <TextView
+                android:id="@+id/tv_description3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/predict_desc_3"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_description2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_close_24"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvClaimer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:overScrollMode="never"
+            android:scrollbarSize="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parent2"
+            tools:listitem="@layout/item_row_claims" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

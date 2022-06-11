@@ -1,6 +1,6 @@
 package com.truesightid.data.source.remote.request
 
-data class ClaimRequest(
+data class GetClaimsRequest(
     val apiKey: String,
     val keyword: String
 )
