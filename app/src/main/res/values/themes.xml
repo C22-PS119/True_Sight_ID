@@ -40,4 +40,10 @@
     </style>
     <style name="Theme.TrueSightID.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.TrueSightID.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <color name="default_item_color">#000</color>
+    <color name="default_border">@color/gray_soft</color>
+    <color name="default_filter_title">@color/gray</color>
+    <color name="default_filter_items">@color/black</color>
+    <color name="default_detail_headline">#F1F8E9</color>
 </resources>

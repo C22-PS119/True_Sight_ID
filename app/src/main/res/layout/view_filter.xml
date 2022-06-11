@@ -45,6 +45,7 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/sort_by"
+                android:textColor="@color/gray"
                 android:textSize="14sp" />
 
             <TextView
@@ -54,6 +55,7 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/type"
+                android:textColor="@color/gray"
                 android:textSize="14sp" />
 
             <TextView
@@ -63,6 +65,7 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/upload_date"
+                android:textColor="@color/gray"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -86,6 +89,7 @@
                 android:layout_marginBottom="16dp"
                 android:entries="@array/filter_sort_by"
                 android:spinnerMode="dropdown"
+                android:backgroundTint="@color/default_filter_items"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,6 +100,7 @@
                 android:layout_marginTop="16dp"
                 android:entries="@array/filter_type"
                 android:spinnerMode="dropdown"
+                android:backgroundTint="@color/default_filter_items"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dd_sort_by" />
 
@@ -113,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:checked="true"
+                    android:textColor="@color/default_filter_items"
                     android:text="@string/anytime" />
 
                 <RadioButton
@@ -120,6 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/default_filter_items"
                     android:text="@string/specific_date"/>
             </RadioGroup>
 
@@ -137,6 +144,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="4dp"
                 android:hint="01/01/1970"
+                android:textColorHint="@color/default_filter_title"
                 app:layout_constraintTop_toBottomOf="@+id/rg_date"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/to"
@@ -147,6 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/to"
+                android:textColor="@color/default_filter_items"
                 app:layout_constraintLeft_toRightOf="@id/date_from"
                 app:layout_constraintTop_toTopOf="@id/date_from"
                 app:layout_constraintRight_toLeftOf="@+id/date_to"
@@ -166,6 +175,7 @@
                 android:focusableInTouchMode="false"
                 android:layout_marginStart="4dp"
                 android:hint="@string/now"
+                android:textColorHint="@color/default_filter_title"
                 app:layout_constraintTop_toTopOf="@+id/date_from"
                 app:layout_constraintLeft_toRightOf="@+id/to"
                 app:layout_constraintRight_toRightOf="parent"

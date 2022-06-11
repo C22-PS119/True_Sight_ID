@@ -29,9 +29,16 @@
         <item name="android:textStyle">normal</item>
     </style>
     <style name="AppButton" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/black_soft</item>
+        <item name="backgroundTint">@color/gray_dark</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="GoogleButtonLogin" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/blue_soft</item>
     </style>
+
+    <color name="default_item_color">#FFF</color>
+    <color name="default_border">@color/black_soft</color>
+    <color name="default_filter_title">@color/gray</color>
+    <color name="default_filter_items">@color/black</color>
+    <color name="default_detail_headline">#616858</color>
 </resources>
