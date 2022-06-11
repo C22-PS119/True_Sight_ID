@@ -53,6 +53,9 @@ class TrueSightRepository(
     override fun addCommentById(addCommentRequest: AddCommentRequest) =
         remoteDataSource.addCommentById(addCommentRequest)
 
+    override fun getClaimsBySearch(claimsRequest: GetClaimsRequest): LiveData<ApiResponse<List<ClaimEntity>>> =
+        remoteDataSource.getClaimsBySearch(claimsRequest)
+
     override fun sendEmailVerification(sendEmailVerificationRequest: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> =
         remoteDataSource.sendEmailVerification(sendEmailVerificationRequest)
 
@@ -93,7 +96,7 @@ class TrueSightRepository(
         remoteDataSource.getMyBookmarkRequest(myDataRequest)
 
     override fun getAllClaims(
-        request: ClaimRequest,
+        request: GetClaimsRequest,
         filter: FilterSearch?
     ): LiveData<Resource<PagedList<ClaimEntity>>> {
         return object :

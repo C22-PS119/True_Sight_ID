@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.truesightid.R
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
-import com.truesightid.data.source.remote.request.ClaimRequest
+import com.truesightid.data.source.remote.request.GetClaimsRequest
 import com.truesightid.databinding.FragmentExploreBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.ui.adapter.ExploreAdapter
@@ -46,7 +46,7 @@ class ExploreNewsFragment : Fragment() {
 
     private lateinit var viewModel: ExploreNewsViewModel
     private lateinit var exploreAdapter: ExploreAdapter
-    private lateinit var requestAllClaims: ClaimRequest
+    private lateinit var requestAllClaims: GetClaimsRequest
     private lateinit var alertDialog: AlertDialog
     private lateinit var filterDialog: AlertDialog
 
@@ -67,7 +67,7 @@ class ExploreNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
             binding.ibFilter.setOnClickListener {
-                val request = ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(binding.searchBar.query.toString()))
+                val request = GetClaimsRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(binding.searchBar.query.toString()))
                 showLoading()
                 showFilter { sortBy, type, dateOpt, dateStart, dateEnd ->
                     viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd))
@@ -78,7 +78,7 @@ class ExploreNewsFragment : Fragment() {
             }
 
             if (Prefs.isLogin) {
-                requestAllClaims = ClaimRequest(Prefs.getUser()?.apiKey as String, "")
+                requestAllClaims = GetClaimsRequest(Prefs.getUser()?.apiKey as String, "")
                 val factory = ViewModelFactory.getInstance(
                     requireContext()
                 )
@@ -172,7 +172,7 @@ class ExploreNewsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     val request =
-                        ClaimRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
+                        GetClaimsRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
                     viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
                     toastInfo(resources.getString(R.string.result_of, request.keyword))
                 }

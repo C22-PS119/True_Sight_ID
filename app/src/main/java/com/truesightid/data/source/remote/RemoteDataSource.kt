@@ -54,11 +54,45 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultRegister
     }
 
-    fun getAllClaims(request: ClaimRequest): LiveData<ApiResponse<GetClaimsResponse>> {
+    fun getAllClaims(request: GetClaimsRequest): LiveData<ApiResponse<GetClaimsResponse>> {
         val resultClaims = MutableLiveData<ApiResponse<GetClaimsResponse>>()
         apiHelper.getClaimsRequest(request, object : ClaimsRequestCallback {
             override fun onClaimsRequestResponse(getClaimsResponse: GetClaimsResponse) {
                 resultClaims.value = ApiResponse.success(getClaimsResponse)
+            }
+        })
+        return resultClaims
+    }
+
+    fun getClaimsBySearch(request: GetClaimsRequest): LiveData<ApiResponse<List<ClaimEntity>>> {
+        val resultClaims = MutableLiveData<ApiResponse<List<ClaimEntity>>>()
+        apiHelper.getClaimsBySearch(request, object : ClaimsBySearchRequestCallback {
+            override fun onClaimsBySearchRequestResponse(response: ClaimsBySearchResponse) {
+                val responseData = response.data
+                val claimList = ArrayList<ClaimEntity>()
+                if (responseData != null) {
+                    for (item in responseData) {
+                        val row = item?.row
+                        val claim = row?.dateCreated?.let {
+                            ClaimEntity(
+                                row.id as Int,
+                                row.title as String,
+                                row.authorUsername as String,
+                                row.description as String,
+                                row.attachment as List<String>,
+                                row.fake as Int,
+                                row.upvote as Int,
+                                row.downvote as Int,
+                                it.toFloat(),
+                                StringSeparatorUtils.separateUrlResponse(row.url)
+                            )
+                        }
+                        if (claim != null) {
+                            claimList.add(claim)
+                        }
+                    }
+                }
+                resultClaims.value = ApiResponse.success(claimList)
             }
         })
         return resultClaims
@@ -354,5 +388,9 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
 
     interface GetCommentsCallback {
         fun onGetCommentsRequestResponse(getCommentsResponse: GetCommentsResponse)
+    }
+
+    interface ClaimsBySearchRequestCallback {
+        fun onClaimsBySearchRequestResponse(response: ClaimsBySearchResponse)
     }
 }

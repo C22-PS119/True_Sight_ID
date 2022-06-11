@@ -155,4 +155,6 @@
     <string name="english">Inggris</string>
     <string name="change_language">Ubah Bahasa</string>
     <string name="indonesia">Indonesia</string>
+    <string name="fact_percentage">Persentase Fakta</string>
+    <string name="fake_percentage">Persentase Palsu</string>
 </resources>

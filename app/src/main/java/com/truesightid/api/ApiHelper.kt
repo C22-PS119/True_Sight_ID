@@ -65,7 +65,7 @@ class ApiHelper(val context: Context) {
         })
     }
 
-    fun getClaimsRequest(request: ClaimRequest, callback: RemoteDataSource.ClaimsRequestCallback) {
+    fun getClaimsRequest(request: GetClaimsRequest, callback: RemoteDataSource.ClaimsRequestCallback) {
         val client = ApiConfig.getApiService().getAllClaims(request.apiKey, request.keyword)
         client.enqueue(object : Callback<GetClaimsResponse> {
             override fun onResponse(
@@ -539,6 +539,32 @@ class ApiHelper(val context: Context) {
                     .show()
             }
 
+        })
+    }
+
+    fun getClaimsBySearch(request: GetClaimsRequest, callback: RemoteDataSource.ClaimsBySearchRequestCallback) {
+        val client = ApiConfig.getApiService().getClaimsBySearch(request.apiKey, request.keyword)
+        client.enqueue(object : Callback<ClaimsBySearchResponse> {
+            override fun onResponse(
+                call: Call<ClaimsBySearchResponse>,
+                response: Response<ClaimsBySearchResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        callback.onClaimsBySearchRequestResponse(responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ClaimsBySearchResponse>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "onClaimBySearchRequestFailed: ${t.message}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
         })
     }
 }
