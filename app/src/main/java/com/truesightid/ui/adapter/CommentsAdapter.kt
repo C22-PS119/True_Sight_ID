@@ -9,7 +9,6 @@ import com.truesightid.R
 import com.truesightid.data.source.local.entity.CommentEntity
 import com.truesightid.databinding.ItemCommentsBinding
 import com.truesightid.utils.DateUtils.getDateAsTimeAgo
-import com.truesightid.utils.DateUtils.getDateTime
 
 class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
     private val commentList = ArrayList<CommentEntity>()

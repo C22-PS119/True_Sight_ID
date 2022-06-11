@@ -3,7 +3,7 @@ package com.truesightid.utils
 object StringSeparatorUtils {
     fun separateVoteResponse(votes: String?): HashMap<Int, Int> {
         if (votes == null)
-            return HashMap<Int, Int>()
+            return HashMap()
         val result = HashMap<Int, Int>()
         val ans = votes.split(",")
         for (text in ans) {
@@ -16,7 +16,7 @@ object StringSeparatorUtils {
 
     fun separateBookmarkResponse(bookmark: String?): ArrayList<Int> {
         if (bookmark == null)
-            return ArrayList<Int>()
+            return ArrayList()
         val result = ArrayList<Int>()
         val ans = bookmark.split(",")
         if (ans.isNotEmpty()) {
@@ -29,7 +29,7 @@ object StringSeparatorUtils {
 
     fun separateUrlResponse(url: String?): ArrayList<String> {
         if (url == null)
-            return ArrayList<String>()
+            return ArrayList()
         val result = ArrayList<String>()
         val filter = url.filterNot { it.isWhitespace() }
         val ans = filter.split(",")

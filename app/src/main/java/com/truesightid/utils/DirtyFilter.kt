@@ -6,9 +6,9 @@ class DirtyFilter {
             get() = field
         var text: String = ""
             get() = field
-        var value: String = ""
+        val value: String
             get() = if ((start == -1) or (end == -1)) "" else text.substring(start, end)
-        var length:Int = 0
+        val length:Int
             get() = end - start
 
         init {
@@ -19,7 +19,7 @@ class DirtyFilter {
     }
     companion object {
 
-        val DirtyWords = arrayOf<String>("Kunyuk","Bajingan","Bangsat","Kampret","Kontol","Memek","Ngentot","Pentil","Perek","Pepek","Pecun","Bencong","Banci","Maho","Gila","Sinting","Tolol","Sarap","Setan","Lonte","Hencet","Taptei","Kampang","Pilat","Keparat","Bejad","Gembel","Brengsek","*Tai","Anjrit","Bangsat","Fuck","Tetek","Ngulum","Jembut","Totong","Kolop","Pukimak","Bodat","Heang","Jancuk","Burit","Titit","Nenen","Bejat","Silit","Sempak","Fucking","Asshole","Bitch","Klitoris","Kelentit","Borjong","Dancuk","Pantek","Taek","Itil","Teho","Bejat","Pantat","Bagudung","Babami","Kanciang","Bungul","Idiot","Kimak","Henceut","Kacuk","Blowjob","Pussy","Asu*","Dick*","Damn","*Ass*")
+        val DirtyWords = arrayOf("Kunyuk","Bajingan","Bangsat","Kampret","Kontol","Memek","Ngentot","Pentil","Perek","Pepek","Pecun","Bencong","Banci","Maho","Gila","Sinting","Tolol","Sarap","Setan","Lonte","Hencet","Taptei","Kampang","Pilat","Keparat","Bejad","Gembel","Brengsek","*Tai","Anjrit","Bangsat","Fuck","Tetek","Ngulum","Jembut","Totong","Kolop","Pukimak","Bodat","Heang","Jancuk","Burit","Titit","Nenen","Bejat","Silit","Sempak","Fucking","Asshole","Bitch","Klitoris","Kelentit","Borjong","Dancuk","Pantek","Taek","Itil","Teho","Bejat","Pantat","Bagudung","Babami","Kanciang","Bungul","Idiot","Kimak","Henceut","Kacuk","Blowjob","Pussy","Asu*","Dick*","Damn","*Ass*")
 
         fun FilterAlfaNumWords(input: String): String {
             return input
@@ -59,7 +59,7 @@ class DirtyFilter {
         }
 
         fun findDirtyWord(input: String, dirtyWords: Array<String>, startIndex: Int = 0): ArrayList<TextRange> {
-            var ranges = ArrayList<TextRange>()
+            val ranges = ArrayList<TextRange>()
             for (dirtyWord in dirtyWords) {
                 val pattern = BuildRegexDirtyWord(dirtyWord).toRegex(setOf<RegexOption>(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
                 val matches = pattern.findAll(input, startIndex)
@@ -71,16 +71,16 @@ class DirtyFilter {
             return ranges
         }
 
-        fun censored(input: String, dirtyWords: Array<String>, cencoredChar: Char?): String {
+        fun censored(input: String, dirtyWords: Array<String>, censoredChar: Char?): String {
             var filtered = input
             for (dirtyWord in dirtyWords) {
                 val pattern = BuildRegexDirtyWord(dirtyWord).toRegex(setOf<RegexOption>(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
                 val matches = pattern.findAll(input)
                 for (match in matches){
-                    if (cencoredChar == null){
+                    if (censoredChar == null){
                         filtered = pattern.replace(filtered, "")
                     }else{
-                        filtered = filtered.replaceRange(match.groups[1]?.range?.start ?: 0,(match.groups[1]?.range?.last ?: 0) + 1 ,cencoredChar.toString().repeat(match.groups[1]?.value?.length ?: 0))
+                        filtered = filtered.replaceRange(match.groups[1]?.range?.start ?: 0,(match.groups[1]?.range?.last ?: 0) + 1 ,censoredChar.toString().repeat(match.groups[1]?.value?.length ?: 0))
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.truesightid.utils
 
-import android.util.Log
 import androidx.sqlite.db.SimpleSQLiteQuery
 
 object PagedQueryUtils {
@@ -18,9 +17,9 @@ object PagedQueryUtils {
         return SimpleSQLiteQuery(simpleQuery.toString())
     }
 
-    fun sqlEsc(value:String): String{
-        return value.replace("'","''" )
-    }
+//    fun sqlEsc(value:String): String{
+//        return value.replace("'","''" )
+//    }
 
     fun getKeywordWithFilterQuery(
         keywordSearch: String,

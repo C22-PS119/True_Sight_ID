@@ -269,20 +269,20 @@ class ExploreNewsFragment : Fragment() {
         }
         datefrom.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this.context as Context)
-            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+            datePickerDialog.setOnDateSetListener { datePicker, _, _, _ ->
                 val dateFrom = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
                 val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                dateStart = Timestamp.from(dateFrom.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                dateStart = Timestamp.from(dateFrom.atStartOfDay(ZoneId.systemDefault()).toInstant()).time
                 datefrom.setText(dateFrom.format(formatters))
             }
             datePickerDialog.show()
         }
         dateto.setOnClickListener {
             val datePickerDialog = DatePickerDialog(this.context as Context)
-            datePickerDialog.setOnDateSetListener { datePicker, i, i2, i3 ->
+            datePickerDialog.setOnDateSetListener { datePicker, _, _, _ ->
                 val dateTo = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
                 val formatters: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                dateEnd = Timestamp.from(dateTo.atStartOfDay(ZoneId.of("UTC")).toInstant()).time
+                dateEnd = Timestamp.from(dateTo.atStartOfDay(ZoneId.systemDefault()).toInstant()).time
                 dateto.setText(dateTo.format(formatters))
             }
             datePickerDialog.show()

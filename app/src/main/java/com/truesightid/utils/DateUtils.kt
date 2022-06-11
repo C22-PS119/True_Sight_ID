@@ -2,8 +2,6 @@ package com.truesightid.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
-import android.util.Log
 import com.truesightid.R
 import java.sql.Timestamp
 import java.time.*
