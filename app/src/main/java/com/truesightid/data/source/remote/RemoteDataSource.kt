@@ -329,6 +329,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         apiHelper.voteByClaimIdRequest(false, api_key, id)
     }
 
+    fun deleteRequestById(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit) {
+        apiHelper.deleteByClaimIdRequest(api_key, id, onSuccess)
+    }
+
     fun addBookmarkById(request: AddRemoveBookmarkRequest) {
         apiHelper.addRemoveBookmarkByClaimId(true, request)
     }

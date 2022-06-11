@@ -44,6 +44,9 @@ class TrueSightRepository(
     override fun downVoteClaimById(api_key: String, id: Int) =
         remoteDataSource.downVoteRequestById(api_key, id)
 
+    override fun deleteClaimById(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit) =
+        remoteDataSource.deleteRequestById(api_key, id, onSuccess)
+
     override fun addBookmarkById(addRemoveBookmarkRequest: AddRemoveBookmarkRequest) =
         remoteDataSource.addBookmarkById(addRemoveBookmarkRequest)
 

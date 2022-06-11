@@ -127,6 +127,29 @@ class ApiHelper(val context: Context) {
         })
     }
 
+    fun deleteByClaimIdRequest(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit) {
+        val client: Call<AddRemoveResponse> = ApiConfig.getApiService().deleteByClaimID(
+                api_key,
+                id
+            )
+        client.enqueue(object : Callback<AddRemoveResponse> {
+            override fun onResponse(
+                call: Call<AddRemoveResponse>,
+                response: Response<AddRemoveResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null){
+                        onSuccess(responseBody.status == "success")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddRemoveResponse>, t: Throwable) {
+                onSuccess(false)
+            }
+        })
+    }
     fun postResponse(
         request: PostClaimRequest,
         callback: RemoteDataSource.PostClaimRequestCallback

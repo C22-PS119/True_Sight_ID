@@ -31,6 +31,12 @@ class MyClaimAdapter(
         }
     }
 
+    fun getClaimAt(position: Int): ClaimEntity?{
+        if ((position >= 0) and (position < myClaimsList.count()))
+            return myClaimsList[position]
+        return null
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyClaimViewHolder {
         val itemRowClaimsBinding =
             ItemRowClaimsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -14,4 +14,6 @@ class MyClaimViewModel(private val trueSightRepository: TrueSightRepository) : V
     fun upvoteClaimById(api_key: String, id: Int) = trueSightRepository.upVoteClaimById(api_key, id)
     fun downvoteClaimById(api_key: String, id: Int) =
         trueSightRepository.downVoteClaimById(api_key, id)
+    fun deleteClaimById(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit) =
+        trueSightRepository.deleteClaimById(api_key, id, onSuccess)
 }

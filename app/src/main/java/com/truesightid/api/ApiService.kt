@@ -53,6 +53,13 @@ interface ApiService {
     ): Call<VoteResponse>
 
     @FormUrlEncoded
+    @POST("api/delete/claim/")
+    fun deleteByClaimID(
+        @Header("x-api-key") apiKey: String,
+        @Field("id") id: Int
+    ): Call<AddRemoveResponse>
+
+    @FormUrlEncoded
     @POST("api/get/profile/")
     fun getProfileByID(
         @Header("x-api-key") apiKey: String,

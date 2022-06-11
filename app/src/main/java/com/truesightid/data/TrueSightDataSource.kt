@@ -53,4 +53,6 @@ interface TrueSightDataSource {
     fun addCommentById(addCommentRequest: AddCommentRequest)
 
     fun getClaimsBySearch(claimsRequest: GetClaimsRequest): LiveData<ApiResponse<List<ClaimEntity>>>
+
+    fun deleteClaimById(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit)
 }
