@@ -158,7 +158,7 @@
         <item>New password too short</item>
         <item>Wrong current password</item>
     </string-array>
-    <string name="LOADING">Loading...</string>
+    <string name="LOADING">Loading…</string>
     <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
     <string name="send_to">Send to</string>
     <string name="description_must_be">Description must be at least 10 words</string>
@@ -194,10 +194,10 @@
     <string name="fact_percentage">Fact Percentage</string>
     <string name="fake_percentage">Fake Percentage</string>
     <string name="predict_desc_1">Based on our machine learning model prediction, we get the following values:</string>
-    <string name="predict_desc_2">We get this value through sentiment analysis, and it doesn\'t provide literal fact, but instead you can use this as an insight or guidance from different point of views.</string>
-    <string name="confirm">Confirm</string>
-    <string name="predict_title_sample">Title: Perang Rusia Ukraina merupakan Rekayasa Elite Global</string>
-    <string name="predict_author_sample">Author: Rayhan Sinaga</string>
-    <string name="predict_content_sample">Content: Perang Rusia Ukraina tidaklah hal yang diberitakan di media massa, terdapat banyak kejanggalan yang terjadi di lapangan yang kebenarannya patut dipertanyakan</string>
-    <string name="predict_desc_3">Are you satisfied with this result? Here\'s we have recommendations that maybe related to this content</string>
+    <string name="predict_desc_2">We get this value through sentiment analysis, and it doesn\'t provide literal facts, but instead, you can use this as an insight or guidance from a different point of view.</string>
+    <string name="confirm" translatable="false">Confirm</string>
+    <string name="predict_title_sample" translatable="false">Title: Perang Rusia Ukraina merupakan Rekayasa Elite Global</string>
+    <string name="predict_author_sample" translatable="false">Author: Rayhan Sinaga</string>
+    <string name="predict_content_sample" translatable="false">Content: Perang Rusia Ukraina tidaklah hal yang diberitakan di media massa, terdapat banyak kejanggalan yang terjadi di lapangan yang kebenarannya patut dipertanyakan</string>
+    <string name="predict_desc_3">Are you satisfied with this result? Here\'s we have recommendations that may be related to this content</string>
 </resources>
