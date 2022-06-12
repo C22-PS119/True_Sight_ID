@@ -126,8 +126,8 @@ class AddClaimActivity : AppCompatActivity(), View.OnClickListener {
     private fun validateInput(title:String, description:String) : String? {
         if (getTotalWords(description) < 10)
             return resources.getString(R.string.description_must_be, 10)
-        if (getTotalWords(description) > 200)
-            return resources.getString(R.string.description_must_under, 200)
+        if (getTotalWords(description) > 500)
+            return resources.getString(R.string.description_must_under, 500)
         if (getTotalWords(title) < 3)
             return resources.getString(R.string.title_must_be, 3)
         if (getTotalWords(title) > 20)
