@@ -47,4 +47,5 @@
     <color name="default_filter_title">@color/gray</color>
     <color name="default_filter_items">@color/black</color>
     <color name="default_detail_headline">#616858</color>
+    <color name="default_image_number">@color/black</color>
 </resources>

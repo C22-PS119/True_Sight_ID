@@ -43,6 +43,7 @@
                 android:padding="2dp"
                 android:text="@string/_1_3"
                 android:textSize="16sp"
+                android:textColor="@color/default_image_number"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
