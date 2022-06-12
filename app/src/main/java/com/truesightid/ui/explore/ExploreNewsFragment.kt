@@ -31,6 +31,7 @@ import com.truesightid.utils.*
 import com.truesightid.utils.InputPreprocessUtils.searchQueryFilter
 import com.truesightid.utils.extension.toastInfo
 import com.truesightid.utils.extension.toastSuccess
+import com.truesightid.utils.extension.toastWarning
 import java.sql.Timestamp
 import java.time.LocalDate
 import java.time.ZoneId
@@ -71,9 +72,11 @@ class ExploreNewsFragment : Fragment() {
                 showLoading()
                 showFilter { sortBy, type, dateOpt, dateStart, dateEnd ->
 
-                    viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd)){claims ->
-                        claims.observe(viewLifecycleOwner, claimObserver)
+                    viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd)){success, claims ->
+                        claims?.observe(viewLifecycleOwner, claimObserver)
                         toastInfo("Result of ${request.keyword}")
+                        if (!success)
+                            toastWarning(getString(R.string.something_went_wrong))
                     }
                 }
                 alertDialog.dismiss()
@@ -126,15 +129,17 @@ class ExploreNewsFragment : Fragment() {
                 }
 
                 binding.refreshLayout.setOnRefreshListener {
-                    viewModel.getClaims(requestAllClaims){ claims ->
-                        claims.observe(viewLifecycleOwner, claimObserver)
+                    viewModel.getClaims(requestAllClaims){success, claims ->
+                        claims?.observe(viewLifecycleOwner, claimObserver)
                         toastSuccess(resources.getString(R.string.page_refreshed))
                         binding.refreshLayout.isRefreshing = false
+                        if (!success)
+                            toastWarning(getString(R.string.something_went_wrong))
                     }
                 }
 
-                viewModel.getClaims(requestAllClaims){ claims ->
-                    claims.observe(viewLifecycleOwner, claimObserver)
+                viewModel.getClaims(requestAllClaims){_, claims ->
+                    claims?.observe(viewLifecycleOwner, claimObserver)
                 }
             }
 
@@ -178,9 +183,11 @@ class ExploreNewsFragment : Fragment() {
                 if (query != null) {
                     val request =
                         GetClaimsRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
-                    viewModel.getClaims(request){ claims ->
-                        claims.observe(viewLifecycleOwner, claimObserver)
+                    viewModel.getClaims(request){ success, claims ->
+                        claims?.observe(viewLifecycleOwner, claimObserver)
                         toastInfo(resources.getString(R.string.result_of, request.keyword))
+                        if (!success)
+                            toastWarning(getString(R.string.something_went_wrong))
                     }
                 }
                 return false

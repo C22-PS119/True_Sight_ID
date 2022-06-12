@@ -2,6 +2,7 @@ package com.truesightid.ui.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -43,14 +44,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val extras = intent.extras
-        if(extras != null){
-            if(extras.getBoolean("shouldProfile")){
-                // Go to profile
-                tabs.selectTab(tabs.getTabAt(2))
-            }
-        }
-
         val languageManager = LanguageManager(this)
         languageManager.getLang()?.let { languageManager.updateResource(it) }
 
@@ -83,6 +76,14 @@ class MainActivity : AppCompatActivity() {
         tabs.getTabAt(0)!!.setIcon(R.drawable.ic_explore_state)
         tabs.getTabAt(1)!!.setIcon(R.drawable.ic_prediction_state)
         tabs.getTabAt(2)!!.setIcon(R.drawable.ic_profile_state)
+
+        val extras = intent.extras
+        if(extras != null){
+            if(extras.getBoolean("shouldProfile")){
+                // Go to profile
+                tabs.selectTab(tabs.getTabAt(2))
+            }
+        }
     }
 
 }

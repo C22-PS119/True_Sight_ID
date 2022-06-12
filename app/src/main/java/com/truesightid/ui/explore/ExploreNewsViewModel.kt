@@ -16,22 +16,26 @@ import kotlinx.coroutines.launch
 import java.lang.Thread.sleep
 
 class ExploreNewsViewModel(private val mTrueSightRepository: TrueSightRepository) : ViewModel() {
-    fun getClaims(request: GetClaimsRequest, onFinished: (claims:LiveData<Resource<PagedList<ClaimEntity>>>) -> Unit) {
-        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, deletedClaims ->
+    fun getClaims(request: GetClaimsRequest, onFinished: (success:Boolean, claims:LiveData<Resource<PagedList<ClaimEntity>>>?) -> Unit) {
+        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, _ ->
             if (success){
                 GlobalScope.launch(Dispatchers.Main) {
-                    onFinished(mTrueSightRepository.getAllClaims(request, null))
+                    onFinished(true, mTrueSightRepository.getAllClaims(request, null))
                 }
+            }else{
+                onFinished(false, mTrueSightRepository.getAllClaims(request, null))
             }
         }
     }
 
-    fun getClaimsWithFilter(request: GetClaimsRequest, filter: FilterSearch, onFinished: (claims:LiveData<Resource<PagedList<ClaimEntity>>>) -> Unit){
-        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, deletedClaims ->
+    fun getClaimsWithFilter(request: GetClaimsRequest, filter: FilterSearch, onFinished: (success:Boolean, claims:LiveData<Resource<PagedList<ClaimEntity>>>?) -> Unit){
+        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, _ ->
             if (success){
                 GlobalScope.launch(Dispatchers.Main) {
-                    onFinished(mTrueSightRepository.getAllClaims(request, filter))
+                    onFinished(true, mTrueSightRepository.getAllClaims(request, filter))
                 }
+            }else{
+                onFinished(false, mTrueSightRepository.getAllClaims(request, filter))
             }
         }
     }
