@@ -163,11 +163,12 @@
     <string name="LOADING">Loading…</string>
     <string name="share_messages">Let\'s join us to discuss the claims from %1$s! regarding %2$s! in the True Sight ID application.</string>
     <string name="send_to">Send to</string>
-    <string name="description_must_be">Description must be at least 10 words</string>
-    <string name="content_must_be">Content must be at least 20 words</string>
-    <string name="content_must_under">Content must be under 100 words</string>
-    <string name="title_must_be">Title must be at least 3 words</string>
-    <string name="title_must_be_under">Title must be under 15 words</string>
+    <string name="description_must_be">Description must be at least %1$d words</string>
+    <string name="description_must_under">Description must be under %1$d words</string>
+    <string name="content_must_be">Content must be at least %1$d words</string>
+    <string name="content_must_under">Content must be under %1$d words</string>
+    <string name="title_must_be">Title must be at least %1$d words</string>
+    <string name="title_must_be_under">Title must be under %1$d words</string>
     <string name="description_dirty_words">Your description contains dirty words, please fix it!</string>
     <string name="content_dirty_words">Your content contains dirty words, please fix it!</string>
     <string name="title_dirty_words">Your title contains dirty words, please fix it!</string>

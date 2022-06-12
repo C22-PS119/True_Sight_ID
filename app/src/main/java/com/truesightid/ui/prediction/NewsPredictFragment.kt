@@ -58,25 +58,10 @@ class NewsPredictFragment : Fragment() {
             apiKey = Prefs.getUser()?.apiKey as String
             viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
-
             binding.btnPredict.setOnClickListener {
                 val predict =
                     "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
-                toastInfo("Predict: $predict")
                 showLoading()
-                viewModel.getNewsPrediction(apiKey, predict) { success ->
-                    alertDialog.dismiss()
-                    if (success){
-                        viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
-                            if (predict != null) {
-                                showPrediction(predict)
-                            }
-                        }
-                        removeFocusAfterPredict()
-                    }else{
-                        toastError("Timeout")
-                    }
-                }
                 val title = binding.titleNews.editText?.text.toString()
                 val content = binding.contentNews.editText?.text.toString()
                 var error: String? = null
@@ -85,51 +70,43 @@ class NewsPredictFragment : Fragment() {
                     error = validateInput(title, content)
                 }.invokeOnCompletion {
                     if (error != null) {
+                        alertDialog.dismiss()
                         showErrorDialog(error.toString())
                     } else {
-                        val predict =
-                            "$title $content"
-                        toastInfo("Predict: $predict")
-                        viewModel.getNewsPrediction(apiKey, predict)
-                        removeFocusAfterPredict()
+                        val predict = "$title $content"
+                        viewModel.getNewsPrediction(apiKey, predict) { success ->
+                            alertDialog.dismiss()
+                            if (success){
+                                viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
+                                    if (predict != null) {
+                                        showPrediction(predict)
+                                    }
+                                }
+                                removeFocusAfterPredict()
+                            }else{
+                                toastError("Timeout")
+                            }
+                        }
                     }
                 }
             }
         }
-
     }
 
     private fun validateInput(title: String, content: String): String? {
         if (getTotalWords(content) < 20)
-            return resources.getString(R.string.content_must_be)
+            return resources.getString(R.string.content_must_be, 20)
         if (getTotalWords(content) > 100)
-            return resources.getString(R.string.content_must_under)
+            return resources.getString(R.string.content_must_under, 100)
         if (getTotalWords(title) < 3)
-            return resources.getString(R.string.title_must_be)
+            return resources.getString(R.string.title_must_be, 3)
         if (getTotalWords(title) > 15)
-            return resources.getString(R.string.title_must_be_under)
+            return resources.getString(R.string.title_must_be_under, 15)
         if (DirtyFilter.isContainDirtyWord(content, DirtyFilter.DirtyWords))
             return resources.getString(R.string.content_dirty_words)
         if (DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
             return resources.getString(R.string.title_dirty_words)
         return null
-    }
-
-    private fun observingViewModel(viewModel: NewsPredictViewModel) {
-        viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
-            if (predict != null) {
-                showPrediction(predict)
-            }
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading == true) {
-                showLoading()
-            } else {
-                if (this::alertDialog.isInitialized)
-                    alertDialog.dismiss()
-            }
-        }
     }
 
     override fun onDestroyView() {

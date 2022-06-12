@@ -116,13 +116,6 @@ class NewsPredictionDialog(
 
     }
 
-    override fun getView(): View? {
-        val margin = (8F * resources.displayMetrics.density).toInt()
-        val view = super.getView()
-        view?.clipBounds?.set(margin,margin,resources.displayMetrics.widthPixels - margin,resources.displayMetrics.heightPixels - margin)
-        return view
-    }
-
     @SuppressLint("SetTextI18n")
     private fun setupView() {
         binding.tvTitleHeader.text = "Title: ${predictModel.title}"
@@ -136,7 +129,7 @@ class NewsPredictionDialog(
         // title by default, but your custom layout might not need it. So here you can
         // remove the dialog title, but you must call the superclass to get the Dialog.
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE )
         return dialog
     }
 }
