@@ -139,7 +139,7 @@
     <string name="share_messages">Mari bergabung dengan kami untuk membahas klaim dari %1$s! tentang %2$s! di aplikasi True Sight ID.</string>
     <string name="send_to">Kirim ke</string>
     <string name="description_must_be">Deskripsi minimal harus %1$d kata</string>
-    <string name="description_must_under">Dskripsi harus di bawah %1$d kata</string>
+    <string name="description_must_under">Deskripsi harus di bawah %1$d kata</string>
     <string name="title_must_be">Judul minimal %1$d kata</string>
     <string name="description_dirty_words">Deskripsi Anda mengandung kata-kata kotor, tolong perbaiki!</string>
     <string name="title_dirty_words">Judul Anda mengandung kata-kata kotor, tolong perbaiki!</string>
