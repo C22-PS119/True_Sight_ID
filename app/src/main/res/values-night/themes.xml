@@ -15,6 +15,10 @@
         <item name="materialButtonStyle">@style/AppButton</item>
         <item name="android:textColorHint">@color/gray_form</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
+        <item name="searchViewStyle">@style/MySearchViewStyle</item>
+    </style>
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:editTextColor">@color/black</item>
     </style>
     <style name="SpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:paddingStart">0dp</item>
