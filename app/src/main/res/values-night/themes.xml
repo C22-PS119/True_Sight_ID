@@ -16,6 +16,11 @@
         <item name="android:textColorHint">@color/gray_form</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
     </style>
+    <style name="SpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
     <style name="CustomTabStyleTextAppearance">
         <item name="android:textSize">12sp</item>
         <item name="textAllCaps">false</item>
@@ -42,4 +47,5 @@
     <color name="default_filter_title">@color/gray</color>
     <color name="default_filter_items">@color/black</color>
     <color name="default_detail_headline">#616858</color>
+    <color name="default_image_number">@color/black</color>
 </resources>
