@@ -138,8 +138,9 @@
     <string name="title_profile">Profil</string>
     <string name="share_messages">Mari bergabung dengan kami untuk membahas klaim dari %1$s! tentang %2$s! di aplikasi True Sight ID.</string>
     <string name="send_to">Kirim ke</string>
-    <string name="description_must_be">Deskripsi minimal harus 10 kata</string>
-    <string name="title_must_be">Judul minimal 3 kata</string>
+    <string name="description_must_be">Deskripsi minimal harus %1$d kata</string>
+    <string name="description_must_under">Dskripsi harus di bawah %1$d kata</string>
+    <string name="title_must_be">Judul minimal %1$d kata</string>
     <string name="description_dirty_words">Deskripsi Anda mengandung kata-kata kotor, tolong perbaiki!</string>
     <string name="title_dirty_words">Judul Anda mengandung kata-kata kotor, tolong perbaiki!</string>
     <string name="add_claim_successful">Tambah Klaim Berhasil</string>
@@ -178,4 +179,8 @@
     <string name="predict_desc_1">Berdasarkan prediksi model Machine Learning kami, kami mendapatkan nilai berikut:</string>
     <string name="predict_desc_2">Kami mendapatkan nilai ini melalui analisis sentimen, dan tidak memberikan fakta literal, tetapi sebaliknya, Anda dapat menggunakan ini sebagai wawasan atau panduan dari sudut pandang yang berbeda.</string>
     <string name="predict_desc_3">Apakah Anda puas dengan hasil ini? Berikut kami memiliki rekomendasi yang mungkin terkait dengan konten ini</string>
+    <string name="content_must_be">Konten minimal harus %1$d kata</string>
+    <string name="content_dirty_words">Konten kamu mengandung kata kasar, tolong perbaiki!</string>
+    <string name="title_must_be_under">Judul tidak boleh melebihi %1$d kata</string>
+    <string name="content_must_under">Content tidak boleh melebihi %1$d kata</string>
 </resources>

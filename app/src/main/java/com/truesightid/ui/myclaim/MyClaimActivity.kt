@@ -93,7 +93,7 @@ class MyClaimActivity : AppCompatActivity() {
                     val itemView = viewHolder.itemView
                     val p = Paint()
 
-                    if (dX < 0) {
+                    if (dX <= 0) {
                         c.drawRect(
                             itemView.left.toFloat(), itemView.top.toFloat(), dX,
                             itemView.bottom.toFloat(), p
@@ -105,9 +105,8 @@ class MyClaimActivity : AppCompatActivity() {
                             itemView.right.toFloat(),
                             itemView.bottom.toFloat()
                         )
-                        Log.d("LOG","SIZE >> " + rightButton.toShortString())
                         p.color = Color.RED
-                        val radius = 8F * resources.getDisplayMetrics().density
+                        val radius = 8F * resources.displayMetrics.density
                         c.drawRoundRect(rightButton,radius , radius ,p)
                         val d = resources.getDrawable(www.sanju.motiontoast.R.drawable.ic_delete_, null)
                         val wrappedDrawable = DrawableCompat.wrap(d!!)
@@ -116,9 +115,9 @@ class MyClaimActivity : AppCompatActivity() {
                         d.draw(c)
                     }
 
-                    val alpha = ALPHA_FULL - abs(dX) / viewHolder.itemView.width
-                        .toFloat()
-                    viewHolder.itemView.alpha = alpha
+//                    val alpha = ALPHA_FULL - abs(dX) / viewHolder.itemView.width
+//                        .toFloat()
+//                    viewHolder.itemView.alpha = alpha
                     viewHolder.itemView.translationX = dX
                 }else{
                 super.onChildDraw(
@@ -131,7 +130,6 @@ class MyClaimActivity : AppCompatActivity() {
                     isCurrentlyActive
                 )}
             }
-
         }
 
         ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rvMyClaim)

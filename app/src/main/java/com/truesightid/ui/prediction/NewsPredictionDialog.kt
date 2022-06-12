@@ -40,7 +40,7 @@ class NewsPredictionDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogPredictionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,7 +75,7 @@ class NewsPredictionDialog(
                         claim_id
                     )
                 )
-                UserAction.applyUserBookmarks(claim_id, true)
+                UserAction.applyUserBookmarks(claim_id, false)
                 toastInfo(resources.getString(R.string.added_to_bookmark))
             }
 
@@ -86,7 +86,7 @@ class NewsPredictionDialog(
                         claim_id
                     )
                 )
-                UserAction.applyUserBookmarks(claim_id, false)
+                UserAction.applyUserBookmarks(claim_id, true)
                 toastInfo(resources.getString(R.string.removed_from_bookmark))
             }
 
@@ -112,6 +112,8 @@ class NewsPredictionDialog(
             recommendationAdapter.setData(claims.body)
             recommendationAdapter.notifyDataSetChanged()
         }
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -127,7 +129,7 @@ class NewsPredictionDialog(
         // title by default, but your custom layout might not need it. So here you can
         // remove the dialog title, but you must call the superclass to get the Dialog.
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE )
         return dialog
     }
 }

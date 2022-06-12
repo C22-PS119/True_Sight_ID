@@ -1,5 +1,6 @@
 package com.truesightid.ui.prediction
 
+import DirtyFilter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
@@ -20,7 +21,14 @@ import com.truesightid.data.source.remote.response.NewsPredictionResponse
 import com.truesightid.databinding.FragmentPredictionBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.toastError
+import com.truesightid.utils.extension.getTotalWords
+import com.truesightid.utils.extension.showErrorDialog
 import com.truesightid.utils.extension.toastInfo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class NewsPredictFragment : Fragment() {
 
@@ -50,33 +58,55 @@ class NewsPredictFragment : Fragment() {
             apiKey = Prefs.getUser()?.apiKey as String
             viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
-            observingViewModel(viewModel)
-
             binding.btnPredict.setOnClickListener {
                 val predict =
                     "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
-                toastInfo("Predict: $predict")
-                viewModel.getNewsPrediction(apiKey, predict)
-                removeFocusAfterPredict()
+                showLoading()
+                val title = binding.titleNews.editText?.text.toString()
+                val content = binding.contentNews.editText?.text.toString()
+                var error: String? = null
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(500) // Avoiding skip frames error
+                    error = validateInput(title, content)
+                }.invokeOnCompletion {
+                    if (error != null) {
+                        alertDialog.dismiss()
+                        showErrorDialog(error.toString())
+                    } else {
+                        val predict = "$title $content"
+                        viewModel.getNewsPrediction(apiKey, predict) { success ->
+                            alertDialog.dismiss()
+                            if (success){
+                                viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
+                                    if (predict != null) {
+                                        showPrediction(predict)
+                                    }
+                                }
+                                removeFocusAfterPredict()
+                            }else{
+                                toastError("Timeout")
+                            }
+                        }
+                    }
+                }
             }
         }
-
     }
 
-    private fun observingViewModel(viewModel: NewsPredictViewModel) {
-        viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
-            if (predict != null) {
-                showPrediction(predict)
-            }
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading == true) {
-                showLoading()
-            } else {
-                alertDialog.dismiss()
-            }
-        }
+    private fun validateInput(title: String, content: String): String? {
+        if (getTotalWords(content) < 20)
+            return resources.getString(R.string.content_must_be, 20)
+        if (getTotalWords(content) > 100)
+            return resources.getString(R.string.content_must_under, 100)
+        if (getTotalWords(title) < 3)
+            return resources.getString(R.string.title_must_be, 3)
+        if (getTotalWords(title) > 15)
+            return resources.getString(R.string.title_must_be_under, 15)
+        if (DirtyFilter.isContainDirtyWord(content, DirtyFilter.DirtyWords))
+            return resources.getString(R.string.content_dirty_words)
+        if (DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
+            return resources.getString(R.string.title_dirty_words)
+        return null
     }
 
     override fun onDestroyView() {
@@ -103,22 +133,6 @@ class NewsPredictFragment : Fragment() {
         alertDialog.setCancelable(false)
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
-    }
-
-    private fun showDialog(isResponse: Boolean) {
-        val positiveButtonClick = { dialog: DialogInterface, _: Int ->
-            dialog.cancel()
-        }
-        if (!isResponse) {
-            AlertDialog.Builder(requireContext())
-                .setTitle(resources.getString(R.string.failed_to_get_data))
-                .setMessage(resources.getString(R.string.something_is_wrong_check_internet))
-                .setPositiveButton(
-                    resources.getString(R.string.dialog_ok),
-                    DialogInterface.OnClickListener(function = positiveButtonClick)
-                )
-                .show()
-        }
     }
 
     private fun removeFocusAfterPredict() {
