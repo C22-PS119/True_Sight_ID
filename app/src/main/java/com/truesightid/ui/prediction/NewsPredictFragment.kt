@@ -59,8 +59,6 @@ class NewsPredictFragment : Fragment() {
             viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
             binding.btnPredict.setOnClickListener {
-                val predict =
-                    "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
                 showLoading()
                 val title = binding.titleNews.editText?.text.toString()
                 val content = binding.contentNews.editText?.text.toString()

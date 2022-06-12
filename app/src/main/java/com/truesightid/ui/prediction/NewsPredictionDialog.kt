@@ -3,6 +3,8 @@ package com.truesightid.ui.prediction
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +24,7 @@ import com.truesightid.ui.adapter.RecommendationAdapter
 import com.truesightid.utils.Prefs
 import com.truesightid.utils.UserAction
 import com.truesightid.utils.extension.toastInfo
+
 
 class NewsPredictionDialog(
     val activity: Activity,
@@ -112,8 +115,6 @@ class NewsPredictionDialog(
             recommendationAdapter.setData(claims.body)
             recommendationAdapter.notifyDataSetChanged()
         }
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -123,13 +124,26 @@ class NewsPredictionDialog(
         binding.tvContentHeader.text = "Content: ${predictModel.content}"
     }
 
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog
+        val margin = 16F * resources.displayMetrics.density
+        if (dialog != null) {
+            dialog.window!!.setLayout(
+                (resources.displayMetrics.widthPixels - margin * 2).toInt(),
+                (resources.displayMetrics.heightPixels - margin * 2).toInt()
+            )
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // The only reason you might override this method when using onCreateView() is
         // to modify any dialog characteristics. For example, the dialog includes a
         // title by default, but your custom layout might not need it. So here you can
         // remove the dialog title, but you must call the superclass to get the Dialog.
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE )
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         return dialog
     }
 }

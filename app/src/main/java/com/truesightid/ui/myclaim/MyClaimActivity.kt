@@ -52,7 +52,7 @@ class MyClaimActivity : AppCompatActivity() {
         val viewModel = ViewModelProvider(this, factory)[MyClaimViewModel::class.java]
 
         val itemTouchHelperCallback = object :
-            ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.RIGHT) {
+            ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.RIGHT ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -93,10 +93,15 @@ class MyClaimActivity : AppCompatActivity() {
                     val itemView = viewHolder.itemView
                     val p = Paint()
 
-                    if (dX <= 0) {
-                        c.drawRect(
-                            itemView.left.toFloat(), itemView.top.toFloat(), dX,
-                            itemView.bottom.toFloat(), p
+                     if (dX <= 0){
+                        super.onChildDraw(
+                            c,
+                            recyclerView,
+                            viewHolder,
+                            dX,
+                            dY,
+                            actionState,
+                            isCurrentlyActive
                         )
                     } else {
                         val rightButton = RectF(
