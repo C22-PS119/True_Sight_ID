@@ -40,7 +40,7 @@ class NewsPredictionDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogPredictionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,7 +75,7 @@ class NewsPredictionDialog(
                         claim_id
                     )
                 )
-                UserAction.applyUserBookmarks(claim_id, true)
+                UserAction.applyUserBookmarks(claim_id, false)
                 toastInfo(resources.getString(R.string.added_to_bookmark))
             }
 
@@ -86,7 +86,7 @@ class NewsPredictionDialog(
                         claim_id
                     )
                 )
-                UserAction.applyUserBookmarks(claim_id, false)
+                UserAction.applyUserBookmarks(claim_id, true)
                 toastInfo(resources.getString(R.string.removed_from_bookmark))
             }
 
@@ -112,6 +112,15 @@ class NewsPredictionDialog(
             recommendationAdapter.setData(claims.body)
             recommendationAdapter.notifyDataSetChanged()
         }
+
+
+    }
+
+    override fun getView(): View? {
+        val margin = (8F * resources.displayMetrics.density).toInt()
+        val view = super.getView()
+        view?.clipBounds?.set(margin,margin,resources.displayMetrics.widthPixels - margin,resources.displayMetrics.heightPixels - margin)
+        return view
     }
 
     @SuppressLint("SetTextI18n")

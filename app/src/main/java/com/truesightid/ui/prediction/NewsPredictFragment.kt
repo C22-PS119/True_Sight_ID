@@ -20,6 +20,7 @@ import com.truesightid.data.source.remote.response.NewsPredictionResponse
 import com.truesightid.databinding.FragmentPredictionBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.toastError
 import com.truesightid.utils.extension.toastInfo
 
 class NewsPredictFragment : Fragment() {
@@ -50,31 +51,25 @@ class NewsPredictFragment : Fragment() {
             apiKey = Prefs.getUser()?.apiKey as String
             viewModel = ViewModelProvider(this, factory)[NewsPredictViewModel::class.java]
 
-            observingViewModel(viewModel)
 
             binding.btnPredict.setOnClickListener {
                 val predict =
                     "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
                 toastInfo("Predict: $predict")
-                viewModel.getNewsPrediction(apiKey, predict)
-                removeFocusAfterPredict()
-            }
-        }
-
-    }
-
-    private fun observingViewModel(viewModel: NewsPredictViewModel) {
-        viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
-            if (predict != null) {
-                showPrediction(predict)
-            }
-        }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading == true) {
                 showLoading()
-            } else {
-                alertDialog.dismiss()
+                viewModel.getNewsPrediction(apiKey, predict) { success ->
+                    alertDialog.dismiss()
+                    if (success){
+                        viewModel.predictViewModel.observe(viewLifecycleOwner) { predict ->
+                            if (predict != null) {
+                                showPrediction(predict)
+                            }
+                        }
+                        removeFocusAfterPredict()
+                    }else{
+                        toastError("Timeout")
+                    }
+                }
             }
         }
     }

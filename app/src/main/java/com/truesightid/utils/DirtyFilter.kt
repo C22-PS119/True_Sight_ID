@@ -19,7 +19,7 @@ class DirtyFilter {
     }
     companion object {
 
-        val DirtyWords = arrayOf("Kunyuk","Bajingan","Bangsat","Kampret","Kontol","Memek","Ngentot","Pentil","Perek","Pepek","Pecun","Bencong","Banci","Maho","Gila","Sinting","Tolol","Sarap","Setan","Lonte","Hencet","Taptei","Kampang","Pilat","Keparat","Bejad","Gembel","Brengsek","*Tai","Anjrit","Bangsat","Fuck","Tetek","Ngulum","Jembut","Totong","Kolop","Pukimak","Bodat","Heang","Jancuk","Burit","Titit","Nenen","Bejat","Silit","Sempak","Fucking","Asshole","Bitch","Klitoris","Kelentit","Borjong","Dancuk","Pantek","Taek","Itil","Teho","Bejat","Pantat","Bagudung","Babami","Kanciang","Bungul","Idiot","Kimak","Henceut","Kacuk","Blowjob","Pussy","Asu*","Dick*","Damn","*Ass*")
+        val DirtyWords = arrayOf("Kunyuk","Bajingan","Bangsat","Bajing","Kampret","Kontol","Memek","Ngentot","Pentil","Perek","Pepek","Pecun","Bencong","Banci","Maho","Gila","Sinting","Tolol","Sarap","Setan","Lonte","Hencet","Taptei","Kampang","Pilat","Keparat","Bejad","Gembel","Brengsek","*Tai","Anjrit","Bangsat","Fuck","Tetek","Ngulum","Jembut","Totong","Kolop","Pukimak","Bodat","Heang","Jancuk","Burit","Titit","Nenen","Bejat","Silit","Sempak","Fucking","Asshole","Bitch","Klitoris","Kelentit","Borjong","Dancuk","Pantek","Taek","Itil","Teho","Bejat","Pantat","Bagudung","Babami","Kanciang","Bungul","Idiot","Kimak","Henceut","Kacuk","Blowjob","Pussy","Asu*","Dick*","Damn","*Ass*")
 
         fun FilterAlfaNumWords(input: String): String {
             return input
@@ -41,7 +41,7 @@ class DirtyFilter {
             builder += "("
             for (char in word)
                 if (char != '*')
-                    builder += char + "+(?:[ \\W_]| +\\w)*?"
+                    builder += "$char+(?:[ \\W_])*?"
             builder += ")"
             if (word.endsWith('*')){
                 builder += "(?:\\n|[\\W_]|\$)"
