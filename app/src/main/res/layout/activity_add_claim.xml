@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textMultiLine"
-                android:lines="5"
+                android:minLines="5"
                 android:gravity="top|start"
                 android:text="" />
 
