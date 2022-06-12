@@ -1,8 +1,8 @@
 package com.truesightid.ui.prediction
 
+import DirtyFilter
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +19,13 @@ import com.truesightid.data.source.remote.response.NewsPredictionResponse
 import com.truesightid.databinding.FragmentPredictionBinding
 import com.truesightid.ui.ViewModelFactory
 import com.truesightid.utils.Prefs
+import com.truesightid.utils.extension.getTotalWords
+import com.truesightid.utils.extension.showErrorDialog
 import com.truesightid.utils.extension.toastInfo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class NewsPredictFragment : Fragment() {
 
@@ -53,14 +58,42 @@ class NewsPredictFragment : Fragment() {
             observingViewModel(viewModel)
 
             binding.btnPredict.setOnClickListener {
-                val predict =
-                    "${binding.titleNews.editText?.text} ${binding.authorNews.editText?.text} ${binding.contentNews.editText?.text}"
-                toastInfo("Predict: $predict")
-                viewModel.getNewsPrediction(apiKey, predict)
-                removeFocusAfterPredict()
+                val title = binding.titleNews.editText?.text.toString()
+                val content = binding.contentNews.editText?.text.toString()
+                var error: String? = null
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(500) // Avoiding skip frames error
+                    error = validateInput(title, content)
+                }.invokeOnCompletion {
+                    if (error != null) {
+                        showErrorDialog(error.toString())
+                    } else {
+                        val predict =
+                            "$title $content"
+                        toastInfo("Predict: $predict")
+                        viewModel.getNewsPrediction(apiKey, predict)
+                        removeFocusAfterPredict()
+                    }
+                }
             }
         }
 
+    }
+
+    private fun validateInput(title: String, content: String): String? {
+        if (getTotalWords(content) < 20)
+            return resources.getString(R.string.content_must_be)
+        if (getTotalWords(content) > 100)
+            return resources.getString(R.string.content_must_under)
+        if (getTotalWords(title) < 3)
+            return resources.getString(R.string.title_must_be)
+        if (getTotalWords(title) > 15)
+            return resources.getString(R.string.title_must_be_under)
+        if (DirtyFilter.isContainDirtyWord(content, DirtyFilter.DirtyWords))
+            return resources.getString(R.string.content_dirty_words)
+        if (DirtyFilter.isContainDirtyWord(title, DirtyFilter.DirtyWords))
+            return resources.getString(R.string.title_dirty_words)
+        return null
     }
 
     private fun observingViewModel(viewModel: NewsPredictViewModel) {
@@ -74,7 +107,8 @@ class NewsPredictFragment : Fragment() {
             if (isLoading == true) {
                 showLoading()
             } else {
-                alertDialog.dismiss()
+                if (this::alertDialog.isInitialized)
+                    alertDialog.dismiss()
             }
         }
     }
@@ -103,22 +137,6 @@ class NewsPredictFragment : Fragment() {
         alertDialog.setCancelable(false)
         alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         alertDialog.show()
-    }
-
-    private fun showDialog(isResponse: Boolean) {
-        val positiveButtonClick = { dialog: DialogInterface, _: Int ->
-            dialog.cancel()
-        }
-        if (!isResponse) {
-            AlertDialog.Builder(requireContext())
-                .setTitle(resources.getString(R.string.failed_to_get_data))
-                .setMessage(resources.getString(R.string.something_is_wrong_check_internet))
-                .setPositiveButton(
-                    resources.getString(R.string.dialog_ok),
-                    DialogInterface.OnClickListener(function = positiveButtonClick)
-                )
-                .show()
-        }
     }
 
     private fun removeFocusAfterPredict() {
