@@ -377,6 +377,29 @@ class ApiHelper(val context: Context) {
         })
     }
 
+    fun getAvailableClaimsID(apiKey:String, onFinished: (success: Boolean, response: GetAvailableClaimsId?) -> Unit) {
+        val client = ApiConfig.getApiService().getAvailableClaimsID(
+            apiKey
+        )
+        client.enqueue(object : Callback<GetAvailableClaimsId> {
+            override fun onResponse(
+                call: Call<GetAvailableClaimsId>,
+                response: Response<GetAvailableClaimsId>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        onFinished(true, responseBody)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetAvailableClaimsId>, t: Throwable) {
+                onFinished(false, null)
+            }
+
+        })
+    }
 
     fun addRemoveBookmarkByClaimId(
         isAddBookmark: Boolean,

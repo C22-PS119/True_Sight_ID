@@ -15,6 +15,9 @@ import com.truesightid.utils.AppExecutors
 import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.Resource
 import com.truesightid.utils.StringSeparatorUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class TrueSightRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -100,6 +103,32 @@ class TrueSightRepository(
 
     override fun deleteLocalClaimByID(id: Int) {
         localDataSource.deleteClaimByID(id)
+    }
+
+    override fun getDeletedClaims(apiKey:String, onFinished: (success: Boolean, deletedClaims: ArrayList<Int>) -> Unit) {
+       remoteDataSource.getAvailableClaimsID(apiKey){ success, response ->
+           val DeletedClaims = ArrayList<Int>()
+           if (success){
+               GlobalScope.launch(Dispatchers.IO){
+                   val LocalAvailableClaims = localDataSource.queryAllClaimsId()
+                   val OnlineAvailableClaims = response?.data
+                   if (OnlineAvailableClaims != null){
+
+                       for (entity in LocalAvailableClaims){
+                           if (entity.id !in OnlineAvailableClaims){
+                               DeletedClaims.add(entity.id)
+                               deleteLocalClaimByID(entity.id)
+                           }
+                       }
+                       onFinished(true, DeletedClaims)
+                   }else{
+                       onFinished(false, DeletedClaims)
+                   }
+               }
+           }else{
+               onFinished(false, DeletedClaims)
+           }
+       }
     }
 
     override fun getAllClaims(

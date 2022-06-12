@@ -57,4 +57,6 @@ interface TrueSightDataSource {
     fun deleteClaimById(api_key: String, id: Int, onSuccess: (success:Boolean) -> Unit)
 
     fun deleteLocalClaimByID(id: Int)
+
+    fun getDeletedClaims(apiKey:String, onFinished: (success: Boolean, deletedClaims: ArrayList<Int>) -> Unit)
 }

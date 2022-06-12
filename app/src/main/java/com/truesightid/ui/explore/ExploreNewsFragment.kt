@@ -70,9 +70,11 @@ class ExploreNewsFragment : Fragment() {
                 val request = GetClaimsRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(binding.searchBar.query.toString()))
                 showLoading()
                 showFilter { sortBy, type, dateOpt, dateStart, dateEnd ->
-                    viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd))
-                        .observe(viewLifecycleOwner, claimObserver)
-                    toastInfo("Result of ${request.keyword}")
+
+                    viewModel.getClaimsWithFilter(request, FilterSearch(sortBy, type, dateOpt, dateStart, dateEnd)){claims ->
+                        claims.observe(viewLifecycleOwner, claimObserver)
+                        toastInfo("Result of ${request.keyword}")
+                    }
                 }
                 alertDialog.dismiss()
             }
@@ -124,13 +126,16 @@ class ExploreNewsFragment : Fragment() {
                 }
 
                 binding.refreshLayout.setOnRefreshListener {
-                    viewModel.getClaims(requestAllClaims).observe(viewLifecycleOwner, claimObserver)
-                    toastSuccess(resources.getString(R.string.page_refreshed))
-                    binding.refreshLayout.isRefreshing = false
+                    viewModel.getClaims(requestAllClaims){ claims ->
+                        claims.observe(viewLifecycleOwner, claimObserver)
+                        toastSuccess(resources.getString(R.string.page_refreshed))
+                        binding.refreshLayout.isRefreshing = false
+                    }
                 }
 
-                viewModel.getClaims(requestAllClaims)
-                    .observe(viewLifecycleOwner, claimObserver)
+                viewModel.getClaims(requestAllClaims){ claims ->
+                    claims.observe(viewLifecycleOwner, claimObserver)
+                }
             }
 
             binding.fab.setOnClickListener {
@@ -173,8 +178,10 @@ class ExploreNewsFragment : Fragment() {
                 if (query != null) {
                     val request =
                         GetClaimsRequest(Prefs.getUser()?.apiKey as String, searchQueryFilter(query))
-                    viewModel.getClaims(request).observe(viewLifecycleOwner, claimObserver)
-                    toastInfo(resources.getString(R.string.result_of, request.keyword))
+                    viewModel.getClaims(request){ claims ->
+                        claims.observe(viewLifecycleOwner, claimObserver)
+                        toastInfo(resources.getString(R.string.result_of, request.keyword))
+                    }
                 }
                 return false
             }

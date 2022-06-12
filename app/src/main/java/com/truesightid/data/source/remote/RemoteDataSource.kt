@@ -241,6 +241,10 @@ class RemoteDataSource private constructor(private val apiHelper: ApiHelper) {
         return resultClaims
     }
 
+    fun getAvailableClaimsID(apiKey: String, onFinished: (success: Boolean, response: GetAvailableClaimsId?) -> Unit) {
+        apiHelper.getAvailableClaimsID(apiKey, onFinished)
+    }
+
     fun sendEmailVerification(request: SendEmailVerificationRequest): LiveData<ApiResponse<EmailVerificationRespond>> {
         val resultPost = MutableLiveData<ApiResponse<EmailVerificationRespond>>()
         apiHelper.sendEmailVerification(request, object : EmailVerificationRequestResponseCallback {

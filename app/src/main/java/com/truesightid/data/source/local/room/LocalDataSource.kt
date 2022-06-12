@@ -1,5 +1,6 @@
 package com.truesightid.data.source.local.room
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.truesightid.data.source.local.entity.ClaimEntity
 import com.truesightid.utils.PagedQueryUtils
@@ -28,4 +29,5 @@ class LocalDataSource(
     fun insertClaims(claims: List<ClaimEntity>) = trueSightDao.insertAllClaims(claims)
     fun deleteLocalClaims() = trueSightDao.deleteAllLocalClaims()
     fun deleteClaimByID(id: Int) = trueSightDao.deleteClaimById(id)
+    fun queryAllClaimsId() : List<ClaimEntity> = trueSightDao.getLocalClaims()
 }

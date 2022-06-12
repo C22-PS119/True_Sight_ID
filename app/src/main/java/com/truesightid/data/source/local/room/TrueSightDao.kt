@@ -14,6 +14,9 @@ interface TrueSightDao {
     @Query("SELECT * FROM claim WHERE claim_id = :id LIMIT 1")
     fun getClaimById(id: Int): LiveData<ClaimEntity>
 
+    @Query("SELECT * FROM claim")
+    fun getLocalClaims(): List<ClaimEntity>
+
     @Query("UPDATE claim SET upvote = upvote+1 WHERE claim_id = :id")
     fun upvoteWithId(id: Int)
 

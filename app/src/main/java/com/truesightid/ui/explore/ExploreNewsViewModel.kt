@@ -1,5 +1,6 @@
 package com.truesightid.ui.explore
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
@@ -9,13 +10,31 @@ import com.truesightid.data.source.remote.request.AddRemoveBookmarkRequest
 import com.truesightid.data.source.remote.request.GetClaimsRequest
 import com.truesightid.utils.FilterSearch
 import com.truesightid.utils.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Thread.sleep
 
 class ExploreNewsViewModel(private val mTrueSightRepository: TrueSightRepository) : ViewModel() {
-    fun getClaims(request: GetClaimsRequest): LiveData<Resource<PagedList<ClaimEntity>>> =
-        mTrueSightRepository.getAllClaims(request, null)
+    fun getClaims(request: GetClaimsRequest, onFinished: (claims:LiveData<Resource<PagedList<ClaimEntity>>>) -> Unit) {
+        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, deletedClaims ->
+            if (success){
+                GlobalScope.launch(Dispatchers.Main) {
+                    onFinished(mTrueSightRepository.getAllClaims(request, null))
+                }
+            }
+        }
+    }
 
-    fun getClaimsWithFilter(request: GetClaimsRequest, filter: FilterSearch): LiveData<Resource<PagedList<ClaimEntity>>> =
-        mTrueSightRepository.getAllClaims(request, filter)
+    fun getClaimsWithFilter(request: GetClaimsRequest, filter: FilterSearch, onFinished: (claims:LiveData<Resource<PagedList<ClaimEntity>>>) -> Unit){
+        mTrueSightRepository.getDeletedClaims(request.apiKey){ success, deletedClaims ->
+            if (success){
+                GlobalScope.launch(Dispatchers.Main) {
+                    onFinished(mTrueSightRepository.getAllClaims(request, filter))
+                }
+            }
+        }
+    }
 
     fun upvoteClaimById(api_key: String, id: Int) =
         mTrueSightRepository.upVoteClaimById(api_key, id)
@@ -28,4 +47,5 @@ class ExploreNewsViewModel(private val mTrueSightRepository: TrueSightRepository
 
     fun removeBookmarkById(request: AddRemoveBookmarkRequest) =
         mTrueSightRepository.removeBookmarkById(request)
+
 }

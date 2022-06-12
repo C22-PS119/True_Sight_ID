@@ -186,5 +186,10 @@ interface ApiService {
         @Field("keyword") keyword: String
     ): Call<ClaimsBySearchResponse>
 
+    @POST("api/available/claims/")
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    fun getAvailableClaimsID(
+        @Header("x-api-key") apiKey: String
+    ): Call<GetAvailableClaimsId>
 
 }
